@@ -37,6 +37,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="tBoton.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tBoton.h" />
 		<Unit filename="tGrilla.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -45,6 +49,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="tMino.h" />
+		<Unit filename="tPantalla.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tPantalla.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
