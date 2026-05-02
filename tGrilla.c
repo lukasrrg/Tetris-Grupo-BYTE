@@ -2,11 +2,15 @@
 
 bool grillaCrear(tGrilla *p)
 {
-    p->vecMinos = (tMino*)malloc(ANCHO_GRILLA*ALTO_GRILLA); //Pido memoria para toda la matriz grilla
+    tMino *mino;
+
+    p->vecMinos = malloc(ANCHO_GRILLA*ALTO_GRILLA*sizeof(tMino)); //Pido memoria para toda la matriz grilla
     if (p->vecMinos == NULL)
     {
         return false;
     }
+
+    mino = p->vecMinos;
 
     int i, j;
 
@@ -14,11 +18,11 @@ bool grillaCrear(tGrilla *p)
     {
         for(j = 0; j < ALTO_GRILLA; j++)
         {
+            mino = p->vecMinos + (j*ANCHO_GRILLA + i);
+
 //            (p + (j*ANCHO_GRILLA + i))->vecMinos->activo = false; //Puede que no haga falta esta implementacion
 //            (p + (j*ANCHO_GRILLA + i))->vecMinos->tam = TAM_MINO;
-            (p + (j*ANCHO_GRILLA + i))->vecMinos->posX = i;
-            (p + (j*ANCHO_GRILLA + i))->vecMinos->posY = j;
-//            (p + (j*ANCHO_GRILLA + i))->vecMinos->color = paletaCGA[N]; //Esta comentado porque tiene un error aun no resuelto
+            minoCrear(mino, TAM_MINO*i, TAM_MINO*j, T);
         }
     }
 
@@ -27,11 +31,23 @@ bool grillaCrear(tGrilla *p)
 
 void grillaDestruir(tGrilla *p)
 {
-    free(p);                //Libero memoria
-    p = NULL;
+    free(p->vecMinos);                //Libero memoria
+    p->vecMinos = NULL;
 }
 
 void grillaDibujar(const tGrilla *p)
 {
+    int i, j;
 
+    tMino *mino = p->vecMinos;
+
+    for (i = 0; i < ANCHO_GRILLA; i++)
+    {
+        for (j = 0; j < ALTO_GRILLA; j++)
+        {
+            mino = p->vecMinos + (j*ANCHO_GRILLA + i);
+
+            minoDibujar(mino);
+        }
+    }
 }

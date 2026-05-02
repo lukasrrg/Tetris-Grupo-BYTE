@@ -9,14 +9,11 @@
 #define ALTO_VENTANA_CGA 200
 #define ANCHO_VENTANA_VGA 640
 #define ALTO_VENTANA_VGA 480
-#define ESCALA_VENTANA 3
+#define ESCALA_VENTANA 2
 
 //Tamaño de grilla de juego
 #define ANCHO_GRILLA 10
 #define ALTO_GRILLA 24
-
-//Tamaño de mino
-#define TAM_MINO 3
 
 
 typedef struct              //Grilla in-game

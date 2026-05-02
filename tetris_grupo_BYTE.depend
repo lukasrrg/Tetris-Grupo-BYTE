@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1777663469 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
+1777685011 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -30,17 +30,17 @@
 	<stdlib.h>
 	<stdint.h>
 
-1777663137 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.c
+1777684632 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1777663652 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.h
+1777684835 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	<stdbool.h>
 
-1777663137 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.c
+1777684988 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.c
 	"tGrilla.h"
 
-1777663653 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.h
+1777684670 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"tMino.h"
 

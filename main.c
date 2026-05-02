@@ -12,6 +12,7 @@
 #define ERROR_MEMORIA_GRILLA -333
 #define ERROR_INICIAR_GBT -148
 #define ERROR_ABRIENDO_VENTANA -3000
+#define ERROR_APLICANDO_PALETA -666
 
 int main()
 {
@@ -23,6 +24,12 @@ int main()
     {
         fprintf(stderr, "Error al iniciar GBT: %s\n", gbt_obtener_log());
         return ERROR_INICIAR_GBT;
+    }
+
+    if (gbt_aplicar_paleta(paletaCGA, CANT_COLORES, GBT_FORMATO_888) != 0)
+    {
+        fprintf(stderr, "Error al aplicar la nueva paleta de colores: %s\n", gbt_obtener_log());
+        return ERROR_APLICANDO_PALETA;
     }
 
     char nombreVentana[128];                        //Nombre para la ventana del juego, con la resolucion seleccionada (por ahora CGA)
@@ -41,20 +48,29 @@ int main()
         return ERROR_MEMORIA_GRILLA;
     }
 
+
+    tMino mino;
+
+    minoCrear(&mino, 50, 50, C);
+
     while(corriendo)                                //Mientras el juego este corriendo...
     {
         gbt_procesar_entrada();
         tecla = gbt_obtener_tecla_presionada();
 
+        grillaDibujar(&grilla);
+
         if (tecla == GBTK_ESCAPE)                   //'Esc' ---> Salir del juego
         {
             corriendo = 0;
-
-            grillaDestruir(&grilla);                //Se libera el espacio en memoria de la grilla
         }
+
+
+        gbt_volcar_backbuffer();                //Actualiza lo que se tiene que mostrar en pantalla
     }
 
 
+    grillaDestruir(&grilla);                //Se libera el espacio en memoria de la grilla
     gbt_destruir_ventana();         //Cierra ventana y GBT
     gbt_cerrar();
 

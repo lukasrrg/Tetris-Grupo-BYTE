@@ -6,12 +6,21 @@
 
 #define CANT_COLORES 16
 
-//#define N 15 // Transparente
-//#define A 14 // Amarillo
-//#define C 3  // Celeste
-//#define V 2  // Verde
+//Tamaño de mino
+#define TAM_MINO 8
 
-//tGBT_ColorRGB paletaCGA[CANT_COLORES];    //Esta comentado porque tiene un error aun no resuelto
+//Letras para los colores
+#define N 1  //Negro
+#define V 2  // Verde
+#define C 3  // Celeste
+#define B 13 //Blanco
+#define A 14 // Amarillo
+#define T 15 // Transparente
+
+
+
+
+extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
 
 typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 {
@@ -19,7 +28,10 @@ typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 //    int tam;  //Puede que no haga falta esta implementacion
     int posX;
     int posY;
-    tGBT_ColorRGB color;
+    int color;
 } tMino;
+
+void minoCrear(tMino *mino, int pX, int pY, int col);
+void minoDibujar(tMino *mino);
 
 #endif // TMINO_H_INCLUDED
