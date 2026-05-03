@@ -44,5 +44,6 @@ typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 
 void minoCrear(tMino *mino, int pX, int pY, int col);
 void minoDibujar(tMino *mino);
+void tetraminoCrear(tMino *tetramino, int pX, int pY);
 
 #endif // TMINO_H_INCLUDED
