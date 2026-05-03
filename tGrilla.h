@@ -13,7 +13,8 @@
 
 //Tamaño de grilla de juego
 #define ANCHO_GRILLA 10
-#define ALTO_GRILLA 24
+#define ALTO_GRILLA_TOTAL 24
+#define ALTO_GRILLA_VISIBLE 20
 
 
 typedef struct              //Grilla in-game
@@ -21,7 +22,7 @@ typedef struct              //Grilla in-game
     tMino *vecMinos;
 } tGrilla;
 
-bool grillaCrear(tGrilla *p);           //Pide memoria necesaria para la grilla
+bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto);           //Pide memoria necesaria para la grilla
 void grillaDestruir(tGrilla *p);        //Libera la memoria de la grilla
 void grillaDibujar(const tGrilla *p);         //Dibujar grilla en pantalla
 

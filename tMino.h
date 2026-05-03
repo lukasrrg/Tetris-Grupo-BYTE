@@ -13,6 +13,8 @@
 #define N 1  //Negro
 #define V 2  // Verde
 #define C 3  // Celeste
+#define R 4  //Rojo
+#define M 5  //Magenta
 #define B 13 //Blanco
 #define A 14 // Amarillo
 #define T 15 // Transparente
