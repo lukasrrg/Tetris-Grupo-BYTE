@@ -15,6 +15,7 @@
 #define ANCHO_GRILLA 10
 #define ALTO_GRILLA_TOTAL 24
 #define ALTO_GRILLA_VISIBLE 20
+#define ALTO_GRILLA_INVISIBLE (ALTO_GRILLA_TOTAL - ALTO_GRILLA_VISIBLE)  // 4 filas ocultas sobre el techo
 
 
 typedef struct              //Grilla in-game
