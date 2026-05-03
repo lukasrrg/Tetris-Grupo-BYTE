@@ -18,7 +18,7 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto)
 
     for(i = 0; i < ANCHO_GRILLA; i++) //Setear los valores correctos de todos los Minos de la grilla
     {
-        for(j = 0; j < ALTO_GRILLA_VISIBLE; j++)
+        for(j = 0; j < ALTO_GRILLA_TOTAL; j++)
         {
             mino = p->vecMinos + (j*ANCHO_GRILLA + i);
 

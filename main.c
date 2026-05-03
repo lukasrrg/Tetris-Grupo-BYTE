@@ -13,8 +13,7 @@
 //DNI: 46753332
 //Usuario: Donato2405
 //Entrega: Sí
-//
-//
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,14 +32,7 @@
 #define ERROR_ABRIENDO_VENTANA -3000
 #define ERROR_APLICANDO_PALETA -666
 
-//Estado de juego
-#define PANTALLA_INICIAL 1
-#define MENU_PRINCIPAL 2
-#define JUGANDO 3
-#define PAUSA 4
-#define GAME_OVER 5
-#define CONFIGURACION 6
-#define SALIR_DEL_JUEGO 0
+
 
 
 int main(int argc, char *argv[])
@@ -48,7 +40,7 @@ int main(int argc, char *argv[])
     int estadoDeJuego = 1;                        //Segun su valor, define en que pantalla vamos a estar en determinado momento (ver defines arriba)
     int resolAncho = ANCHO_VENTANA_CGA, resolAlto = ALTO_VENTANA_CGA;    //Ancho y alto de resolucion, por defecto esta seteado en CGA, pero por argumento a main se puede seleccionar entre CGA (320x200) y VGA (640x480)
 
-    if (argc > 2)        //Por el momento solo se pasa como mucho dos argumentos, el nombre del ejecutable y la resolucion, si se pasa mas, indicar error y seguir normalmente
+    if (argc > 2)        //Por el momento solo se pasa como mucho dos argumentos: el nombre del ejecutable y la resolucion, si se pasa mas, indicar error y seguir normalmente
         printf("Demasiados argumentos. No soportado. El juego se iniciara en resolucion CGA.\n");
     else if (argc == 2)
     {
@@ -70,16 +62,26 @@ int main(int argc, char *argv[])
     eGBT_Tecla tecla;                               //Se guarda la tecla presionada
     srand(time(0));                                 //Se abre el randomizador
     int cursor = 0;
-    tBoton botonesPantallaPrincipal[3];
+    tBoton botonesPantallaInicial[3];               //Guardo en memoria los botones de la pantalla principal
     //Boton Classic
-    botonCrear(&botonesPantallaPrincipal[0], APUNTADO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, A);
+    botonCrear(&botonesPantallaInicial[0], APUNTADO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, AM);
     //Boton Deluxe
-    botonCrear(&botonesPantallaPrincipal[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2, B, V);
+    botonCrear(&botonesPantallaInicial[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2, B, V);
     //Boton Salir
-    botonCrear(&botonesPantallaPrincipal[2], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R);
-//    cursor = botonesPantallaPrincipal;
+    botonCrear(&botonesPantallaInicial[2], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R);
 
 
+    tBoton botonesMenuPrincipalClassic[5];                  //Guardo en memoria los botones del menu principal Classic
+    //Boton Partida Nueva
+    botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM);
+    //Boton Cargar Partida
+    botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - 3*ALTO_BOTON_DEFAULT)/2, B, AM);
+    //Boton Configuracion
+    botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, AM);
+    //Boton Cheats
+    botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2, B, AM);
+    //Boton Atras
+    botonCrear(&botonesMenuPrincipalClassic[4], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R);
 
 
     if (gbt_iniciar() != 0)                         //Inicio GBT
@@ -121,18 +123,28 @@ int main(int argc, char *argv[])
         gbt_procesar_entrada();
         tecla = gbt_obtener_tecla_presionada();
 
-        if (estadoDeJuego == 1)
+        switch (estadoDeJuego)
         {
-            estadoDeJuego = pantallaInicial(resolAncho, resolAlto, tecla, &cursor, botonesPantallaPrincipal, 3);
+            case PANTALLA_INICIAL:
+                estadoDeJuego = pantallaInicial(resolAncho, resolAlto, tecla, &cursor, botonesPantallaInicial, 3);
+                break;
+            case MENU_PRINCIPAL_CLASSIC:
+                estadoDeJuego = menuPrincipalClassic(resolAncho, resolAlto, tecla, &cursor, botonesMenuPrincipalClassic, 5);
+                break;
+            case MENU_PRINCIPAL_DELUXE:
+                estadoDeJuego = menuPrincipalDeluxe(resolAncho, resolAlto, tecla, &cursor, botonesMenuPrincipalClassic, 5);
+                break;
+            case JUGANDO:
+                estadoDeJuego = interfazJuego(resolAncho, resolAlto, &grilla, tecla);
+                break;
         }
-//
-//        grillaDibujar(&grilla);
-//
-//        if (tecla == GBTK_ESCAPE)                   //'Esc' ---> Salir del juego
-//        {
-//            estadoDeJuego = 0;
-//        }
 
+
+
+        if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
+        {
+            return SALIR_DEL_JUEGO;
+        }
 
         gbt_volcar_backbuffer();                //Actualiza lo que se tiene que mostrar en pantalla
     }
