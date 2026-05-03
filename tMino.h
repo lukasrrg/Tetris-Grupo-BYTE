@@ -10,16 +10,15 @@
 #define TAM_MINO 8
 
 //Letras para los colores
-#define N 1  //Negro
+#define N 0  //Negro
+#define AZ 1 //Azul
 #define V 2  // Verde
 #define C 3  // Celeste
 #define R 4  //Rojo
 #define M 5  //Magenta
 #define B 13 //Blanco
-#define A 14 // Amarillo
+#define AM 14 // Amarillo
 #define T 15 // Transparente
-
-
 
 
 extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
