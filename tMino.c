@@ -44,9 +44,9 @@ void minoDibujar(tMino *mino)
     }
 }
 
-void minoCrear(tMino *tetramino, int pX, int pY)
+void tetraminoCrear(tMino *tetramino, int pX, int pY)
 {
-    static int formas[7][4][4] = {
+    static int tetramino[7][4][4] = {
         { {0,0,0,0},   // O
           {0,1,1,0},
           {0,1,1,0},
@@ -81,5 +81,8 @@ void minoCrear(tMino *tetramino, int pX, int pY)
           {0,1,1,0},
           {0,0,0,0},
           {0,0,0,0} }
+
     };
+}
+
 
