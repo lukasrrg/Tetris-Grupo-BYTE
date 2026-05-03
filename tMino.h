@@ -20,6 +20,16 @@
 #define AM 14 // Amarillo
 #define T 15 // Transparente
 
+//Tipo de tetramino
+
+#define TETRAMINO_O 0
+#define TETRAMINO_J 1
+#define TETRAMINO_L 2
+#define TETRAMINO_T 3
+#define TETRAMINO_I 4
+#define TETRAMINO_S 5
+#define TETRAMINO_Z 6
+
 
 extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
 
