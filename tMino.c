@@ -21,7 +21,7 @@ tGBT_ColorRGB paletaCGA[CANT_COLORES] = {
     {0xFF, 0xFF, 0xFF}  // 15:  Usado como transparente por GBT
 };
 
-void minoCrear(tMino *mino, int pX, int pY, int col)
+void minoCrear(tMino *mino, int pX, int pY, int col) //Funcion para crear tetramino
 {
     mino->color = col;
     mino->posX = pX;
