@@ -51,9 +51,9 @@ typedef struct {
     int tipo;
 } tTetramino;
 
-void crearMino(tMino *mino, int pX, int pY, int col);
-void dibujarMino(tMino *mino);
-void crearTetramino(tMino *tetramino, int pX, int pY);
-void dibujarTetramino(tTetramino *tetramino);
+void minoCrear(tMino *mino, int pX, int pY, int col);
+void minoDibujar(tMino *mino);
+void tetraminoCrear(tMino *tetramino, int pX, int pY);
+void tetraminoDibujar(tTetramino *tetramino);
 
 #endif // TMINO_H_INCLUDED
