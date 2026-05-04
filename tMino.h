@@ -20,6 +20,10 @@
 #define AM 14 // Amarillo
 #define T 15 // Transparente
 
+// Cantidad de tipos de tetraminos
+
+#define CANT_TIPOS_TETRAMINOS 7
+
 //Tipo de tetramino
 
 #define TETRAMINO_O 0
@@ -42,8 +46,14 @@ typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
     int color;
 } tMino;
 
+typedef struct {
+    tMino minos[4];   // siempre son exactamente 4 minos
+    int tipo;
+} tTetramino;
+
 void minoCrear(tMino *mino, int pX, int pY, int col);
 void minoDibujar(tMino *mino);
 void tetraminoCrear(tMino *tetramino, int pX, int pY);
+void tetraminoDibujar(tTetramino *tetramino);
 
 #endif // TMINO_H_INCLUDED
