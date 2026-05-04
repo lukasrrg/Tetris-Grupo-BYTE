@@ -1,5 +1,6 @@
 #include "tMino.h"
 
+
 tGBT_ColorRGB paletaCGA[CANT_COLORES] = {
 
     /// 0-15: Colores CGA (16 colores)
@@ -21,14 +22,14 @@ tGBT_ColorRGB paletaCGA[CANT_COLORES] = {
     {0xFF, 0xFF, 0xFF}  // 15:  Usado como transparente por GBT
 };
 
-void minoCrear(tMino *mino, int pX, int pY, int col)
+void crearMino(tMino *mino, int pX, int pY, int col)
 {
     mino->color = col;
     mino->posX = pX;
     mino->posY = pY;
 }
 
-void minoDibujar(tMino *mino)
+void dibujarMino(tMino *mino)
 {
     int i, j;
 
@@ -44,9 +45,9 @@ void minoDibujar(tMino *mino)
     }
 }
 
-void tetraminoCrear(tMino *tetramino, int pX, int pY)
+void crearTetramino(tMino *tetramino, int pX, int pY)
 {
-    static int tetramino[7][4][4] = {
+    static int t[7][4][4] = {
         { {0,0,0,0},   // O
           {0,1,1,0},
           {0,1,1,0},
