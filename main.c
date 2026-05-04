@@ -22,6 +22,8 @@
 #include <string.h>
 #include "lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 
+#include "paleta.h"
+#include "texto.h"
 #include "tPantalla.h"
 #include "tGrilla.h"
 
@@ -33,11 +35,9 @@
 #define ERROR_APLICANDO_PALETA -666
 
 
-
-
 int main(int argc, char *argv[])
 {
-    int estadoDeJuego = 1;                        //Segun su valor, define en que pantalla vamos a estar en determinado momento (ver defines arriba)
+    int estadoDeJuego = PANTALLA_INICIAL;                        //Segun su valor, define en que pantalla vamos a estar en determinado momento (ver defines arriba)
     int resolAncho = ANCHO_VENTANA_CGA, resolAlto = ALTO_VENTANA_CGA;    //Ancho y alto de resolucion, por defecto esta seteado en CGA, pero por argumento a main se puede seleccionar entre CGA (320x200) y VGA (640x480)
 
     if (argc > 2)        //Por el momento solo se pasa como mucho dos argumentos: el nombre del ejecutable y la resolucion, si se pasa mas, indicar error y seguir normalmente
@@ -61,27 +61,29 @@ int main(int argc, char *argv[])
 
     eGBT_Tecla tecla;                               //Se guarda la tecla presionada
     srand(time(0));                                 //Se abre el randomizador
-    int cursor = 0;
+    int cursorBoton = 0;
     tBoton botonesPantallaInicial[3];               //Guardo en memoria los botones de la pantalla principal
     //Boton Classic
-    botonCrear(&botonesPantallaInicial[0], APUNTADO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, AM);
+    botonCrear(&botonesPantallaInicial[0], APUNTADO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, AM, "MODO CLASSIC", N);
     //Boton Deluxe
-    botonCrear(&botonesPantallaInicial[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2, B, V);
+    botonCrear(&botonesPantallaInicial[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2, B, V, "MODO DELUXE", N);
     //Boton Salir
-    botonCrear(&botonesPantallaInicial[2], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R);
+    botonCrear(&botonesPantallaInicial[2], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R, "SALIR", N);
 
 
     tBoton botonesMenuPrincipalClassic[5];                  //Guardo en memoria los botones del menu principal Classic
     //Boton Partida Nueva
-    botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM);
+    botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM, "PARTIDA NUEVA", N);
     //Boton Cargar Partida
-    botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - 3*ALTO_BOTON_DEFAULT)/2, B, AM);
+    botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - 3*ALTO_BOTON_DEFAULT)/2, B, AM, "CARGAR PARTIDA", N);
     //Boton Configuracion
-    botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, AM);
+    botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, AM, "CONFIGURACION", N);
     //Boton Cheats
-    botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2, B, AM);
+    botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2, B, AM, "CHEATS", N);
     //Boton Atras
-    botonCrear(&botonesMenuPrincipalClassic[4], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R);
+    botonCrear(&botonesMenuPrincipalClassic[4], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R, "ATRAS", N);
+
+//    tCursorTexto cursorTexto;               //Cursor que se va a encargar de mover cada vez que se tenga que escribir texto
 
 
     if (gbt_iniciar() != 0)                         //Inicio GBT
@@ -114,25 +116,22 @@ int main(int argc, char *argv[])
 
 
 
-
-
-
-
     while(estadoDeJuego)                           //Mientras estadoDeJuego no este en SALIR_DEL_JUEGO, el juego se reproduce
     {
         gbt_procesar_entrada();
         tecla = gbt_obtener_tecla_presionada();
 
+
         switch (estadoDeJuego)
         {
             case PANTALLA_INICIAL:
-                estadoDeJuego = pantallaInicial(resolAncho, resolAlto, tecla, &cursor, botonesPantallaInicial, 3);
+                estadoDeJuego = pantallaInicial(resolAncho, resolAlto, tecla, &cursorBoton, botonesPantallaInicial, 3);
                 break;
             case MENU_PRINCIPAL_CLASSIC:
-                estadoDeJuego = menuPrincipalClassic(resolAncho, resolAlto, tecla, &cursor, botonesMenuPrincipalClassic, 5);
+                estadoDeJuego = menuPrincipalClassic(resolAncho, resolAlto, tecla, &cursorBoton, botonesMenuPrincipalClassic, 5);
                 break;
             case MENU_PRINCIPAL_DELUXE:
-                estadoDeJuego = menuPrincipalDeluxe(resolAncho, resolAlto, tecla, &cursor, botonesMenuPrincipalClassic, 5);
+                estadoDeJuego = menuPrincipalDeluxe(resolAncho, resolAlto, tecla, &cursorBoton, botonesMenuPrincipalClassic, 5);
                 break;
             case JUGANDO:
                 estadoDeJuego = interfazJuego(resolAncho, resolAlto, &grilla, tecla);

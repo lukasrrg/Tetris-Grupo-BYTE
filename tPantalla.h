@@ -4,6 +4,13 @@
 #include "tBoton.h"
 #include "tGrilla.h"
 
+//Resoluciones
+#define ANCHO_VENTANA_CGA 320
+#define ALTO_VENTANA_CGA 200
+#define ANCHO_VENTANA_VGA 640
+#define ALTO_VENTANA_VGA 480
+#define ESCALA_VENTANA 2
+
 //Estado de juego
 #define PANTALLA_INICIAL 1
 #define MENU_PRINCIPAL_CLASSIC 2
@@ -14,13 +21,6 @@
 #define CONFIGURACION 6
 #define SALIR_DEL_JUEGO 0
 
-#define CURSOR_NO_APUNTA -1
-
-//Tamaños de botones
-#define ANCHO_BOTON_GRANDE 50
-#define ANCHO_BOTON_MEDIANO 40
-#define ANCHO_BOTON_CHICO 30
-#define ALTO_BOTON_DEFAULT 10
 
 int pantallaInicial(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalClassic(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce);
