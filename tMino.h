@@ -37,7 +37,7 @@
 
 extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
 
-typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
+typedef struct      //Esta estructura define cada Mino
 {
 //    bool activo; //Puede que no haga falta esta implementacion
 //    int tam;  //Puede que no haga falta esta implementacion
