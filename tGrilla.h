@@ -3,6 +3,7 @@
 
 #include "lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 #include "tMino.h"
+#include <stdlib.h>
 
 //Resoluciones
 #define ANCHO_VENTANA_CGA 320
