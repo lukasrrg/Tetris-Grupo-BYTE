@@ -3,6 +3,7 @@
 
 #include "lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 #include "tMino.h"
+#include <stdlib.h>
 
 //Tamaño de grilla de juego
 #define ANCHO_GRILLA 10
