@@ -2,23 +2,21 @@
 #define TBOTON_H_INCLUDED
 
 #include "lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+#include "texto.h"
 
+//Estados de los botones
 #define INACTIVO 0
 #define ACTIVO 1
 #define APUNTADO 2
 
-//Letras para los colores
-#define N 0  //Negro
-#define AZ 1 //Azul
-#define V 2  // Verde
-#define C 3  // Celeste
-#define R 4  //Rojo
-#define M 5  //Magenta
-#define B 13 //Blanco
-#define AM 14 // Amarillo
-#define T 15 // Transparente
-
 #define COLOR_BOTON_APUNTADO 5 //Color que se ilumina un boton cuando esta siendo apuntado
+
+//Tamaños de botones
+#define ANCHO_BOTON_GRANDE 50
+#define ANCHO_BOTON_MEDIANO 40
+#define ANCHO_BOTON_CHICO 30
+#define ALTO_BOTON_DEFAULT 11
+
 
 typedef struct
 {
@@ -29,10 +27,11 @@ typedef struct
     int posY;
     int colorBorde;
     int colorCentro;
-//    char *texto;
+    int colorTexto;
+    char texto[20];
 } tBoton;
 
-void botonCrear(tBoton *p, int estado, int ancho, int alto, int pX, int pY, int colBorde, int colCentro);
+void botonCrear(tBoton *p, int estado, int ancho, int alto, int pX, int pY, int colBorde, int colCentro, char text[], int colTexto);
 void botonDibujar(tBoton *p);
 void botonActualizarTodosInactivo(tBoton *p, int ce);        //Actualiza el estado de todos los botones de un vector a INACTIVO
 

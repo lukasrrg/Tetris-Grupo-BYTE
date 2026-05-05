@@ -4,13 +4,6 @@
 #include "lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 #include "tMino.h"
 
-//Resoluciones
-#define ANCHO_VENTANA_CGA 320
-#define ALTO_VENTANA_CGA 200
-#define ANCHO_VENTANA_VGA 640
-#define ALTO_VENTANA_VGA 480
-#define ESCALA_VENTANA 2
-
 //Tamaño de grilla de juego
 #define ANCHO_GRILLA 10
 #define ALTO_GRILLA_TOTAL 24
