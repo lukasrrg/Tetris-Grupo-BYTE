@@ -9,10 +9,11 @@
 //Letras para los colores
 #define N 0  //Negro
 #define AZ 1 //Azul
-#define V 2  //Verde
+#define VE 2  //Verde
 #define C 3  //Celeste
 #define R 4  //Rojo
 #define M 5  //Magenta
+#define VI 6  //Violeta
 #define B 13 //Blanco
 #define AM 14 // Amarillo
 #define T 15 // Transparente

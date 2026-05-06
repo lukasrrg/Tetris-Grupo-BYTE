@@ -12,8 +12,6 @@ int pantallaInicial(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor
     for(i = vecBotones; i < finVec; i++)
         botonDibujar(i);
 
-
-
     if (tecla == GBTK_w)               //'W' subir cursor
     {
         *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
@@ -144,11 +142,15 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cu
     return MENU_PRINCIPAL_DELUXE;
 }
 
-int interfazJuego(int resolAncho, int resolAlto, tGrilla *grilla, eGBT_Tecla tecla)
+int interfazJuego(int resolAncho, int resolAlto, tTetromino *tetroActivo, tGrilla *grillaActiva, eGBT_Tecla tecla)
 {
     gbt_borrar_backbuffer(N);
 
-    grillaDibujar(grilla);
+    grillaDeFondoDibujar(resolAncho, resolAlto);        //Dibuja una grilla totalmente vacia que luego sera superpuesta por aquellos minos activos
+
+    grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto); //Dibuja el tetromino activo sobre la grilla
+
+    //Hacer grillaDibujar con una grilla que tenga a los minos estaticos
 
 
     if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
