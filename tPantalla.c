@@ -4,8 +4,25 @@ int pantallaInicial(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor
 {
     gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
 
+
+
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
+
+
+    int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
+    int anchoTotalTitulo = anchoLetraConEspacio * 6;
+
+
+    tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 30 };
+
+
+    caracterDibujarEscalado('T', &cursorTitulo, R,  ESCALA_TITULO);
+    caracterDibujarEscalado('E', &cursorTitulo, AZ, ESCALA_TITULO);
+    caracterDibujarEscalado('T', &cursorTitulo, VE, ESCALA_TITULO);
+    caracterDibujarEscalado('R', &cursorTitulo, AM, ESCALA_TITULO);
+    caracterDibujarEscalado('I', &cursorTitulo, C,  ESCALA_TITULO);
+    caracterDibujarEscalado('S', &cursorTitulo, M,  ESCALA_TITULO);
 
     tBoton *i;
     tBoton *finVec = vecBotones + ce;
@@ -45,6 +62,20 @@ int pantallaInicial(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor
 int menuPrincipalClassic(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce)
 {
     gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
+
+    int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
+    int anchoTotalTitulo = anchoLetraConEspacio * 6;
+
+
+    tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 30 };
+
+
+    caracterDibujarEscalado('T', &cursorTitulo, R,  ESCALA_TITULO);
+    caracterDibujarEscalado('E', &cursorTitulo, AZ, ESCALA_TITULO);
+    caracterDibujarEscalado('T', &cursorTitulo, VE, ESCALA_TITULO);
+    caracterDibujarEscalado('R', &cursorTitulo, AM, ESCALA_TITULO);
+    caracterDibujarEscalado('I', &cursorTitulo, C,  ESCALA_TITULO);
+    caracterDibujarEscalado('S', &cursorTitulo, M,  ESCALA_TITULO);
 
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
@@ -95,6 +126,20 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* c
 int menuPrincipalDeluxe(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce)
 {
     gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
+
+    int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
+    int anchoTotalTitulo = anchoLetraConEspacio * 6;
+
+
+    tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 30 };
+
+
+    caracterDibujarEscalado('T', &cursorTitulo, R,  ESCALA_TITULO);
+    caracterDibujarEscalado('E', &cursorTitulo, AZ, ESCALA_TITULO);
+    caracterDibujarEscalado('T', &cursorTitulo, VE, ESCALA_TITULO);
+    caracterDibujarEscalado('R', &cursorTitulo, AM, ESCALA_TITULO);
+    caracterDibujarEscalado('I', &cursorTitulo, C,  ESCALA_TITULO);
+    caracterDibujarEscalado('S', &cursorTitulo, M,  ESCALA_TITULO);
 
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;

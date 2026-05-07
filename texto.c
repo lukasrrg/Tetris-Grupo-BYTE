@@ -381,3 +381,26 @@ void escribirTexto(const char str[], tCursorTexto *cursor, int color)
         p++;
     }
 }
+void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int escala)
+{
+    int i, j, ei, ej;
+    const tCaracter *caracter = &fuente1[obtenerIndice(carac)];
+    const char *p;
+
+    for (i = 0; i < caracter->espaciado; i++) {
+        for (j = 0; j < ALTO_ESTANDAR_LETRA; j++) {
+            p = caracter->matriz + (j * caracter->espaciado + i);
+
+            if (*p == 'X') {
+                for(ei = 0; ei < escala; ei++) {
+                    for(ej = 0; ej < escala; ej++) {
+                        gbt_dibujar_pixel(cursor->posX + (i * escala) + ei,
+                                          cursor->posY + (j * escala) + ej,
+                                          color);
+                    }
+                }
+            }
+        }
+    }
+    cursor->posX += (caracter->espaciado + ESPACIADO_ENTRE_LETRAS) * escala;
+}

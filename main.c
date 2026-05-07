@@ -76,13 +76,13 @@ int main(int argc, char *argv[])
 
     tBoton botonesMenuPrincipalClassic[5];                  //Guardo en memoria los botones del menu principal Classic
     //Boton Partida Nueva
-    botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM, "PARTIDA NUEVA", N);
+    botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, C, "PARTIDA NUEVA", N);
     //Boton Cargar Partida
     botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - 3*ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON)/2, B, AM, "CARGAR PARTIDA", N);
     //Boton Configuracion
-    botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2 +2*SEPARACION_ENTRE_BOTON, B, AM, "CONFIGURACION", N);
+    botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2 +2*SEPARACION_ENTRE_BOTON, B, VE, "CONFIGURACION", N);
     //Boton Cheats
-    botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2 + 3*SEPARACION_ENTRE_BOTON, B, AM, "CHEATS", N);
+    botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2 + 3*SEPARACION_ENTRE_BOTON, B, VI, "CHEATS", N);
     //Boton Atras
     botonCrear(&botonesMenuPrincipalClassic[4], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2 + 4*SEPARACION_ENTRE_BOTON, B, R, "ATRAS", N);
 
