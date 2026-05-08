@@ -8,8 +8,27 @@
 
 //Tamaño de mino
 #define TAM_MINO 8
+#define TAM_MAX_TETROMINO 4
 
-extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
+#define TETRO_T 0
+#define TETRO_L 1
+#define TETRO_J 2
+#define TETRO_I 3
+#define TETRO_S 4
+#define TETRO_Z 5
+#define TETRO_O 6
+
+#define CANT_TETROMINOS 7
+
+//Matrices de tetrominos
+extern const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO];
+//extern char tetroT[2][3];
+//extern char tetroL[3][2];
+//extern char tetroJ[3][2];
+//extern char tetroI[4][1];
+//extern char tetroS[2][3];
+//extern char tetroZ[2][3];
+//extern char tetroO[2][2];
 
 typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 {
@@ -20,7 +39,20 @@ typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
     int color;
 } tMino;
 
+typedef struct
+{
+    char tipo;      //Tipos de tetromino: T L J I S Z O
+    int posX;
+    int posY;
+    int color;
+    int anchoMat;
+    int altoMat;
+//    char matriz[TAM_TETROMINO][TAM_TETROMINO];
+} tTetromino;
+
 void minoCrear(tMino *mino, int pX, int pY, int col);
 void minoDibujar(tMino *mino);
+void minoColorDibujar(int color, int pX, int pY);
+void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
 
 #endif // TMINO_H_INCLUDED

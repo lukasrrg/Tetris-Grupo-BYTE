@@ -53,8 +53,6 @@ extern const char espacio1[ALTO_ESTANDAR_LETRA][2];
 //Fuente 1  Faltan caracteres =
 //                              a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 //                              1,2,3,4,5,6,7,8,9,0
-
-
 extern const tCaracter fuente1[CANTIDAD_DE_CARACTERES];
 
 void caracterDibujar(const tCaracter *carac, tCursorTexto *cursor, int color);    //Dibuja un caracter a partir de darle un tCaracter como parámetro
