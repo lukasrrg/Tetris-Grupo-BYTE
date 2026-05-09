@@ -17,8 +17,12 @@
 #define TETRO_S 4
 #define TETRO_Z 5
 #define TETRO_O 6
+#define TETRO_X 7
+#define TETRO_C 8
+#define TETRO_P 9
+#define TETRO_V 10
 
-#define CANT_TETROMINOS 7
+#define CANT_TETROMINOS 11
 #define TAM_VEC_TETROMINOS 5
 
 //Matrices de tetrominos

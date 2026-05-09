@@ -50,6 +50,30 @@ const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
         {'X', 'X', ' ', ' '},
         {' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' '}
+    },
+    {//Tetromino X
+        {'X', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+     {//Tetromino C
+        {'X', 'X', ' ', ' '},
+        {'X', ' ', ' ', ' '},
+        {'X', 'X', ' ', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+     {//Tetromino P
+        {'X', 'X', ' ', ' '},
+        {'X', 'X', ' ', ' '},
+        {'X', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' '}
+    },
+     {//Tetromino V
+        {'X', ' ', 'X', ' '},
+        {'X', ' ', 'X', ' '},
+        {' ', 'X', ' ', ' '},
+        {' ', ' ', ' ', ' '}
     }
 };
 
@@ -134,6 +158,26 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
             tetro->altoMat = 2;
             tetro->anchoMat = 2;
             tetro->color = AM;
+            break;
+        case TETRO_X:
+            tetro->altoMat = 1;
+            tetro->anchoMat = 1;
+            tetro->color = VB;
+            break;
+        case TETRO_C:
+            tetro->altoMat = 3;
+            tetro->anchoMat = 2;
+            tetro->color = CB;
+            break;
+        case TETRO_P:
+            tetro->altoMat = 3;
+            tetro->anchoMat = 2;
+            tetro->color = B;
+            break;
+        case TETRO_V:
+            tetro->altoMat = 3;
+            tetro->anchoMat = 4;
+            tetro->color = GC;
             break;
     }
 }
