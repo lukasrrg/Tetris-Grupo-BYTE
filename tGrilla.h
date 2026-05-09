@@ -5,13 +5,6 @@
 #include "tMino.h"
 #include <stdlib.h>
 
-//Resoluciones
-#define ANCHO_VENTANA_CGA 320
-#define ALTO_VENTANA_CGA 200
-#define ANCHO_VENTANA_VGA 640
-#define ALTO_VENTANA_VGA 480
-#define ESCALA_VENTANA 2
-
 //Tamaño de grilla de juego
 #define ANCHO_GRILLA 10
 #define ALTO_GRILLA_TOTAL 24
@@ -26,6 +19,8 @@ typedef struct              //Grilla in-game
 
 bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto);           //Pide memoria necesaria para la grilla
 void grillaDestruir(tGrilla *p);        //Libera la memoria de la grilla
+void grillaDeFondoDibujar(int resolAncho, int resolAlto);
 void grillaDibujar(const tGrilla *p);         //Dibujar grilla en pantalla
+void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto);        //Dibuja en la grilla un tetromino en (tetro->posX, tetro->posY)
 
 #endif // TGRILLA_H_INCLUDED

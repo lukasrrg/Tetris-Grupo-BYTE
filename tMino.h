@@ -1,28 +1,28 @@
 #ifndef TMINO_H_INCLUDED
 #define TMINO_H_INCLUDED
 
-#include "lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 #include <stdbool.h>
 
-#define CANT_COLORES 16
+#include "lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+#include "paleta.h"
 
 //Tamaño de mino
 #define TAM_MINO 8
+#define TAM_MAX_TETROMINO 4
 
-//Letras para los colores
-#define N 1  //Negro
-#define V 2  // Verde
-#define C 3  // Celeste
-#define R 4  //Rojo
-#define M 5  //Magenta
-#define B 13 //Blanco
-#define A 14 // Amarillo
-#define T 15 // Transparente
+#define TETRO_T 0
+#define TETRO_L 1
+#define TETRO_J 2
+#define TETRO_I 3
+#define TETRO_S 4
+#define TETRO_Z 5
+#define TETRO_O 6
 
+#define CANT_TETROMINOS 7
+#define TAM_VEC_TETROMINOS 5
 
-
-
-extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
+//Matrices de tetrominos
+extern const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO];
 
 typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 {
@@ -33,7 +33,21 @@ typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
     int color;
 } tMino;
 
+typedef struct
+{
+    char tipo;      //Tipos de tetromino: T L J I S Z O
+    int posX;
+    int posY;
+    int color;
+    int anchoMat;
+    int altoMat;
+//    char matriz[TAM_TETROMINO][TAM_TETROMINO];
+} tTetromino;
+
 void minoCrear(tMino *mino, int pX, int pY, int col);
 void minoDibujar(tMino *mino);
+void minoColorDibujar(int color, int pX, int pY);
+void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS]);
 
 #endif // TMINO_H_INCLUDED

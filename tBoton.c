@@ -1,6 +1,6 @@
 #include "tBoton.h"
 
-void botonCrear(tBoton *p, int estado, int ancho, int alto, int pX, int pY, int colBorde, int colCentro)
+void botonCrear(tBoton *p, int estado, int ancho, int alto, int pX, int pY, int colBorde, int colCentro, char text[], int colTexto)
 {
     p->estado = estado;
     p->tamAncho = ancho;
@@ -9,11 +9,15 @@ void botonCrear(tBoton *p, int estado, int ancho, int alto, int pX, int pY, int 
     p->posY = pY;
     p->colorBorde = colBorde;
     p->colorCentro = colCentro;
+    p->colorTexto = colTexto;
+    strcpy(p->texto, text);
 }
 
 void botonDibujar(tBoton *boton)
 {
     int i, j;
+
+    tCursorTexto cursor = {boton->posX + 2, boton->posY + 2};
 
     for (i = 0; i < boton->tamAncho; i++)
     {
@@ -30,6 +34,11 @@ void botonDibujar(tBoton *boton)
                 gbt_dibujar_pixel(boton->posX + i,boton->posY + j, boton->colorCentro);
         }
     }
+
+
+    //Quizas conviene calcular cursor->posX para que siempre el texto este centrado
+
+    escribirTexto(boton->texto, &cursor, boton->colorTexto);
 }
 
 void botonActualizarTodosInactivo(tBoton *p, int ce)
