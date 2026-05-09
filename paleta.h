@@ -14,9 +14,16 @@
 #define R 4  //Rojo
 #define M 5  //Magenta
 #define VI 6  //Violeta
+#define GC 7 //Gris claro
+#define GO 8 //Gris oscuro
+#define AB 9 //Azul brillante
+#define VB 10 //Verde brillante
+#define CB 11 //Cian brillante
+#define RB 12 //Rojo brillante
 #define B 13 //Blanco
 #define AM 14 // Amarillo
 #define T 15 // Transparente
+
 
 extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
 

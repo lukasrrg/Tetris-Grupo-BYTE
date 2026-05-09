@@ -7,7 +7,7 @@
 #define ALTO_ESTANDAR_LETRA 8
 #define ESPACIADO_ENTRE_LETRAS 1
 #define CANTIDAD_DE_CARACTERES 27
-#define ESCALA_TITULO 3
+#define ESCALA_TITULO 4
 
 typedef struct
 {

@@ -17,18 +17,16 @@
 #define TETRO_S 4
 #define TETRO_Z 5
 #define TETRO_O 6
+#define TETRO_X 7
+#define TETRO_C 8
+#define TETRO_P 9
+#define TETRO_V 10
 
-#define CANT_TETROMINOS 7
+#define CANT_TETROMINOS 11
+#define TAM_VEC_TETROMINOS 5
 
 //Matrices de tetrominos
 extern const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO];
-//extern char tetroT[2][3];
-//extern char tetroL[3][2];
-//extern char tetroJ[3][2];
-//extern char tetroI[4][1];
-//extern char tetroS[2][3];
-//extern char tetroZ[2][3];
-//extern char tetroO[2][2];
 
 typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 {
@@ -54,5 +52,6 @@ void minoCrear(tMino *mino, int pX, int pY, int col);
 void minoDibujar(tMino *mino);
 void minoColorDibujar(int color, int pX, int pY);
 void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS]);
 
 #endif // TMINO_H_INCLUDED
