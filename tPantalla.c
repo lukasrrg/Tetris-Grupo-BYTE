@@ -1,8 +1,12 @@
 #include "tPantalla.h"
 
-int pantallaInicial(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce)
+int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
     gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
+
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
 
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
@@ -31,20 +35,23 @@ int pantallaInicial(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor
             case 0:
                 return MENU_PRINCIPAL_CLASSIC;
             case 1:
-                *cursor = 0;          //Antes de salir esta pantalla, reestablezco cursor a 0, para que asi aparezca en la siguiente pantalla
                 return MENU_PRINCIPAL_DELUXE;
             case 2:
-                *cursor = 0;          //Antes de salir esta pantalla, reestablezco cursor a 0, para que asi aparezca en la siguiente pantalla
                 return SALIR_DEL_JUEGO;
         }
     }
 
+    gbt_volcar_backbuffer();
+
     return PANTALLA_INICIAL;
 }
 
-int menuPrincipalClassic(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce)
+int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
     gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
+
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
@@ -74,27 +81,29 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* c
             case 0:
                 return JUGANDO;         //Empieza la partida
             case 1:
-                *cursor = 0;          //Antes de salir esta pantalla, reestablezco cursor a 0, para que asi aparezca en la siguiente pantalla
 //                return CARGAR_PARTIDA;
                 break;
             case 2:
-                *cursor = 0;          //Antes de salir esta pantalla, reestablezco cursor a 0, para que asi aparezca en la siguiente pantalla
-                return CONFIGURACION;
+//                return CONFIGURACION;
             case 3:
                 //activarCheats()
                 break;
             case 4:
-                *cursor = 0;
                 return PANTALLA_INICIAL;
         }
     }
+
+    gbt_volcar_backbuffer();
 
     return MENU_PRINCIPAL_CLASSIC;
 }
 
-int menuPrincipalDeluxe(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce)
+int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
     gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
+
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
@@ -124,29 +133,36 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cu
             case 0:
                 return JUGANDO;         //Empieza la partida
             case 1:
-                *cursor = 0;          //Antes de salir esta pantalla, reestablezco cursor a 0, para que asi aparezca en la siguiente pantalla
 //                return CARGAR_PARTIDA;
                 break;
             case 2:
-                *cursor = 0;          //Antes de salir esta pantalla, reestablezco cursor a 0, para que asi aparezca en la siguiente pantalla
-                return CONFIGURACION;
+//                return CONFIGURACION;
             case 3:
                 //activarCheats()
                 break;
             case 4:
-                *cursor = 0;
                 return PANTALLA_INICIAL;
         }
     }
 
+    gbt_volcar_backbuffer();
+
     return MENU_PRINCIPAL_DELUXE;
 }
 
-int interfazJuego(int resolAncho, int resolAlto, tTetromino *tetroActivo, tGrilla *grillaActiva, eGBT_Tecla tecla)
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grillaActiva, tGBT_Temporizador *temporizador)
 {
     gbt_borrar_backbuffer(N);
 
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
     grillaDeFondoDibujar(resolAncho, resolAlto);        //Dibuja una grilla totalmente vacia que luego sera superpuesta por aquellos minos activos
+
+    if (gbt_temporizador_consumir(temporizador))
+    {
+        tetroActivo->posY ++; //Si pasa el tiempo, se baja el tetromino
+    }
 
     grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto); //Dibuja el tetromino activo sobre la grilla
 
@@ -157,6 +173,8 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino *tetroActivo, tGrill
     {
         return SALIR_DEL_JUEGO;
     }
+
+    gbt_volcar_backbuffer();
 
     return JUGANDO;
 }

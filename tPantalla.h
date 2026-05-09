@@ -21,11 +21,13 @@
 #define CONFIGURACION 6
 #define SALIR_DEL_JUEGO 0
 
+//Datos del juego
+#define VEL_INI_CAIDA 1.5
 
-int pantallaInicial(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce);
-int menuPrincipalClassic(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce);
-int menuPrincipalDeluxe(int resolAncho, int resolAlto, eGBT_Tecla tecla, int* cursor, tBoton *vecBotones, int ce);
-int interfazJuego(int resolAncho, int resolAlto, tTetromino *tetroActivo, tGrilla *grillaActiva, eGBT_Tecla tecla);
+int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
+int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
+int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grillaActiva, tGBT_Temporizador *temporizador);
 int menuPausa(int resolAncho, int resolAlto);
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
