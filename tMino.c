@@ -53,11 +53,12 @@ const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
     }
 };
 
-void minoCrear(tMino *mino, int pX, int pY, int col)
+void minoCrear(tMino *mino, int pX, int pY, int col, bool est)
 {
     mino->color = col;
     mino->posX = pX;
     mino->posY = pY;
+    mino->estado = est;
 }
 
 void minoDibujar(tMino *mino)
@@ -144,6 +145,18 @@ void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS])
 
     for(i = 0; i < TAM_VEC_TETROMINOS; i++)
     {
-        tetrominoCrear(&vec[i], rand()%7, 5, 5);
+        tetrominoCrear(&vec[i], rand()%7, 4, 0);
     }
+}
+
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS])
+{
+    int i;
+
+    for (i = 0; i < TAM_VEC_TETROMINOS - 1; i++)
+    {
+        vec[i] = vec[i + 1];
+    }
+
+    tetrominoCrear(&vec[i], rand()%7, 4, 0);
 }

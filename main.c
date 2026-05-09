@@ -116,18 +116,24 @@ int main(int argc, char *argv[])
 
 
 
-    tGrilla grillaDeFondo;                                 //Grilla que despues va a estar in-game
-    if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto))                      //Se pide el espacio en memoria
+    tGrilla grillaTetrominosInactivos;                             //Grilla que muestra los tetrominos inactivos (los que quedaron al fondo)
+    if (!grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto))                      //Se pide el espacio en memoria
     {
         return ERROR_MEMORIA_GRILLA;
     }
     int cursorBoton;
-    tGBT_Temporizador *temporizador = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador
-    if (!temporizador)
+    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador para la caida
+    if (!tempCaida)
     {
         return ERROR_CREAR_TEMPORIZADOR;
     }
-    gbt_temporizador_pausar(temporizador);                          //Se lo pausa ya que todavia no sera utilizado
+    gbt_temporizador_pausar(tempCaida);
+    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador para inactivar tetromino
+    if (!tempInactiv)
+    {
+        return ERROR_CREAR_TEMPORIZADOR;
+    }
+    gbt_temporizador_pausar(tempCaida);                          //Se lo pausa ya que todavia no sera utilizado
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     tetrominoCargarVector(tetroActivos);
 
@@ -190,10 +196,10 @@ int main(int argc, char *argv[])
                 }
                 break;
             case JUGANDO:
-                gbt_temporizador_reanudar(temporizador);
+                gbt_temporizador_reanudar(tempCaida);
                 while (estadoDeJuego == JUGANDO)
                 {
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, temporizador);
+                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaTetrominosInactivos, tempCaida, tempInactiv);
                 }
                 break;
         }
@@ -205,8 +211,9 @@ int main(int argc, char *argv[])
 
 
 
-
-    grillaDestruir(&grillaDeFondo);                //Se libera el espacio en memoria de la grilla
+    gbt_temporizador_destruir(tempCaida);
+    gbt_temporizador_destruir(tempInactiv);
+    grillaDestruir(&grillaTetrominosInactivos);                //Se libera el espacio en memoria de la grilla
     gbt_destruir_ventana();         //Cierra ventana y GBT
     gbt_cerrar();
 

@@ -22,12 +22,12 @@
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
-#define VEL_INI_CAIDA 1.5
+#define VEL_INI_CAIDA 1  //Cantidad de segundos (tipo de dato double) hasta que se desencade que el tetromin baje un cuadrado
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grillaActiva, tGBT_Temporizador *temporizador);
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador *tempCaida, tGBT_Temporizador *tempInactiv);
 int menuPausa(int resolAncho, int resolAlto);
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);

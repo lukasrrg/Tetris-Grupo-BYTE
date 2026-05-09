@@ -17,18 +17,12 @@ int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBoton
         botonDibujar(i);
 
     if (tecla == GBTK_w)               //'W' subir cursor
-    {
         *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
-    }
-    if (tecla == GBTK_s)               //'S' bajar cursor
-    {
+    else if (tecla == GBTK_s)               //'S' bajar cursor
         *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
-    }
-    if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
-    {
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
         return SALIR_DEL_JUEGO;
-    }
-    if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
+    else if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
     {
         switch (*cursor)
         {
@@ -62,19 +56,12 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
         botonDibujar(i);
 
     if (tecla == GBTK_w)               //'W' subir cursor
-    {
         *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
-    }
-    if (tecla == GBTK_s)               //'S' bajar cursor
-    {
+    else if (tecla == GBTK_s)               //'S' bajar cursor
         *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
-    }
-    if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
-    {
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
         return SALIR_DEL_JUEGO;
-    }
-
-    if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
+    else if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
     {
         switch (*cursor)
         {
@@ -114,19 +101,12 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
         botonDibujar(i);
 
     if (tecla == GBTK_w)               //'W' subir cursor
-    {
         *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
-    }
-    if (tecla == GBTK_s)               //'S' bajar cursor
-    {
+    else if (tecla == GBTK_s)               //'S' bajar cursor
         *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
-    }
-    if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
-    {
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
         return SALIR_DEL_JUEGO;
-    }
-
-    if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
+    else if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
     {
         switch (*cursor)
         {
@@ -150,7 +130,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
     return MENU_PRINCIPAL_DELUXE;
 }
 
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grillaActiva, tGBT_Temporizador *temporizador)
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador *tempCaida, tGBT_Temporizador *tempInactiv)
 {
     gbt_borrar_backbuffer(N);
 
@@ -159,20 +139,32 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 
     grillaDeFondoDibujar(resolAncho, resolAlto);        //Dibuja una grilla totalmente vacia que luego sera superpuesta por aquellos minos activos
 
-    if (gbt_temporizador_consumir(temporizador))
-    {
-        tetroActivo->posY ++; //Si pasa el tiempo, se baja el tetromino
-    }
-
     grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto); //Dibuja el tetromino activo sobre la grilla
 
-    //Hacer grillaDibujar con una grilla que tenga a los minos estaticos
+    grillaDibujar(grilla);              //Dibuja a los minos y tetrominos que quedaron ya anclados en el suelo
 
-
-    if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
+    if (gbt_temporizador_consumir(tempCaida))
     {
-        return SALIR_DEL_JUEGO;
+        tetroActivo->posY ++; //Si pasa el tiempo, se baja el tetromino
+
+        if (tetrominoColisionaSuelo(tetroActivo))   //Si colisiona con el suelo (LUEGO IMPLEMENTAR COLISION CON OTROS MINOS)
+        {
+            grillaActualizar(grilla, tetroActivo);  //Se guarda el tetromino en "grilla"
+            actualizarVectorTetrominos(tetroActivo);    //Se continua con el siguiente tetromino del vector y se agrega un tetromino nuevo al final del mismo
+        //AGREGAR UN PEQUEÑO TIEMPO DE ESPERA ENTRE QUE SE DETECTA LA COLISION HASTA QUE REALMENTE SE ANCLA EL TETROMINO
+
+        }
     }
+
+
+    //IMPLEMENTAR CHEQUEAR LAS COLISIONES CON LOS BORDES
+    if (tecla == GBTK_a)                //Si toco 'A' va a la izquierda
+        tetroActivo->posX--;
+    else if (tecla == GBTK_d)                //Si toco 'D' va a la derecha
+        tetroActivo->posX++;
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego (En el futuro cambiar a que se pause el juego, o que pregunte si realmente quiero salir del juego)
+        return SALIR_DEL_JUEGO;
+
 
     gbt_volcar_backbuffer();
 
