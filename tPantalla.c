@@ -11,6 +11,18 @@ int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBoton
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
 
+    int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
+    int anchoTotalTitulo = anchoLetraConEspacio * 6;
+
+    tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 30 };
+
+    caracterDibujarEscalado('T', &cursorTitulo, R,  ESCALA_TITULO);
+    caracterDibujarEscalado('E', &cursorTitulo, AZ, ESCALA_TITULO);
+    caracterDibujarEscalado('T', &cursorTitulo, RB, ESCALA_TITULO);
+    caracterDibujarEscalado('R', &cursorTitulo, B, ESCALA_TITULO);
+    caracterDibujarEscalado('I', &cursorTitulo, AM,  ESCALA_TITULO);
+    caracterDibujarEscalado('S', &cursorTitulo, VE,  ESCALA_TITULO);
+
     tBoton *i;
     tBoton *finVec = vecBotones + ce;
     for(i = vecBotones; i < finVec; i++)

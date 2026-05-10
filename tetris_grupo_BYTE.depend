@@ -269,3 +269,80 @@
 1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tmino.c
 	"tMino.h"
 
+1778444365 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<stdbool.h>
+	<string.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"texto.h"
+	"tPantalla.h"
+	"tGrilla.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778446674 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1778446753 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1778435978 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
+	"tBoton.h"
+	"tGrilla.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	<stdlib.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.c
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.c
+	"tBoton.h"
+
+1778446561 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.c
+	"texto.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.c
+	"tGrilla.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
+	"tMino.h"
+
+1778446385 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
+	"tPantalla.h"
+

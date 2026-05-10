@@ -1,18 +1,18 @@
 //INTEGRANTES:
-//Apellido y nombres: Ram�rez, Lucas
+//Apellido y nombres: Ramirez, Lucas
 //DNI: 39347109
 //Usuario: lukasrrg
 //Entrega: S�
 //
-//Apellido y nombres: Varela, Lucas Sebasti�n
+//Apellido y nombres: Varela, Lucas Sebastian
 //DNI: 36756277
 //Usuario: lucasvarela93
-//Entrega: S�
+//Entrega: Si
 //
 //Apellido y nombres: Colombini, Donato
 //DNI: 46753332
 //Usuario: Donato2405
-//Entrega: S�
+//Entrega: Si
 
 
 #include <stdio.h>
