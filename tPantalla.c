@@ -94,13 +94,9 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
                 return JUGANDO;         //Empieza la partida
             case 1:
 //                return CARGAR_PARTIDA;
-                break;
             case 2:
 //                return CONFIGURACION;
             case 3:
-                //activarCheats()
-                break;
-            case 4:
                 return PANTALLA_INICIAL;
         }
     }
@@ -146,13 +142,9 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
                 return JUGANDO;         //Empieza la partida
             case 1:
 //                return CARGAR_PARTIDA;
-                break;
             case 2:
 //                return CONFIGURACION;
             case 3:
-                //activarCheats()
-                break;
-            case 4:
                 return PANTALLA_INICIAL;
         }
     }
@@ -231,7 +223,10 @@ int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, in
 //                return GUARDAR_PARTIDA;
                 break;                  //GUARDAR PARTIDA (sin implementar)
             case 3:
-                return PANTALLA_INICIAL; //SALIR AL MENU
+//                return CHEAT; //ACTIVAR CHEATS
+                break;
+            case 4:
+                return PANTALLA_INICIAL; //VUELVE AL MENU
         }
     }
 
