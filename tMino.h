@@ -17,12 +17,8 @@
 #define TETRO_S 4
 #define TETRO_Z 5
 #define TETRO_O 6
-#define TETRO_X 7
-#define TETRO_C 8
-#define TETRO_P 9
-#define TETRO_V 10
 
-#define CANT_TETROMINOS 11
+#define CANT_TETROMINOS 7
 #define TAM_VEC_TETROMINOS 5
 
 //Matrices de tetrominos
@@ -30,7 +26,7 @@ extern const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETRO
 
 typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 {
-//    bool activo; //Puede que no haga falta esta implementacion
+    bool estado;
 //    int tam;  //Puede que no haga falta esta implementacion
     int posX;
     int posY;
@@ -48,10 +44,12 @@ typedef struct
 //    char matriz[TAM_TETROMINO][TAM_TETROMINO];
 } tTetromino;
 
-void minoCrear(tMino *mino, int pX, int pY, int col);
+void minoCrear(tMino *mino, int pX, int pY, int col, bool est);
 void minoDibujar(tMino *mino);
 void minoColorDibujar(int color, int pX, int pY);
 void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
-void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS]);
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS]);         //Toma un vector de un tamaño TAM_VEC_TETROMINOS y lo carga con tetrominos al azar
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS]);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector
+
 
 #endif // TMINO_H_INCLUDED

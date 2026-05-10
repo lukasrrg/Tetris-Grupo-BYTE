@@ -50,38 +50,15 @@ const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
         {'X', 'X', ' ', ' '},
         {' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' '}
-    },
-    {//Tetromino X
-        {'X', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-     {//Tetromino C
-        {'X', 'X', ' ', ' '},
-        {'X', ' ', ' ', ' '},
-        {'X', 'X', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-     {//Tetromino P
-        {'X', 'X', ' ', ' '},
-        {'X', 'X', ' ', ' '},
-        {'X', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' '}
-    },
-     {//Tetromino V
-        {'X', ' ', 'X', ' '},
-        {'X', ' ', 'X', ' '},
-        {' ', 'X', ' ', ' '},
-        {' ', ' ', ' ', ' '}
     }
 };
 
-void minoCrear(tMino *mino, int pX, int pY, int col)
+void minoCrear(tMino *mino, int pX, int pY, int col, bool est)
 {
     mino->color = col;
     mino->posX = pX;
     mino->posY = pY;
+    mino->estado = est;
 }
 
 void minoDibujar(tMino *mino)
@@ -159,26 +136,6 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
             tetro->anchoMat = 2;
             tetro->color = AM;
             break;
-        case TETRO_X:
-            tetro->altoMat = 1;
-            tetro->anchoMat = 1;
-            tetro->color = VB;
-            break;
-        case TETRO_C:
-            tetro->altoMat = 3;
-            tetro->anchoMat = 2;
-            tetro->color = CB;
-            break;
-        case TETRO_P:
-            tetro->altoMat = 3;
-            tetro->anchoMat = 2;
-            tetro->color = B;
-            break;
-        case TETRO_V:
-            tetro->altoMat = 3;
-            tetro->anchoMat = 4;
-            tetro->color = GC;
-            break;
     }
 }
 
@@ -188,6 +145,18 @@ void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS])
 
     for(i = 0; i < TAM_VEC_TETROMINOS; i++)
     {
-        tetrominoCrear(&vec[i], rand()%7, 5, 5);
+        tetrominoCrear(&vec[i], rand()%7, 4, 0);
     }
+}
+
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS])
+{
+    int i;
+
+    for (i = 0; i < TAM_VEC_TETROMINOS - 1; i++)
+    {
+        vec[i] = vec[i + 1];
+    }
+
+    tetrominoCrear(&vec[i], rand()%7, 4, 0);
 }

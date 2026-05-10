@@ -168,10 +168,9 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 
     //Hacer grillaDibujar con una grilla que tenga a los minos estaticos
 
-
-    if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
+    if (tecla == GBTK_ESCAPE)           //'Esc' ---> Pausa
     {
-        return SALIR_DEL_JUEGO;
+        return PAUSA;
     }
 
     gbt_volcar_backbuffer();
@@ -179,8 +178,53 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     return JUGANDO;
 }
 
-int menuPausa(int resolAncho, int resolAlto)
+int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
+    gbt_borrar_backbuffer(N);
+
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
+    (vecBotones + *cursor)->estado = APUNTADO;
+
+    tBoton *i;
+    tBoton *finVec = vecBotones + ce;
+    for(i = vecBotones; i < finVec; i++)
+        botonDibujar(i);
+
+    if (tecla == GBTK_w)               //'W' subir cursor
+    {
+        *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
+    }
+    if (tecla == GBTK_s)               //'S' bajar cursor
+    {
+        *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
+    }
+    if (tecla == GBTK_ESCAPE)           //'Esc' ---> Reanudar
+    {
+        return JUGANDO;
+    }
+
+    if (tecla == GBTK_ENTER)
+    {
+        switch (*cursor)
+        {
+            case 0:
+                return JUGANDO;         //REANUDAR
+            case 1:
+//                return CARGAR_PARTIDA;
+                break;                  //CARGAR PARTIDA (sin implementar)
+            case 2:
+//                return GUARDAR_PARTIDA;
+                break;                  //GUARDAR PARTIDA (sin implementar)
+            case 3:
+                return PANTALLA_INICIAL; //SALIR AL MENU
+        }
+    }
+
+    gbt_volcar_backbuffer();
+
     return PAUSA;
 }
 
