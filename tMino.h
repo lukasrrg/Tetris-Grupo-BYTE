@@ -7,7 +7,7 @@
 #include "paleta.h"
 
 //Tamaño de mino
-#define TAM_MINO 12
+#define TAM_MINO 8
 #define TAM_MAX_TETROMINO 4
 
 #define TETRO_T 0
@@ -22,7 +22,7 @@
 #define TETRO_P 9
 #define TETRO_V 10
 
-#define CANT_TETROMINOS 7
+#define CANT_TETROMINOS 11
 #define TAM_VEC_TETROMINOS 5
 
 //Matrices de tetrominos
