@@ -1,18 +1,18 @@
 //INTEGRANTES:
-//Apellido y nombres: Ramírez, Lucas
+//Apellido y nombres: Ramirez, Lucas
 //DNI: 39347109
 //Usuario: lukasrrg
-//Entrega: Sí
+//Entrega: Si
 //
-//Apellido y nombres: Varela, Lucas Sebastián
+//Apellido y nombres: Varela, Lucas Sebastian
 //DNI: 36756277
 //Usuario: lucasvarela93
-//Entrega: Sí
+//Entrega: Si
 //
 //Apellido y nombres: Colombini, Donato
 //DNI: 46753332
 //Usuario: Donato2405
-//Entrega: Sí
+//Entrega: Si
 
 
 #include <stdio.h>
@@ -116,20 +116,27 @@ int main(int argc, char *argv[])
 
 
 
-    tGrilla grillaDeFondo;                                 //Grilla que despues va a estar in-game
-    if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto))                      //Se pide el espacio en memoria
+    tGrilla grillaTetrominosInactivos;                             //Grilla que muestra los tetrominos inactivos (los que quedaron al fondo)
+    if (!grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto))                      //Se pide el espacio en memoria
     {
         return ERROR_MEMORIA_GRILLA;
     }
     int cursorBoton;
-    tGBT_Temporizador *temporizador = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador
-    if (!temporizador)
+
+    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador para la caida
+    if (!tempCaida)
     {
         return ERROR_CREAR_TEMPORIZADOR;
     }
-    gbt_temporizador_pausar(temporizador);                          //Se lo pausa ya que todavia no sera utilizado
+    gbt_temporizador_pausar(tempCaida);
+    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador para inactivar tetromino
+    if (!tempInactiv)
+    {
+        return ERROR_CREAR_TEMPORIZADOR;
+    }
+    gbt_temporizador_pausar(tempCaida);                          //Se lo pausa ya que todavia no sera utilizado
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
-    tetrominoCargarVector(tetroActivos);
+    bool partidaNueva = true;           //Indica si se debe resetear el estado al entrar a JUGANDO
 
 
     while(estadoDeJuego)                           //Mientras estadoDeJuego no este en SALIR_DEL_JUEGO, el juego se reproduce
@@ -149,52 +156,84 @@ int main(int argc, char *argv[])
                 {
                     estadoDeJuego = pantallaInicial(resolAncho, resolAlto, &cursorBoton, botonesPantallaInicial, 3);
                 }
+                partidaNueva = true;    //Cualquier camino desde la pantalla inicial siempre arranca partida nueva
                 break;
 
-            case MENU_PRINCIPAL_CLASSIC:
+           case MENU_PRINCIPAL_CLASSIC:
                 cursorBoton = 0;
-                tBoton botonesMenuPrincipalClassic[5];                  //Guardo en memoria los botones del menu principal Classic
-                //Boton Partida Nueva
-                botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM, "PARTIDA NUEVA", N);
-                //Boton Cargar Partida
-                botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - 3*ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON)/2, B, AM, "CARGAR PARTIDA", N);
-                //Boton Configuracion
-                botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2 +2*SEPARACION_ENTRE_BOTON, B, AM, "CONFIGURACION", N);
-                //Boton Cheats
-                botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2 + 3*SEPARACION_ENTRE_BOTON, B, AM, "CHEATS", N);
-                //Boton Atras
-                botonCrear(&botonesMenuPrincipalClassic[4], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2 + 4*SEPARACION_ENTRE_BOTON, B, R, "ATRAS", N);
+                tBoton botonesMenuPrincipalClassic[4];
+                int pasoC = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
+                int totalAltoC = 4*ALTO_BOTON_DEFAULT + 3*SEPARACION_ENTRE_BOTON;
+                int baseYC = (resolAlto - totalAltoC) / 2;
+                // Boton Partida Nueva
+                botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO,  ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC, B, AM, "NUEVA PARTIDA",  N);
+                // Boton Cargar Partida
+                botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC + pasoC, B, AM, "CARGAR PARTIDA", N);
+                // Boton Configuracion
+                botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC + 2*pasoC, B, VE, "CONFIGURACION", N);
+                // Boton Atras (con separacion extra para distinguirlo visualmente)
+                botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_CHICO,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2,  baseYC + 3*pasoC, B, R, "ATRAS", N);
 
                 while(estadoDeJuego == MENU_PRINCIPAL_CLASSIC)
                 {
-                    estadoDeJuego = menuPrincipalClassic(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalClassic, 5);
+                    estadoDeJuego = menuPrincipalClassic(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalClassic, 4); // 4, no 5
                 }
                 break;
+
             case MENU_PRINCIPAL_DELUXE:
                 cursorBoton = 0;
-                tBoton botonesMenuPrincipalDeluxe[5];                  //Guardo en memoria los botones del menu principal Classic
+                tBoton botonesMenuPrincipalDeluxe[4];                  //Guardo en memoria los botones del menu principal Deluxe
                 //Boton Partida Nueva
-                botonCrear(&botonesMenuPrincipalDeluxe[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM, "PARTIDA NUEVA", N);
+                botonCrear(&botonesMenuPrincipalDeluxe[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM, "NUEVA PARTIDA", N);
                 //Boton Cargar Partida
                 botonCrear(&botonesMenuPrincipalDeluxe[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - 3*ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON)/2, B, AM, "CARGAR PARTIDA", N);
                 //Boton Configuracion
-                botonCrear(&botonesMenuPrincipalDeluxe[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2 +2*SEPARACION_ENTRE_BOTON, B, AM, "CONFIGURACION", N);
-                //Boton Cheats
-                botonCrear(&botonesMenuPrincipalDeluxe[3], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2 + 3*SEPARACION_ENTRE_BOTON, B, AM, "CHEATS", N);
+                botonCrear(&botonesMenuPrincipalDeluxe[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2 +2*SEPARACION_ENTRE_BOTON, B, VE, "CONFIGURACION", N);
                 //Boton Atras
-                botonCrear(&botonesMenuPrincipalDeluxe[4], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2 + 4*SEPARACION_ENTRE_BOTON, B, R, "ATRAS", N);
+                botonCrear(&botonesMenuPrincipalDeluxe[3], INACTIVO, ANCHO_BOTON_CHICO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2, (resolAlto + 3*ALTO_BOTON_DEFAULT)/2, B, R, "ATRAS", N);
 
                 while(estadoDeJuego == MENU_PRINCIPAL_DELUXE)
                 {
-                    estadoDeJuego = menuPrincipalDeluxe(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalDeluxe, 5);
+                    estadoDeJuego = menuPrincipalDeluxe(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalDeluxe, 4);
                 }
                 break;
+
             case JUGANDO:
-                gbt_temporizador_reanudar(temporizador);
+                if (partidaNueva)
+                {
+                    tetrominoCargarVector(tetroActivos);            //Resetea los tetrominos para la nueva partida
+                    grillaDestruir(&grillaTetrominosInactivos);                 //Resetea la grilla para la nueva partida
+                    grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto);
+                    partidaNueva = false;
+                }
+                gbt_temporizador_reanudar(tempCaida);
+
                 while (estadoDeJuego == JUGANDO)
                 {
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, temporizador);
+                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaTetrominosInactivos, tempCaida, tempInactiv);
                 }
+                break;
+
+            case PAUSA:
+                gbt_temporizador_pausar(tempCaida);
+                cursorBoton = 0;
+                tBoton botonesMenuPausa[5];
+                int pasoP = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
+                int totalAltoP = 5*ALTO_BOTON_DEFAULT + 4*SEPARACION_ENTRE_BOTON;
+                int baseYP = (resolAlto - totalAltoP) / 2;
+                // Boton Reanudar
+                botonCrear(&botonesMenuPausa[0], APUNTADO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP,           B, VE, "REANUDAR", N);
+                // Boton Cargar Partida
+                botonCrear(&botonesMenuPausa[1], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + pasoP,   B, AM, "CARGAR PARTIDA", N);
+                // Boton Guardar Partida
+                botonCrear(&botonesMenuPausa[2], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + 2*pasoP, B, AM, "GUARDAR PARTIDA", N);
+                // Boton Cheat
+                botonCrear(&botonesMenuPausa[3], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + 3*pasoP, B, RB, "CHEAT", N);
+                // Boton Salir al Menu
+                botonCrear(&botonesMenuPausa[4], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 4*pasoP, B, R, "SALIR AL MENU", N);   while (estadoDeJuego == PAUSA)
+
+                estadoDeJuego = menuPausa(resolAncho, resolAlto, &cursorBoton, botonesMenuPausa, 5);
+
                 break;
         }
     }
@@ -204,9 +243,9 @@ int main(int argc, char *argv[])
 
 
 
-
-
-    grillaDestruir(&grillaDeFondo);                //Se libera el espacio en memoria de la grilla
+    gbt_temporizador_destruir(tempCaida);
+    gbt_temporizador_destruir(tempInactiv);
+    grillaDestruir(&grillaTetrominosInactivos);                //Se libera el espacio en memoria de la grilla
     gbt_destruir_ventana();         //Cierra ventana y GBT
     gbt_cerrar();
 
