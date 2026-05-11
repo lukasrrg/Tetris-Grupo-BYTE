@@ -23,6 +23,7 @@
 #define TETRO_V 10
 
 #define CANT_TETROMINOS 11
+#define CANT_TETROMINOS_CLASSIC 7
 #define TAM_VEC_TETROMINOS 5
 
 //Matrices de tetrominos
@@ -52,8 +53,8 @@ void minoCrear(tMino *mino, int pX, int pY, int col, bool est);
 void minoDibujar(tMino *mino);
 void minoColorDibujar(int color, int pX, int pY);
 void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
-void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS]);         //Toma un vector de un tamaño TAM_VEC_TETROMINOS y lo carga con tetrominos al azar
-void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS]);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos);         //Toma un vector de un tamaño TAM_VEC_TETROMINOS y lo carga con tetrominos al azar
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector
 
 
 #endif // TMINO_H_INCLUDED

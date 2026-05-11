@@ -23,6 +23,7 @@
 
 //Datos del juego
 #define VEL_INI_CAIDA 1  //Cantidad de segundos (tipo de dato double) hasta que se desencade que el tetromin baje un cuadrado
+#define SIN_INFORMACION -1  //Se pone en los cuadros de texto cuando dicho cuadro no necesita mostrar ningun parametro
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
@@ -31,5 +32,8 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
+void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);
+void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color);
+void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto);
 
 #endif // TPANTALLA_H_INCLUDED

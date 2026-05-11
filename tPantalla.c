@@ -136,12 +136,21 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
 
 int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador *tempCaida, tGBT_Temporizador *tempInactiv)
 {
+    int lineas = 0;
+    int puntaje = 0;
+    int puntajeMax = 0;
+    int nivel = 1;
+
     gbt_borrar_backbuffer(N);
 
     gbt_procesar_entrada();
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
-    grillaDeFondoDibujar(resolAncho, resolAlto);        //Dibuja una grilla totalmente vacia que luego sera superpuesta por aquellos minos activos
+    int anchoGrilla = ANCHO_GRILLA*TAM_MINO;
+    int altoGrilla = ALTO_GRILLA_VISIBLE*TAM_MINO;
+    dibujarRectangulo((resolAncho - anchoGrilla)/2, (resolAlto - altoGrilla)/2, anchoGrilla, altoGrilla, C);       //Dibuja un rectangulo vacio que funciona como grilla
+
+    infoInterfazDeJuego(lineas, puntaje, puntajeMax, nivel, tetroActivo[1].tipo, resolAncho, resolAlto);   //Muestra la informacion del juego en pantalla (score, lineas, nivel, etc)
 
     grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto); //Dibuja el tetromino activo sobre la grilla
 
@@ -155,7 +164,7 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
         if (tetrominoColisionaSuelo(tetroActivo))   //Si colisiona con el suelo (LUEGO IMPLEMENTAR COLISION CON OTROS MINOS)
         {
             grillaActualizar(grilla, tetroActivo);  //Se guarda el tetromino en "grilla"
-            actualizarVectorTetrominos(tetroActivo);    //Se continua con el siguiente tetromino del vector y se agrega un tetromino nuevo al final del mismo
+            actualizarVectorTetrominos(tetroActivo, CANT_TETROMINOS_CLASSIC);    //Se continua con el siguiente tetromino del vector y se agrega un tetromino nuevo al final del mismo
         //AGREGAR UN PEQUEÑO TIEMPO DE ESPERA ENTRE QUE SE DETECTA LA COLISION HASTA QUE REALMENTE SE ANCLA EL TETROMINO
 
         }
@@ -230,4 +239,53 @@ int gameOver(int resolAncho, int resolAlto)
 int menuConfiguracion(int resolAncho, int resolAlto)
 {
     return CONFIGURACION;
+}
+
+void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto)
+{
+    int anchoCuadros = 60;
+    int altoCuadros = 30;
+    int espaciadoBordes = 10;
+    int espacioEntreCuadros = (resolAlto - espaciadoBordes - 5*altoCuadros)/5;
+
+    tCursorTexto cursor = {espaciadoBordes, espaciadoBordes};
+
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "LINEAS: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra la cantidad de lineas
+    cursor.posY += altoCuadros + espacioEntreCuadros;
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "SCORE: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra el puntaje actual
+    cursor.posY += altoCuadros + espacioEntreCuadros;
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "TOP SCORE: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra el mayor puntaje
+    cursor.posY += altoCuadros + espacioEntreCuadros;
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "NIVEL: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra el nivel actual
+    cursor.posY += altoCuadros + espacioEntreCuadros;
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "GRUPO BYTE", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Nuestro grupo
+
+    cursor.posX = resolAncho - espaciadoBordes - anchoCuadros;
+    cursor.posY = espaciadoBordes;
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "SIGUIENTE: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);  //Muestra el siguiente tetromino
+    cursor.posY += altoCuadros + espacioEntreCuadros;
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "STATS: ", SIN_INFORMACION, anchoCuadros, resolAlto - 2*espaciadoBordes - espacioEntreCuadros - altoCuadros, M, B);
+}
+
+void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color)
+{
+    int i;
+
+    for (i = 0; i < ancho; i++)         //Linea superior
+        gbt_dibujar_pixel(posX + i, posY, color);
+    for (i = 0; i < alto; i++)          //Linea derecha
+        gbt_dibujar_pixel(posX + ancho - 1, posY + i, color);
+    for (i = ancho - 1; i >= 0; i--)    //Linea inferior
+        gbt_dibujar_pixel(posX + i, posY + alto - 1, color);
+    for (i = alto - 1; i >= 0; i--)     //Linea izquierda
+        gbt_dibujar_pixel(posX, posY + i, color);
+}
+
+void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto)
+{
+    tCursorTexto cursor = {posX + 2, posY + 2};
+
+    dibujarRectangulo(posX, posY, ancho, alto, colorCuadro);
+
+    escribirTexto(str, &cursor, colorTexto);
 }
