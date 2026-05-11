@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1778353924 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
+1778530865 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -33,10 +33,10 @@
 	<stdlib.h>
 	<stdint.h>
 
-1778355391 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.c
+1778531560 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1778360569 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.h
+1778531579 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.h
 	<stdbool.h>
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"paleta.h"
@@ -49,30 +49,300 @@
 	"tMino.h"
 	<stdlib.h>
 
-1778360285 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.h
+1778529978 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.h
 	"tBoton.h"
 	"tGrilla.h"
 
-1778350624 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.h
+1778529692 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"texto.h"
 
-1778360882 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.c
+1778531601 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 
 1778350624 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.c
 	"tBoton.h"
 
-1778350624 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.c
+1778529692 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.c
 	"texto.h"
 
-1778350624 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.h
+1778529692 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	<string.h>
 
-1778350624 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.h
+1778529692 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 
 1778350624 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.c
 	"paleta.h"
+
+1778420193 source:c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<stdbool.h>
+	<string.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"texto.h"
+	"tPantalla.h"
+	"tGrilla.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1778420193 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tpantalla.h
+	"tBoton.h"
+	"tGrilla.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	<stdlib.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\paleta.c
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tboton.c
+	"tBoton.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\texto.c
+	"texto.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tgrilla.c
+	"tGrilla.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tmino.c
+	"tMino.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\branch rama 09052026\tetris-grupo-byte-rama\tpantalla.c
+	"tPantalla.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\paleta.c
+	"paleta.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\tboton.c
+	"tBoton.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\texto.c
+	"texto.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\tgrilla.c
+	"tGrilla.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	<stdlib.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris 10052026-1157\tmino.c
+	"tMino.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\paleta.c
+	"paleta.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tboton.c
+	"tBoton.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\texto.c
+	"texto.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tgrilla.c
+	"tGrilla.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	<stdlib.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tmino.c
+	"tMino.h"
+
+1778453199 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<stdbool.h>
+	<string.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"texto.h"
+	"tPantalla.h"
+	"tGrilla.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778446674 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1778446753 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1778435978 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
+	"tBoton.h"
+	"tGrilla.h"
+
+1778451617 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	<stdlib.h>
+
+1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.c
+	"paleta.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.c
+	"tBoton.h"
+
+1778446561 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.c
+	"texto.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.c
+	"tGrilla.h"
+
+1778361245 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
+	"tMino.h"
+
+1778453579 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
+	"tPantalla.h"
 

@@ -11,6 +11,18 @@ int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBoton
     botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
 
+    int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
+    int anchoTotalTitulo = anchoLetraConEspacio * 6;
+
+    tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 30 };
+
+    caracterDibujarEscalado('T', &cursorTitulo, R,  ESCALA_TITULO);
+    caracterDibujarEscalado('E', &cursorTitulo, AZ, ESCALA_TITULO);
+    caracterDibujarEscalado('T', &cursorTitulo, RB, ESCALA_TITULO);
+    caracterDibujarEscalado('R', &cursorTitulo, B, ESCALA_TITULO);
+    caracterDibujarEscalado('I', &cursorTitulo, AM,  ESCALA_TITULO);
+    caracterDibujarEscalado('S', &cursorTitulo, VE,  ESCALA_TITULO);
+
     tBoton *i;
     tBoton *finVec = vecBotones + ce;
     for(i = vecBotones; i < finVec; i++)
@@ -69,13 +81,9 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
                 return JUGANDO;         //Empieza la partida
             case 1:
 //                return CARGAR_PARTIDA;
-                break;
             case 2:
 //                return CONFIGURACION;
             case 3:
-                //activarCheats()
-                break;
-            case 4:
                 return PANTALLA_INICIAL;
         }
     }
@@ -114,13 +122,9 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
                 return JUGANDO;         //Empieza la partida
             case 1:
 //                return CARGAR_PARTIDA;
-                break;
             case 2:
 //                return CONFIGURACION;
             case 3:
-                //activarCheats()
-                break;
-            case 4:
                 return PANTALLA_INICIAL;
         }
     }
@@ -143,6 +147,7 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 
     grillaDibujar(grilla);              //Dibuja a los minos y tetrominos que quedaron ya anclados en el suelo
 
+
     if (gbt_temporizador_consumir(tempCaida))
     {
         tetroActivo->posY ++; //Si pasa el tiempo, se baja el tetromino
@@ -162,8 +167,8 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
         tetroActivo->posX--;
     else if (tecla == GBTK_d)                //Si toco 'D' va a la derecha
         tetroActivo->posX++;
-    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego (En el futuro cambiar a que se pause el juego, o que pregunte si realmente quiero salir del juego)
-        return SALIR_DEL_JUEGO;
+    else if (tecla == GBTK_ESCAPE || tecla == GBTK_p)           //'Esc' ---> Salir del juego (En el futuro cambiar a que se pause el juego, o que pregunte si realmente quiero salir del juego)
+        return PAUSA;
 
 
     gbt_volcar_backbuffer();
@@ -171,8 +176,49 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     return JUGANDO;
 }
 
-int menuPausa(int resolAncho, int resolAlto)
+int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
+    gbt_borrar_backbuffer(N);
+
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
+    (vecBotones + *cursor)->estado = APUNTADO;
+
+    tBoton *i;
+    tBoton *finVec = vecBotones + ce;
+    for(i = vecBotones; i < finVec; i++)
+        botonDibujar(i);
+
+    if (tecla == GBTK_w)               //'W' subir cursor
+        *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_s)               //'S' bajar cursor
+        *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Reanudar
+        return JUGANDO;
+    else if (tecla == GBTK_ENTER)
+        {
+            switch (*cursor)
+            {
+                case 0:
+                    return JUGANDO;         //REANUDAR
+                case 1:
+    //                return CARGAR_PARTIDA;
+                    break;                  //CARGAR PARTIDA (sin implementar)
+                case 2:
+    //                return GUARDAR_PARTIDA;
+                    break;                  //GUARDAR PARTIDA (sin implementar)
+                case 3:
+    //                return CHEAT; //ACTIVAR CHEATS
+                    break;
+                case 4:
+                    return PANTALLA_INICIAL; //VUELVE AL MENU
+            }
+        }
+
+    gbt_volcar_backbuffer();
+
     return PAUSA;
 }
 
