@@ -54,7 +54,7 @@ void minoDibujar(tMino *mino);
 void minoColorDibujar(int color, int pX, int pY);
 void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
 void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int cantTetrominos); //Toma un vector de un tamaño TAM_VEC_TETROMINOS y lo carga con tetrominos. al azar. Ademas recibe la cantidad de tetrominos segun sea classic o deluxe
-void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int cantTetrominos);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int cantTetrominos);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector. También recibe la cantidad de tetraminos, según modo classic o deluxe.
 
 
 #endif // TMINO_H_INCLUDED
