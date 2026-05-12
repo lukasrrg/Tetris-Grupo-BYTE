@@ -204,3 +204,19 @@ void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTet
 
     tetrominoCrear(&vec[i], rand()%totalTetrominos, 4, 0);
 }
+
+void tetrominoDibujar(tTetromino *tetro, int posX, int posY)        //Dibuja un tetromino en una coordenada especifica
+{
+    int fila, col;
+
+    for(fila = 0;fila < tetro->altoMat; fila++)
+    {
+        for(col = 0; col < tetro->anchoMat; col++)
+        {
+            if (tetrominoVec[(int)tetro->tipo][fila][col] == 'X')
+            {
+                minoColorDibujar(tetro->color, posX + col*TAM_MINO, posY + fila*TAM_MINO); //Dibujar mino de color tetro->color
+            }
+        }
+    }
+}

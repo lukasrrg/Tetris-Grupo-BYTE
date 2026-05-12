@@ -532,7 +532,11 @@ void escribirTexto(const char str[], tCursorTexto *cursor, int color)
 
 void escribirNumero(int numero, tCursorTexto *cursor, int color)
 {
+    char string[TAM_MAX_NUMERO];
 
+    itoa(numero, string, 10);
+
+    escribirTexto(string, cursor, color);
 }
 
 void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int escala)

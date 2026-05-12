@@ -34,6 +34,6 @@ int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);
 void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color);
-void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto);
+void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto); //Dibujar un rectangulo con las medidas especificadas, en la posicion dada y color dado. Escribe el parametro numerico, si este vale SIN_INFORMACION no se escribe ningun numero
 
 #endif // TPANTALLA_H_INCLUDED

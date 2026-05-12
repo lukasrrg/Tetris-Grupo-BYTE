@@ -246,25 +246,36 @@ void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, cha
     int anchoCuadros = 60;
     int altoCuadros = 30;
     int espaciadoBordes = 10;
+    int altoCuadroSiguiente = 50;
     int espacioEntreCuadros = (resolAlto - espaciadoBordes - 5*altoCuadros)/5;
 
     tCursorTexto cursor = {espaciadoBordes, espaciadoBordes};
 
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "LINEAS: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra la cantidad de lineas
+    //Dibujo la informacion de la izquierda
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "LINEAS: ", lineas, anchoCuadros, altoCuadros, M, B);         //Muestra la cantidad de lineas
     cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "SCORE: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra el puntaje actual
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "SCORE: ", puntaje, anchoCuadros, altoCuadros, M, B);         //Muestra el puntaje actual
     cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "TOP SCORE: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra el mayor puntaje
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "TOP SCORE: ", puntajeMax, anchoCuadros, altoCuadros, M, B);         //Muestra el mayor puntaje
     cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "NIVEL: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Muestra el nivel actual
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "NIVEL: ", nivel, anchoCuadros, altoCuadros, M, B);         //Muestra el nivel actual
     cursor.posY += altoCuadros + espacioEntreCuadros;
     dibujarCuadroTexto(cursor.posX, cursor.posY, "GRUPO BYTE", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Nuestro grupo
 
+    //Dibujo la informacion de la derecha
     cursor.posX = resolAncho - espaciadoBordes - anchoCuadros;
     cursor.posY = espaciadoBordes;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "SIGUIENTE: ", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);  //Muestra el siguiente tetromino
-    cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "STATS: ", SIN_INFORMACION, anchoCuadros, resolAlto - 2*espaciadoBordes - espacioEntreCuadros - altoCuadros, M, B);
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "SIGUIENTE: ", SIN_INFORMACION, anchoCuadros, altoCuadroSiguiente, M, B);  //Muestra el siguiente tetromino
+
+    tTetromino siguienteTetro;
+    tetrominoCrear(&siguienteTetro, sigTetromino, 0, 0);
+
+    int posXTetromino = cursor.posX + anchoCuadros/2 - (float)siguienteTetro.anchoMat/2*TAM_MINO;
+    int posYTetromino = cursor.posY + altoCuadroSiguiente/2 - (float)siguienteTetro.altoMat/2*TAM_MINO + 3;
+    tetrominoDibujar(&siguienteTetro, posXTetromino, posYTetromino);
+
+    cursor.posY += altoCuadroSiguiente + espacioEntreCuadros;
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "STATS: ", SIN_INFORMACION, anchoCuadros, resolAlto - 2*espaciadoBordes - espacioEntreCuadros - altoCuadroSiguiente, M, B);
 }
 
 void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color)
@@ -288,4 +299,11 @@ void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int
     dibujarRectangulo(posX, posY, ancho, alto, colorCuadro);
 
     escribirTexto(str, &cursor, colorTexto);
+
+    if (parametro != SIN_INFORMACION)
+    {
+        cursor.posX = posX + 2;
+        cursor.posY += 2*ALTO_ESTANDAR_LETRA + 2;
+        escribirNumero(parametro, &cursor, colorTexto);
+    }
 }
