@@ -1,7 +1,7 @@
 #include "tMino.h"
 
 //Matrices para los tetrominos
-const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
+const char tetrominoVec[CANT_TETROMINOS_DELUXE][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
 {
     {//Tetromino T
         {'X', 'X', 'X', ' '},
@@ -160,20 +160,40 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
             tetro->anchoMat = 2;
             tetro->color = AM;
             break;
+        case TETRO_X:
+            tetro->altoMat = 1;
+            tetro->anchoMat = 1;
+            tetro->color = AZ;
+            break;
+        case TETRO_C:
+             tetro->altoMat = 3;
+             tetro->anchoMat = 2;
+             tetro->color = AM;
+             break;
+        case TETRO_P:
+             tetro->altoMat = 3;
+             tetro->anchoMat = 2;
+             tetro->color = R;
+             break;
+         case TETRO_V:
+             tetro->altoMat = 2;
+             tetro->anchoMat = 3;
+             tetro->color = AZ;
+             break;
     }
 }
 
-void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS])
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int cantTetrominos)
 {
     int i;
 
     for(i = 0; i < TAM_VEC_TETROMINOS; i++)
     {
-        tetrominoCrear(&vec[i], rand()%7, 4, 0);
+        tetrominoCrear(&vec[i], rand()% cantTetrominos, 4, 0);
     }
 }
 
-void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS])
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS],int cantTetrominos)
 {
     int i;
 
@@ -182,5 +202,5 @@ void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS])
         vec[i] = vec[i + 1];
     }
 
-    tetrominoCrear(&vec[i], rand()%7, 4, 0);
+    tetrominoCrear(&vec[i], rand()% cantTetrominos, 4, 0);
 }

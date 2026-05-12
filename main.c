@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
     gbt_temporizador_pausar(temporizador);                          //Se lo pausa ya que todavia no sera utilizado
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;           //Indica si se debe resetear el estado al entrar a JUGANDO
-
+    int cantTetrominos = CANT_TETROMINOS_CLASSIC; //Por defecto la cant de tetrominos es la clasica
 
     while(estadoDeJuego)                           //Mientras estadoDeJuego no este en SALIR_DEL_JUEGO, el juego se reproduce
     {
@@ -154,6 +154,7 @@ int main(int argc, char *argv[])
 
            case MENU_PRINCIPAL_CLASSIC:
                 cursorBoton = 0;
+                cantTetrominos = CANT_TETROMINOS_CLASSIC;
                 tBoton botonesMenuPrincipalClassic[4];
                 int pasoC = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
                 int totalAltoC = 4*ALTO_BOTON_DEFAULT + 3*SEPARACION_ENTRE_BOTON;
@@ -175,6 +176,7 @@ int main(int argc, char *argv[])
 
             case MENU_PRINCIPAL_DELUXE:
                 cursorBoton = 0;
+                cantTetrominos = CANT_TETROMINOS_DELUXE;
                 tBoton botonesMenuPrincipalDeluxe[4];                  //Guardo en memoria los botones del menu principal Deluxe
                 //Boton Partida Nueva
                 botonCrear(&botonesMenuPrincipalDeluxe[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - 5*ALTO_BOTON_DEFAULT)/2, B, AM, "NUEVA PARTIDA", N);
@@ -194,7 +196,7 @@ int main(int argc, char *argv[])
             case JUGANDO:
                 if (partidaNueva)
                 {
-                    tetrominoCargarVector(tetroActivos);            //Resetea los tetrominos para la nueva partida
+                    tetrominoCargarVector(tetroActivos,cantTetrominos);            //Resetea los tetrominos para la nueva partida y recibe la cantidad de tetrominos segun el modo
                     grillaDestruir(&grillaDeFondo);                 //Resetea la grilla para la nueva partida
                     grillaCrear(&grillaDeFondo, resolAncho, resolAlto);
                     partidaNueva = false;
