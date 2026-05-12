@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
             case JUGANDO:
                 if (partidaNueva)
                 {
-                    tetrominoCargarVector(tetroActivos);            //Resetea los tetrominos para la nueva partida
+                    tetrominoCargarVector(tetroActivos, CANT_TETROMINOS_CLASSIC);            //Resetea los tetrominos para la nueva partida
                     grillaDestruir(&grillaTetrominosInactivos);                 //Resetea la grilla para la nueva partida
                     grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto);
                     partidaNueva = false;

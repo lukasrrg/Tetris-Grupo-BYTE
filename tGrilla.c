@@ -46,7 +46,7 @@ void grillaDestruir(tGrilla *p)
     p->vecMinos = NULL;
 }
 
-void grillaDeFondoDibujar(int resolAncho, int resolAlto)
+void grillaDeFondoDibujar(int resolAncho, int resolAlto)    //FUNCION INNECESARIA, SE PUEDE REEMPLAZAR POR dibujarRectangulo()
 {
     int i;
 
