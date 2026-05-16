@@ -3,8 +3,10 @@
 bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto)
 {
     tMino *mino;
+
     int offsetX = (resolAncho - ANCHO_GRILLA*TAM_MINO)/2;           //Coordenada en X del primer pixel superior izquierdo
     int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;     //Coordenada en Y del primer pixel superior izquierdo
+
 
     p->vecMinos = malloc(ANCHO_GRILLA*ALTO_GRILLA_TOTAL*sizeof(tMino)); //Pido memoria para toda la matriz grilla
     if (p->vecMinos == NULL)
@@ -18,7 +20,8 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto)
 
     for(i = 0; i < ANCHO_GRILLA; i++) //Setear los valores correctos de todos los Minos de la grilla
     {
-        for(j = 0; j < ALTO_GRILLA_TOTAL; j++)
+
+        for(j = 0; j < ALTO_GRILLA_TOTAL; j++)  // Inicializar todas las filas, incluidas las 4 invisibles
         {
             mino = p->vecMinos + (j*ANCHO_GRILLA + i);
 
