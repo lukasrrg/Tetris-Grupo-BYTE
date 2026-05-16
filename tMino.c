@@ -123,7 +123,7 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
     tetro->posX = pX;
     tetro->posY = pY;
 
-    switch(tip)             //Segun que tipo sea, se define su tamaño y color
+    switch(tip)             //Segun que tipo sea, se define su tamaÅ„o y color
     {
         case TETRO_T:
             tetro->altoMat = 2;
@@ -189,7 +189,8 @@ void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetromin
 
     for(i = 0; i < TAM_VEC_TETROMINOS; i++)
     {
-        tetrominoCrear(&vec[i], rand()%totalTetrominos, 4, 0);
+        tetrominoCrear(&vec[i], rand()%totalTetrominos, 4, 0); //CAMBIAR EL PARAMETRO 4 A ALGO QUE CALCULE LA POS EN X A LA MITAD DE LA GRILLA
+        vec[i].posY = -1*vec[i].altoMat;
     }
 }
 

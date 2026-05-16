@@ -161,7 +161,7 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     {
         tetroActivo->posY ++; //Si pasa el tiempo, se baja el tetromino
 
-        if (tetrominoColisionaSuelo(tetroActivo))   //Si colisiona con el suelo (LUEGO IMPLEMENTAR COLISION CON OTROS MINOS)
+        if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))   //Si colisiona con el suelo (LUEGO IMPLEMENTAR COLISION CON OTROS MINOS)
         {
             grillaActualizar(grilla, tetroActivo);  //Se guarda el tetromino en "grilla"
             actualizarVectorTetrominos(tetroActivo, CANT_TETROMINOS_CLASSIC);    //Se continua con el siguiente tetromino del vector y se agrega un tetromino nuevo al final del mismo
@@ -170,13 +170,11 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
         }
     }
 
-
-    //IMPLEMENTAR CHEQUEAR LAS COLISIONES CON LOS BORDES
-    if (tecla == GBTK_a)                //Si toco 'A' va a la izquierda
-        tetroActivo->posX--;
-    else if (tecla == GBTK_d)                //Si toco 'D' va a la derecha
+    if (tecla == GBTK_a && !tetrominoColisionaLateralmente(tetroActivo, grilla, IZQUIERDA))    //Si toco 'A' y hay espacio disponible, va a la izquierda
+         tetroActivo->posX--;
+    else if (tecla == GBTK_d && !tetrominoColisionaLateralmente(tetroActivo, grilla, DERECHA))  //Si toco 'D' y hay espacio disponible, va a la derecha
         tetroActivo->posX++;
-    else if (tecla == GBTK_ESCAPE || tecla == GBTK_p)           //'Esc' ---> Salir del juego (En el futuro cambiar a que se pause el juego, o que pregunte si realmente quiero salir del juego)
+    else if (tecla == GBTK_ESCAPE || tecla == GBTK_p)           //'Esc' ---> Pausa
         return PAUSA;
 
 

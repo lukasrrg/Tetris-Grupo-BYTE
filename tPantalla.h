@@ -1,6 +1,7 @@
 #ifndef TPANTALLA_H_INCLUDED
 #define TPANTALLA_H_INCLUDED
 
+#include <stdio.h>
 #include "tBoton.h"
 #include "tGrilla.h"
 
@@ -22,7 +23,7 @@
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
-#define VEL_INI_CAIDA 1  //Cantidad de segundos (tipo de dato double) hasta que se desencade que el tetromin baje un cuadrado
+#define VEL_INI_CAIDA 1 //Cantidad de segundos (tipo de dato double) hasta que se desencade que el tetromin baje un cuadrado
 #define SIN_INFORMACION -1  //Se pone en los cuadros de texto cuando dicho cuadro no necesita mostrar ningun parametro
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
