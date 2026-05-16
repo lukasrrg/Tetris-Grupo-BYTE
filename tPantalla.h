@@ -36,5 +36,6 @@ int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, in
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
+int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla);
 
 #endif // TPANTALLA_H_INCLUDED

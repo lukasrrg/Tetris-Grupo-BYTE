@@ -143,7 +143,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
             case 1:
 //                return CARGAR_PARTIDA;
             case 2:
-//                return CONFIGURACION;
+                return CONFIG_DELUXE;
             case 3:
                 return PANTALLA_INICIAL;
         }
@@ -352,4 +352,32 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
 
     gbt_volcar_backbuffer();
     return INGRESO_NOMBRE;
+}
+
+int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla)
+{
+    gbt_borrar_backbuffer(N);
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    tCursorTexto curTit = {0, 15};
+    escribirTexto("CONFIGURACION", &curTit, B); // Titulo
+
+    tCursorTexto curEtiq = {0, 40};
+    escribirTexto("ANCHO GRILLA", &curEtiq, GC); //Etiqueta
+
+    tCursorTexto curAyuda = {0, resolAlto - 20};
+    escribirTexto("A D CAMBIAR  ENTER OK  ESC VOLVER", &curAyuda, GC); //Instrucciones
+
+    tCursorTexto curValor = {0, 70}; //Mostrar valor actual
+
+    if (tecla == GBTK_a && *anchoGrilla > ANCHO_GRILLA_MIN)
+        (*anchoGrilla)--;
+    if (tecla == GBTK_d && *anchoGrilla < ANCHO_GRILLA_MAX)
+        (*anchoGrilla)++;
+    if (tecla == GBTK_ENTER || tecla == GBTK_ESCAPE)
+        return MENU_PRINCIPAL_DELUXE;
+
+    gbt_volcar_backbuffer();
+    return CONFIG_DELUXE;
 }

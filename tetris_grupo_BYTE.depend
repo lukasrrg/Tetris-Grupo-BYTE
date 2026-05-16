@@ -311,7 +311,7 @@
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	<string.h>
 
-1778964152 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
+1778965021 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
 	"tBoton.h"
 	"tGrilla.h"
 	"tJugador.h"
@@ -345,7 +345,7 @@
 1778553623 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1778961239 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
+1778965227 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 
 1778960490 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.c
