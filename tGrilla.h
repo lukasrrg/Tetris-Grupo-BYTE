@@ -18,14 +18,15 @@
 typedef struct              //Grilla in-game
 {
     tMino *vecMinos;
+    int anchoGrilla;
 } tGrilla;
 
-bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto);           //Pide memoria necesaria para la grilla
+bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla); //Pide memoria necesaria para la grilla
 void grillaDestruir(tGrilla *p);        //Libera la memoria de la grilla
-void grillaDeFondoDibujar(int resolAncho, int resolAlto);
-void grillaDibujar(const tGrilla *p);         //Dibujar grilla en pantalla
-void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto);        //Dibuja en la grilla un tetromino en (tetro->posX, tetro->posY)
-bool tetrominoColisionaSuelo(tTetromino *tetro);    //Chequea la colision con el suelo (hay que implementar la colision con otros minos)
-void grillaActualizar(tGrilla *grilla, tTetromino *tetro);  //Actualiza los minos de la grilla (usado principalmente para que queden los tetrominos en el fondo guardados)
+void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla);
+void grillaDibujar(const tGrilla *p, int anchoGrilla); //Dibujar grilla en pantalla
+void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto); //Dibuja en la grilla un tetromino en (tetro->posX, tetro->posY)
+bool tetrominoColisionaSuelo(tTetromino *tetro); //Chequea la colision con el suelo (hay que implementar la colision con otros minos)
+void grillaActualizar(tGrilla *grilla, tTetromino *tetro); //Actualiza los minos de la grilla (usado principalmente para que queden los tetrominos en el fondo guardados)
 
 #endif // TGRILLA_H_INCLUDED
