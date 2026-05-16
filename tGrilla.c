@@ -94,6 +94,7 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto)   
     int offsetX = (resolAncho - ANCHO_GRILLA*TAM_MINO)/2;           //Coordenada en X del primer pixel superior izquierdo de la grilla
     int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;     //Coordenada en Y del primer pixel superior izquierdo de la grilla
 
+
     int posX;   //Posicion en X del MINO que se va a dibujar (NO relativo a la grilla)
     int posY;   //Posicion en Y del MINO que se va a dibujar (NO relativo a la grilla)
 
@@ -180,6 +181,7 @@ bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grillaTetrominos
     return false;
 }
 
+
 void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
 {
     int fila, col;
@@ -192,6 +194,7 @@ void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
             {
                 col = tetro->posX + j;
                 fila = tetro->posY + i + PRIMERA_FILA_VISIBLE - 1;
+
 
                 (grilla->vecMinos + fila*grilla->ancho + col)->estado = true;
                 (grilla->vecMinos + fila*grilla->ancho + col)->color = tetro->color;

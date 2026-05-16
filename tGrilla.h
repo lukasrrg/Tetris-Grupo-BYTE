@@ -16,6 +16,7 @@
 #define DERECHA 1
 
 
+
 typedef struct              //Grilla in-game
 {
     tMino *vecMinos;
