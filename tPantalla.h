@@ -33,6 +33,6 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
-int pantallaIngresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
+int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
 
 #endif // TPANTALLA_H_INCLUDED

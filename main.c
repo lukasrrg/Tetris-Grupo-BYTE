@@ -237,7 +237,7 @@ int main(int argc, char *argv[])
             case INGRESO_NOMBRE:
                 while (estadoDeJuego == INGRESO_NOMBRE)
                 {
-                    estadoDeJuego = pantallaIngresarNombre(resolAncho, resolAlto, nombreJugador);
+                    estadoDeJuego = ingresarNombre(resolAncho, resolAlto, nombreJugador);
                 }
                 break;
                     }

@@ -245,7 +245,7 @@ int menuConfiguracion(int resolAncho, int resolAlto)
     return CONFIGURACION;
 }
 
-int pantallaIngresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
+int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
 {
     // Sub-estados internos
     // 0 = escribiendo nombre
