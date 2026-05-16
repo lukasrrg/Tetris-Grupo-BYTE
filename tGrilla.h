@@ -23,7 +23,7 @@ typedef struct              //Grilla in-game
 
 bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla); //Pide memoria necesaria para la grilla
 void grillaDestruir(tGrilla *p);        //Libera la memoria de la grilla
-void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla);
+void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla); //Recibe anchogrilla porque no tiene forma de llegar al ancho
 void grillaDibujar(const tGrilla *p); //Dibujar grilla en pantalla
 void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, int anchoGrilla); //Dibuja en la grilla un tetromino en (tetro->posX, tetro->posY)
 bool tetrominoColisionaSuelo(tTetromino *tetro); //Chequea la colision con el suelo (hay que implementar la colision con otros minos)

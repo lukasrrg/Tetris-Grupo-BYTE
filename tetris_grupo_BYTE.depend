@@ -320,7 +320,7 @@
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"texto.h"
 
-1778361245 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
+1778957871 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"tMino.h"
 	<stdlib.h>
@@ -351,7 +351,7 @@
 1778942112 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.c
 	"tJugador.h"
 
-1778940954 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.h
+1778953028 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.h
 	<stdio.h>
 	<string.h>
 	<stdbool.h>

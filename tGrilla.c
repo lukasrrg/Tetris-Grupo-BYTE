@@ -3,11 +3,12 @@
 bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 {
     tMino *mino;
+    p->anchoGrilla = anchoGrilla; //Sino las otras funciones van a leer basura.
 
-    int offsetX = (resolAncho - ANCHO_GRILLA*TAM_MINO)/2;
+    int offsetX = (resolAncho - anchoGrilla*TAM_MINO)/2;
     int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;
 
-    p->vecMinos = malloc(ANCHO_GRILLA*ALTO_GRILLA_TOTAL*sizeof(tMino)); //Pido memoria para toda la matriz grilla
+    p->vecMinos = malloc(anchoGrilla*ALTO_GRILLA_TOTAL*sizeof(tMino)); //Pido memoria para toda la matriz grilla
     if (p->vecMinos == NULL)
     {
         return false;
@@ -19,9 +20,9 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 
     for(fila = 0; fila < PRIMERA_FILA_VISIBLE; fila++) //Setear los minos de las filas invisibles en 0, 0 e inactivo
     {
-        for(col = 0; col < ANCHO_GRILLA; col++)
+        for(col = 0; col < anchoGrilla; col++)
         {
-            mino = p->vecMinos + (fila*ANCHO_GRILLA + col);
+            mino = p->vecMinos + (fila*anchoGrilla + col);
 
             minoCrear(mino, 0, 0, T, false);
         }
@@ -29,9 +30,9 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 
     for (fila = PRIMERA_FILA_VISIBLE; fila < ALTO_GRILLA_TOTAL; fila++) //Setea los minos de las filas visibles en su respectiva posicion correcta
     {
-        for (col = 0; col < ANCHO_GRILLA; col++)
+        for (col = 0; col < anchoGrilla; col++)
         {
-            mino = p->vecMinos + (fila*ANCHO_GRILLA + col);
+            mino = p->vecMinos + (fila*anchoGrilla + col);
 
             minoCrear(mino, TAM_MINO*col + offsetX, TAM_MINO*(fila - PRIMERA_FILA_VISIBLE) + offsetY, T, false);
         }
