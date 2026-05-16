@@ -50,7 +50,7 @@ void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla)
 {
     int i;
 
-    int ancho = ANCHO_GRILLA*TAM_MINO;
+    int ancho = anchoGrilla*TAM_MINO;
     int alto = ALTO_GRILLA_VISIBLE*TAM_MINO;
 
     int offsetX = (resolAncho - ancho)/2;
@@ -74,9 +74,9 @@ void grillaDibujar(const tGrilla *p)
 
     for (fila = PRIMERA_FILA_VISIBLE; fila < ALTO_GRILLA_TOTAL; fila++)
     {
-        for (col = 0; col < ANCHO_GRILLA; col++)
+        for (col = 0; col < p->anchoGrilla; col++)
         {
-            mino = p->vecMinos + (fila*ANCHO_GRILLA + col);
+            mino = p->vecMinos + (fila*p->anchoGrilla + col);
 
             if (mino->estado)
                 minoDibujar(mino);
@@ -88,7 +88,7 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, in
 {
     int fila, col;
 
-    int offsetX = (resolAncho - ANCHO_GRILLA*TAM_MINO)/2;           //Coordenada en X del primer pixel superior izquierdo de la grilla
+    int offsetX = (resolAncho - anchoGrilla*TAM_MINO)/2;           //Coordenada en X del primer pixel superior izquierdo de la grilla
     int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;     //Coordenada en Y del primer pixel superior izquierdo de la grilla
 
     for(fila = 0;fila < tetro->altoMat; fila++)
@@ -125,8 +125,8 @@ void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
                 col = tetro->posX + j;
                 fila = tetro->posY + i + PRIMERA_FILA_VISIBLE - 1;
 
-                (grilla->vecMinos + fila*ANCHO_GRILLA + col)->estado = true;
-                (grilla->vecMinos + fila*ANCHO_GRILLA + col)->color = tetro->color;
+                (grilla->vecMinos + fila*grilla->anchoGrilla + col)->estado = true;
+                (grilla->vecMinos + fila*grilla->anchoGrilla + col)->color = tetro->color;
             }
         }
     }
