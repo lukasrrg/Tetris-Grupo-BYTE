@@ -15,16 +15,18 @@
 //Estado de juego
 #define PANTALLA_INICIAL 1
 #define MENU_PRINCIPAL_CLASSIC 2
-#define MENU_PRINCIPAL_DELUXE 7
-#define JUGANDO 3
-#define PAUSA 4
-#define GAME_OVER 5
-#define CONFIGURACION 6
+#define MENU_PRINCIPAL_DELUXE 3
+#define JUGANDO 4
+#define PAUSA 5
+#define GAME_OVER 6
+#define CONFIGURACION 7
+#define INGRESO_NOMBRE 8
+#define CONFIG_DELUXE 9
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
 #define VEL_INI_CAIDA 1.5
-#define INGRESO_NOMBRE 8
+
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
