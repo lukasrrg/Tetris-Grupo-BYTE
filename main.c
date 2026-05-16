@@ -244,6 +244,9 @@ int main(int argc, char *argv[])
                 break;
                     }
             case CONFIG_DELUXE:
+
+
+                break;
     }
 
 
