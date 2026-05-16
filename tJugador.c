@@ -2,7 +2,7 @@
 
 bool jugadorExiste(const char *nombre)
 {
-    FILE *f = fopen(ARCHIVO_JUGADORES,"rb");
+    FILE *f = fopen(JUGADORES,"rb");
     if (!f) return false;
 
     tJugador temp;
@@ -21,7 +21,7 @@ bool jugadorExiste(const char *nombre)
 void jugadorGuardar(const tJugador *jugador)
 {
     // Leer todos los jugadores existentes
-    FILE *f = fopen(ARCHIVO_JUGADORES, "rb");
+    FILE *f = fopen(JUGADORES, "rb");
     tJugador buf[100];
     int cant = 0;
     bool encontrado = false;
@@ -50,7 +50,7 @@ void jugadorGuardar(const tJugador *jugador)
         buf[cant++] = *jugador;
 
     // Reescribir el archivo completo
-    f = fopen(ARCHIVO_JUGADORES, "wb");
+    f = fopen(JUGADORES, "wb");
     if (f)
     {
         fwrite(buf, sizeof(tJugador), cant, f);

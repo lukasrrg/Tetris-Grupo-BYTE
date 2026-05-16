@@ -161,14 +161,14 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     gbt_procesar_entrada();
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
-    grillaDeFondoDibujar(resolAncho, resolAlto);        //Dibuja una grilla totalmente vacia que luego sera superpuesta por aquellos minos activos
+    grillaDeFondoDibujar(resolAncho, resolAlto, grillaActiva->anchoGrilla);        //Dibuja una grilla totalmente vacia que luego sera superpuesta por aquellos minos activos
 
     if (gbt_temporizador_consumir(temporizador))
     {
         tetroActivo->posY ++; //Si pasa el tiempo, se baja el tetromino
     }
 
-    grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto); //Dibuja el tetromino activo sobre la grilla
+    grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto, grillaActiva->anchoGrilla); //Dibuja el tetromino activo sobre la grilla
 
     //Hacer grillaDibujar con una grilla que tenga a los minos estaticos
 

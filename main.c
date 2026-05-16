@@ -41,6 +41,8 @@ int main(int argc, char *argv[])
 {
     int estadoDeJuego = PANTALLA_INICIAL;                        //Segun su valor, define en que pantalla vamos a estar en determinado momento (ver defines arriba)
     int resolAncho = ANCHO_VENTANA_CGA, resolAlto = ALTO_VENTANA_CGA;    //Ancho y alto de resolucion, por defecto esta seteado en CGA, pero por argumento a main se puede seleccionar entre CGA (320x200) y VGA (640x480)
+    int anchoGrilla = ANCHO_GRILLA_DEFAULT;
+    bool modoDeluxe;
     char nombreJugador[MAX_NOMBRE];
 
     if (argc > 2)        //Por el momento solo se pasa como mucho dos argumentos: el nombre del ejecutable y la resolucion, si se pasa mas, indicar error y seguir normalmente
@@ -116,10 +118,8 @@ int main(int argc, char *argv[])
     tetrominoCrear(&tetrominoI, TETRO_I, 0, 1);
 
 
-
-
     tGrilla grillaDeFondo;                                 //Grilla que despues va a estar in-game
-    if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto))                      //Se pide el espacio en memoria
+    if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))                      //Se pide el espacio en memoria
     {
         return ERROR_MEMORIA_GRILLA;
     }
@@ -156,6 +156,7 @@ int main(int argc, char *argv[])
 
            case MENU_PRINCIPAL_CLASSIC:
                 cursorBoton = 0;
+                modoDeluxe = false;
                 cantTetrominos = CANT_TETROMINOS_CLASSIC;
                 tBoton botonesMenuPrincipalClassic[4];
                 int pasoC = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
@@ -178,6 +179,7 @@ int main(int argc, char *argv[])
 
             case MENU_PRINCIPAL_DELUXE:
                 cursorBoton = 0;
+                modoDeluxe = true;
                 cantTetrominos = CANT_TETROMINOS_DELUXE;
                 tBoton botonesMenuPrincipalDeluxe[4];                  //Guardo en memoria los botones del menu principal Deluxe
                 //Boton Partida Nueva
@@ -200,7 +202,7 @@ int main(int argc, char *argv[])
                 {
                     tetrominoCargarVector(tetroActivos,cantTetrominos);            //Resetea los tetrominos para la nueva partida y recibe la cantidad de tetrominos segun el modo
                     grillaDestruir(&grillaDeFondo);                 //Resetea la grilla para la nueva partida
-                    grillaCrear(&grillaDeFondo, resolAncho, resolAlto);
+                    grillaCrear(&grillaDeFondo, resolAncho, resolAlto, modoDeluxe ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
                     partidaNueva = false;
                 }
                 gbt_temporizador_reanudar(temporizador);

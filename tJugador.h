@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 #define MAX_NOMBRE 20
-#define ARCHIVO_JUGADORES "jugadores.bin"
+#define JUGADORES "jugadores.bin"
 
 typedef struct{
     char nombre[MAX_NOMBRE];
