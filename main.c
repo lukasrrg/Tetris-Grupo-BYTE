@@ -238,19 +238,15 @@ int main(int argc, char *argv[])
 
             case INGRESO_NOMBRE:
                 while (estadoDeJuego == INGRESO_NOMBRE)
-                {
                     estadoDeJuego = ingresarNombre(resolAncho, resolAlto, nombreJugador);
-                }
                 break;
-                    }
+
             case CONFIG_DELUXE:
-
-
+                while (estadoDeJuego == CONFIG_DELUXE)
+                    estadoDeJuego = menuConfigDeluxe(resolAncho, resolAlto, &anchoGrilla);
                 break;
+        }
     }
-
-
-
 
     grillaDestruir(&grillaDeFondo);                //Se libera el espacio en memoria de la grilla
     gbt_destruir_ventana();         //Cierra ventana y GBT
