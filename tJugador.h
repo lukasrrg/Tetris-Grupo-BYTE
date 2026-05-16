@@ -16,4 +16,4 @@ typedef struct{
 bool jugadorExiste(const char* nombre); //Devuelve true si el nombre ya existe en el archivo.
 void jugadorGuardar(const tJugador *jugador); //Guarda un jugador nuevo o sobreeescribe si ya existe.
 
-#endif
+#endif // TJUGADOR_H_INCLUDED

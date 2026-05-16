@@ -1,6 +1,6 @@
 #include "tGrilla.h"
 
-bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto)
+bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 {
     tMino *mino;
 
@@ -46,7 +46,7 @@ void grillaDestruir(tGrilla *p)
     p->vecMinos = NULL;
 }
 
-void grillaDeFondoDibujar(int resolAncho, int resolAlto)
+void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla)
 {
     int i;
 
@@ -84,7 +84,7 @@ void grillaDibujar(const tGrilla *p)
     }
 }
 
-void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto)        //Dibuja en la grilla un tetromino en (tetro->posX, tetro->posY)
+void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, int anchoGrilla)        //Dibuja en la grilla un tetromino en (tetro->posX, tetro->posY)
 {
     int fila, col;
 
