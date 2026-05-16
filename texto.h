@@ -6,7 +6,10 @@
 
 #define ALTO_ESTANDAR_LETRA 8
 #define ESPACIADO_ENTRE_LETRAS 1
-#define CANTIDAD_DE_CARACTERES 27
+#define CANTIDAD_DE_CARACTERES 38
+#define ESCALA_TITULO 4
+#define TAM_MAX_NUMERO 15
+
 
 typedef struct
 {
@@ -48,6 +51,18 @@ extern const char xMay1[ALTO_ESTANDAR_LETRA][5];
 extern const char yMay1[ALTO_ESTANDAR_LETRA][5];
 extern const char zMay1[ALTO_ESTANDAR_LETRA][5];
 extern const char espacio1[ALTO_ESTANDAR_LETRA][2];
+extern const char cero1[ALTO_ESTANDAR_LETRA][4];
+extern const char uno1[ALTO_ESTANDAR_LETRA][3];
+extern const char dos1[ALTO_ESTANDAR_LETRA][4];
+extern const char tres1[ALTO_ESTANDAR_LETRA][4];
+extern const char cuatro1[ALTO_ESTANDAR_LETRA][5];
+extern const char cinco1[ALTO_ESTANDAR_LETRA][4];
+extern const char seis1[ALTO_ESTANDAR_LETRA][4];
+extern const char siete1[ALTO_ESTANDAR_LETRA][4];
+extern const char ocho1[ALTO_ESTANDAR_LETRA][4];
+extern const char nueve1[ALTO_ESTANDAR_LETRA][4];
+extern const char dosPuntos1[ALTO_ESTANDAR_LETRA][2];
+
 
 
 //Fuente 1  Faltan caracteres =
@@ -59,5 +74,7 @@ void caracterDibujar(const tCaracter *carac, tCursorTexto *cursor, int color);  
 int obtenerIndice(char caracter);                   //Si le das un char, devuelve el indice correspondiente del vector fuente
 void caracterDibujarChar(char carac, tCursorTexto *cursor, int color);            //Dibuja un caracter a partir de darle un char como parámetro
 void escribirTexto(const char str[], tCursorTexto *cursor, int color);
+void escribirNumero(int numero, tCursorTexto *cursor, int color);
+void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int escala);
 
 #endif // TEXTO_H_INCLUDED

@@ -12,9 +12,9 @@
 #define COLOR_BOTON_APUNTADO 5 //Color que se ilumina un boton cuando esta siendo apuntado
 
 //Tamaños de botones
-#define ANCHO_BOTON_GRANDE 70
-#define ANCHO_BOTON_MEDIANO 40
-#define ANCHO_BOTON_CHICO 30
+#define ANCHO_BOTON_GRANDE 75
+#define ANCHO_BOTON_MEDIANO 50
+#define ANCHO_BOTON_CHICO 35
 #define ALTO_BOTON_DEFAULT 11
 #define SEPARACION_ENTRE_BOTON 3
 

@@ -50,53 +50,39 @@ const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
         {'X', 'X', ' ', ' '},
         {' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' '}
+    },
+    {//Tetromino X
+    {'X', ' ', ' ', ' '},
+    {' ', ' ', ' ', ' '},
+    {' ', ' ', ' ', ' '},
+    {' ', ' ', ' ', ' '}
+    },
+    {//Tetromino C
+    {'X', 'X', ' ', ' '},
+    {'X', ' ', ' ', ' '},
+    {'X', 'X', ' ', ' '},
+    {' ', ' ', ' ', ' '}
+    },
+    {//Tetromino P
+    {'X', 'X', ' ', ' '},
+    {'X', 'X', ' ', ' '},
+    {'X', ' ', ' ', ' '},
+    {' ', ' ', ' ', ' '}
+    },
+    {//Tetromino V
+    {'X', ' ', 'X', ' '},
+    {' ', 'X', ' ',' '},
+    {' ', ' ', ' ', ' '},
+    {' ', ' ', ' ', ' '}
     }
 };
 
-//char tetroT[2][3] = {
-//    {'X', 'X', 'X'},
-//    {' ', 'X', ' '}
-//};
-//
-//char tetroL[3][2] = {
-//    {'X', ' '},
-//    {'X', ' '},
-//    {'X', 'X'}
-//};
-//
-//char tetroJ[3][2] = {
-//    {' ', 'X'},
-//    {' ', 'X'},
-//    {'X', 'X'}
-//};
-//
-//char tetroI[4][1] = {
-//    {'X'},
-//    {'X'},
-//    {'X'},
-//    {'X'}
-//};
-//
-//char tetroS[2][3] = {
-//    {' ', 'X', 'X'},
-//    {'X', 'X', ' '}
-//};
-//
-//char tetroZ[2][3] = {
-//    {'X', 'X', ' '},
-//    {' ', 'X', 'X'}
-//};
-//
-//char tetroO[2][2] = {
-//    {'X', 'X'},
-//    {'X', 'X'}
-//};
-
-void minoCrear(tMino *mino, int pX, int pY, int col)
+void minoCrear(tMino *mino, int pX, int pY, int col, bool est)
 {
     mino->color = col;
     mino->posX = pX;
     mino->posY = pY;
+    mino->estado = est;
 }
 
 void minoDibujar(tMino *mino)
@@ -137,7 +123,7 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
     tetro->posX = pX;
     tetro->posY = pY;
 
-    switch(tip)             //Segun que tipo sea, se define su tamaño y color
+    switch(tip)             //Segun que tipo sea, se define su tamaÅ„o y color
     {
         case TETRO_T:
             tetro->altoMat = 2;
@@ -174,5 +160,64 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
             tetro->anchoMat = 2;
             tetro->color = AM;
             break;
+        case TETRO_X:
+            tetro->altoMat = 1;
+            tetro->anchoMat = 1;
+            tetro->color = AM;
+            break;
+        case TETRO_C:
+            tetro->altoMat = 3;
+            tetro->anchoMat = 2;
+            tetro->color = AM;
+            break;
+        case TETRO_P:
+            tetro->altoMat = 3;
+            tetro->anchoMat = 2;
+            tetro->color = AM;
+            break;
+        case TETRO_V:
+            tetro->altoMat = 2;
+            tetro->anchoMat = 3;
+            tetro->color = AM;
+            break;
+    }
+}
+
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos)
+{
+    int i;
+
+    for(i = 0; i < TAM_VEC_TETROMINOS; i++)
+    {
+        tetrominoCrear(&vec[i], rand()%totalTetrominos, 4, 0); //CAMBIAR EL PARAMETRO 4 A ALGO QUE CALCULE LA POS EN X A LA MITAD DE LA GRILLA
+        vec[i].posY = -1*vec[i].altoMat;
+    }
+}
+
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos)
+{
+    int i;
+
+    for (i = 0; i < TAM_VEC_TETROMINOS - 1; i++)
+    {
+        vec[i] = vec[i + 1];
+    }
+
+    tetrominoCrear(&vec[i], rand()%totalTetrominos, 4, 0);
+}
+
+void tetrominoDibujar(tTetromino *tetro, int posX, int posY)        //Dibuja un tetromino en una coordenada especifica
+{
+    int fila, col;
+
+    for(fila = 0;fila < tetro->altoMat; fila++)
+    {
+        for(col = 0; col < tetro->anchoMat; col++)
+        {
+            if (tetrominoVec[(int)tetro->tipo][fila][col] == 'X')
+            {
+                minoColorDibujar(tetro->color, posX + col*TAM_MINO, posY + fila*TAM_MINO); //Dibujar mino de color tetro->color
+            }
+        }
     }
 }
