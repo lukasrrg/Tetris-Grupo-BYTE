@@ -26,6 +26,7 @@
 #include "texto.h"
 #include "tPantalla.h"
 #include "tGrilla.h"
+#include "tJugador.h"
 
 //Codigos de errores
 #define TODO_OK 0
@@ -40,6 +41,7 @@ int main(int argc, char *argv[])
 {
     int estadoDeJuego = PANTALLA_INICIAL;                        //Segun su valor, define en que pantalla vamos a estar en determinado momento (ver defines arriba)
     int resolAncho = ANCHO_VENTANA_CGA, resolAlto = ALTO_VENTANA_CGA;    //Ancho y alto de resolucion, por defecto esta seteado en CGA, pero por argumento a main se puede seleccionar entre CGA (320x200) y VGA (640x480)
+    char nombreJugador[MAX_NOMBRE];
 
     if (argc > 2)        //Por el momento solo se pasa como mucho dos argumentos: el nombre del ejecutable y la resolucion, si se pasa mas, indicar error y seguir normalmente
         printf("Demasiados argumentos. No soportado. El juego se iniciara en resolucion CGA.\n");
@@ -230,6 +232,13 @@ int main(int argc, char *argv[])
                 }
                 if (estadoDeJuego == JUGANDO)
                     gbt_temporizador_reanudar(temporizador);
+                break;
+
+            case INGRESO_NOMBRE:
+                while (estadoDeJuego == INGRESO_NOMBRE)
+                {
+                    estadoDeJuego = pantallaIngresarNombre(resolAncho, resolAlto, nombreJugador);
+                }
                 break;
                     }
     }

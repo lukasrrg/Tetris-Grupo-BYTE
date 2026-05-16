@@ -49,6 +49,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="tGrilla.h" />
+		<Unit filename="tJugador.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tJugador.h" />
 		<Unit filename="tMino.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -91,7 +91,7 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
         switch (*cursor)
         {
             case 0:
-                return JUGANDO;         //Empieza la partida
+                return INGRESO_NOMBRE;
             case 1:
 //                return CARGAR_PARTIDA;
             case 2:
@@ -139,7 +139,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
         switch (*cursor)
         {
             case 0:
-                return JUGANDO;         //Empieza la partida
+                return INGRESO_NOMBRE;
             case 1:
 //                return CARGAR_PARTIDA;
             case 2:
@@ -243,4 +243,113 @@ int gameOver(int resolAncho, int resolAlto)
 int menuConfiguracion(int resolAncho, int resolAlto)
 {
     return CONFIGURACION;
+}
+
+int pantallaIngresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
+{
+    // Sub-estados internos
+    // 0 = escribiendo nombre
+    // 1 = preguntando si sobreescribir
+    static int subEstado = 0;
+    static char nombre[MAX_NOMBRE] = "";
+    static int largo = 0;
+
+    gbt_borrar_backbuffer(N);
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    // Título
+    tCursorTexto cur = {(resolAncho - 5*12) / 2, 20};
+    escribirTexto("INGRESE SU NOMBRE", &cur, B);
+
+    if (subEstado == 0)
+    {
+        // Mostrar nombre ingresado hasta ahora + cursor parpadeante simple
+        tCursorTexto curNombre = {(resolAncho - MAX_NOMBRE*6) / 2, 60};
+        escribirTexto(nombre, &curNombre, AM);
+
+        // Instrucciones
+        tCursorTexto curAyuda = {10, resolAlto - 20};
+        escribirTexto("ENTER CONFIRMAR  ESC CANCELAR", &curAyuda, GC);
+
+        // Captura de teclas A-Z y espacio
+        char c = 0;
+        if (tecla >= GBTK_a && tecla <= GBTK_z)
+            c = 'A' + (tecla - GBTK_a);    // Convertir a mayúscula
+
+        if (c != 0 && largo < MAX_NOMBRE - 1)
+        {
+            nombre[largo++] = c;
+            nombre[largo] = '\0';
+        }
+
+        if (tecla == GBTK_RETROCESO && largo > 0)
+        {
+            nombre[--largo] = '\0';
+        }
+
+        if (tecla == GBTK_ENTER && largo > 0)
+        {
+            if (jugadorExiste(nombre))
+                subEstado = 1;      // Hay que preguntar si sobreescribir
+            else
+            {
+                // Nombre nuevo: guardar y seguir
+                strcpy(nombreOut, nombre);
+                tJugador nuevo;
+                strcpy(nuevo.nombre, nombre);
+                nuevo.puntaje_max = 0;
+                jugadorGuardar(&nuevo);
+
+                // Resetear estado estático para la próxima vez
+                subEstado = 0;
+                nombre[0] = '\0';
+                largo = 0;
+                return JUGANDO;
+            }
+        }
+
+        if (tecla == GBTK_ESCAPE)
+        {
+            subEstado = 0;
+            nombre[0] = '\0';
+            largo = 0;
+            return PANTALLA_INICIAL;
+        }
+    }
+    else if (subEstado == 1)
+    {
+        // Pregunta de sobreescritura
+        tCursorTexto curNombre = {(resolAncho - MAX_NOMBRE*6) / 2, 60};
+        escribirTexto(nombre, &curNombre, AM);
+
+        tCursorTexto curPregunta = {10, 90};
+        escribirTexto("ESE NOMBRE YA EXISTE", &curPregunta, RB);
+
+        tCursorTexto curOpc = {10, 110};
+        escribirTexto("ENTER SOBREESCRIBIR  ESC VOLVER", &curOpc, GC);
+
+        if (tecla == GBTK_ENTER)
+        {
+            // Sobreescribir
+            strcpy(nombreOut, nombre);
+            tJugador existente;
+            strcpy(existente.nombre, nombre);
+            existente.puntaje_max = 0;    // O podrías cargar el puntaje anterior
+            jugadorGuardar(&existente);
+
+            subEstado = 0;
+            nombre[0] = '\0';
+            largo = 0;
+            return JUGANDO;
+        }
+
+        if (tecla == GBTK_ESCAPE)
+        {
+            subEstado = 0;  // Volver a escribir nombre
+        }
+    }
+
+    gbt_volcar_backbuffer();
+    return INGRESO_NOMBRE;
 }
