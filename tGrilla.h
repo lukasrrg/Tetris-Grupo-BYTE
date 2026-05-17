@@ -14,6 +14,7 @@
 
 
 
+
 typedef struct              //Grilla in-game
 {
     tMino *vecMinos;
