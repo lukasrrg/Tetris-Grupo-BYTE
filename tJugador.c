@@ -58,4 +58,3 @@ void jugadorGuardar(const tJugador *jugador)
     }
 }
 
-// comentario para pull request
