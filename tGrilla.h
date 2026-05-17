@@ -12,8 +12,6 @@
 #define ALTO_GRILLA_INVISIBLE (ALTO_GRILLA_TOTAL - ALTO_GRILLA_VISIBLE)  // 4 filas ocultas sobre el techo
 #define PRIMERA_FILA_VISIBLE 4
 
-#define IZQUIERDA -1
-#define DERECHA 1
 
 
 typedef struct              //Grilla in-game

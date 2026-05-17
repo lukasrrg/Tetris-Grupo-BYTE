@@ -134,7 +134,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
     return MENU_PRINCIPAL_DELUXE;
 }
 
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador *tempCaida, tGBT_Temporizador *tempInactiv)
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad)
 {
     int lineas = 0;
     int puntaje = 0;
@@ -157,7 +157,7 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     grillaDibujar(grilla);              //Dibuja a los minos y tetrominos que quedaron ya anclados en el suelo
 
 
-    if (gbt_temporizador_consumir(tempCaida))
+    if (gbt_temporizador_consumir(*tempCaida))
     {
         tetroActivo->posY ++; //Si pasa el tiempo, se baja el tetromino
 
@@ -174,8 +174,29 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
          tetroActivo->posX--;
     else if (tecla == GBTK_d && !tetrominoColisionaLateralmente(tetroActivo, grilla, DERECHA))  //Si toco 'D' y hay espacio disponible, va a la derecha
         tetroActivo->posX++;
+
+        //TODAVIA NO ESTA IMPLKEMENTADO QUE IMPIDA LA ROTACION SI DETECTA UNA COLISION
+    else if (tecla == GBTK_j)           //Si toco 'J', rotacion antihoraria
+        tetrominoRotar(tetroActivo, ANTIHORARIO);
+        //TODAVIA NO ESTA IMPLKEMENTADO QUE IMPIDA LA ROTACION SI DETECTA UNA COLISION
+    else if (tecla == GBTK_l)           //Si toco ´L´ rotacion horaria
+        tetrominoRotar(tetroActivo, HORARIO);
     else if (tecla == GBTK_ESCAPE || tecla == GBTK_p)           //'Esc' ---> Pausa
         return PAUSA;
+    else if (gbt_tecla_sostenida(GBTK_s) && *modoVelocidad != VEL_RAPIDA)   //Si se mantiene ´S´ pulsado y la velocidad estaba NORMAL, se pasa a modo RAPIDO
+    {
+        gbt_temporizador_destruir(*tempCaida);
+        *tempCaida = gbt_temporizador_crear(*velActual/FACTOR_VEL_RAPIDA);
+
+        *modoVelocidad = VEL_RAPIDA;
+    }
+    else if (*modoVelocidad != VEL_NORMAL && !gbt_tecla_sostenida(GBTK_s))  //Si se suela la ´S´ y la velocidad estaba RAPIDO, se pasa a modo NORMAL
+    {
+        gbt_temporizador_destruir(*tempCaida);
+        *tempCaida = gbt_temporizador_crear(*velActual);
+
+        *modoVelocidad = VEL_NORMAL;
+    }
 
 
     gbt_volcar_backbuffer();

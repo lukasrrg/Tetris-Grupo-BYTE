@@ -123,18 +123,18 @@ int main(int argc, char *argv[])
     }
     int cursorBoton;
 
-    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador para la caida
+    double velActual = VEL_CAIDA_DEFAULT;
+    int modoVelocidad = VEL_NORMAL;
+    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);    //Inicialización del temporizador para la caida
     if (!tempCaida)
-    {
         return ERROR_CREAR_TEMPORIZADOR;
-    }
     gbt_temporizador_pausar(tempCaida);
-    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_INI_CAIDA);    //Inicialización del temporizador para inactivar tetromino
+    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_CAIDA_DEFAULT);    //Inicialización del temporizador para inactivar tetromino
     if (!tempInactiv)
-    {
         return ERROR_CREAR_TEMPORIZADOR;
-    }
-    gbt_temporizador_pausar(tempCaida);                          //Se lo pausa ya que todavia no sera utilizado
+    gbt_temporizador_pausar(tempInactiv);                          //Se lo pausa ya que todavia no sera utilizado
+
+
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;           //Indica si se debe resetear el estado al entrar a JUGANDO
 
@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
 
                 while (estadoDeJuego == JUGANDO)
                 {
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaTetrominosInactivos, tempCaida, tempInactiv);
+                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaTetrominosInactivos, &tempCaida, &tempInactiv, &velActual, &modoVelocidad);
                 }
                 break;
 
