@@ -102,7 +102,7 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto)   
     {
         for(col = 0; col < tetro->anchoMat; col++)
         {
-            if (tetrominoVec[(int)tetro->tipo][fila][col] == 'X' && tetro->posY + fila >= 0)
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][fila][col] == 'X' && tetro->posY + fila >= 0)
             {
                 posX = (tetro->posX + col)*TAM_MINO + offsetX;
                 posY = (tetro->posY + fila)*TAM_MINO + offsetY;
@@ -132,7 +132,7 @@ bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grillaTetrominos)
     {
         for (j = 0; j < tetro->anchoMat; j++)
         {
-            if (tetrominoVec[(int)tetro->tipo][i][j] == 'X')
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
             {
                 posActualX = tetro->posX + j;
                 posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
@@ -166,7 +166,7 @@ bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grillaTetrominos
     {
         for (j = 0; j < tetro->anchoMat; j++)
         {
-            if (tetrominoVec[(int)tetro->tipo][i][j] == 'X')
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
             {
                 posActualX = tetro->posX + j + lado;
                 posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
@@ -190,7 +190,7 @@ void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
     {
         for (int j = 0; j < tetro->anchoMat; j++)
         {
-            if (tetrominoVec[(int)tetro->tipo][i][j] == 'X')
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
             {
                 col = tetro->posX + j;
                 fila = tetro->posY + i + PRIMERA_FILA_VISIBLE - 1;

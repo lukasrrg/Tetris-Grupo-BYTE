@@ -23,13 +23,21 @@
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
-#define VEL_INI_CAIDA 1 //Cantidad de segundos (tipo de dato double) hasta que se desencade que el tetromin baje un cuadrado
+#define VEL_CAIDA_DEFAULT 1 //Cantidad de segundos (tipo de dato double) hasta que se desencade que el tetromin baje un cuadrado
 #define SIN_INFORMACION -1  //Se pone en los cuadros de texto cuando dicho cuadro no necesita mostrar ningun parametro
+
+#define IZQUIERDA -1
+#define DERECHA 1
+#define ANTIHORARIO -1
+#define HORARIO 1
+#define VEL_NORMAL 0
+#define VEL_RAPIDA 1
+#define FACTOR_VEL_RAPIDA 10
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador *tempCaida, tGBT_Temporizador *tempInactiv);
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad);
 int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
