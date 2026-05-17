@@ -1,6 +1,7 @@
 #ifndef TPANTALLA_H_INCLUDED
 #define TPANTALLA_H_INCLUDED
 
+#include <stdio.h>
 #include "tBoton.h"
 #include "tGrilla.h"
 #include "tJugador.h"
@@ -25,17 +26,29 @@
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
-#define VEL_INI_CAIDA 1.5
+#define VEL_CAIDA_DEFAULT 1.0   //Segundos hasta que el tetromino baja un cuadrado
+#define SIN_INFORMACION -1      //Para cuadros de texto sin parametro numerico
 
+#define IZQUIERDA -1
+#define DERECHA 1
+#define ANTIHORARIO -1
+#define HORARIO 1
+#define VEL_NORMAL 0
+#define VEL_RAPIDA 1
+#define FACTOR_VEL_RAPIDA 10
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grillaActiva, tGBT_Temporizador *temporizador);
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad);
 int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
 int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla);
+
+void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);
+void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color);
+void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto);
 
 #endif // TPANTALLA_H_INCLUDED
