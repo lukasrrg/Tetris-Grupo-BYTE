@@ -33,7 +33,7 @@ void jugadorGuardar(const tJugador *jugador)
         fclose(f);
     }
 
-    // Si ya existe, sobreescribir su entrada
+    // Si ya existe, sobreescribe su entrada
     int i;
     for (i = 0; i < cant; i++)
     {
@@ -57,3 +57,5 @@ void jugadorGuardar(const tJugador *jugador)
         fclose(f);
     }
 }
+
+// comentario para pull request
