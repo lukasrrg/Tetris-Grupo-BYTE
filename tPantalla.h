@@ -20,9 +20,9 @@
 #define JUGANDO 4
 #define PAUSA 5
 #define GAME_OVER 6
-#define CONFIGURACION 7
+#define OPCIONES 7
 #define INGRESO_NOMBRE 8
-#define CONFIG_DELUXE 9
+#define OPCIONES_DELUXE 9
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
@@ -43,7 +43,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
 int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad, bool modo);
 int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int gameOver(int resolAncho, int resolAlto);
-int menuConfiguracion(int resolAncho, int resolAlto);
+int menuOpciones(int resolAncho, int resolAlto);
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
 int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla);
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);

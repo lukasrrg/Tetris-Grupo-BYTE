@@ -192,8 +192,8 @@ int main(int argc, char *argv[])
                     estadoDeJuego = ingresarNombre(resolAncho, resolAlto, nombreJugador);
                 break;
 
-            case CONFIG_DELUXE:
-                while (estadoDeJuego == CONFIG_DELUXE)
+            case OPCIONES_DELUXE:
+                while (estadoDeJuego == OPCIONES_DELUXE)
                     estadoDeJuego = menuConfigDeluxe(resolAncho, resolAlto, &anchoGrilla);
                 break;
         }

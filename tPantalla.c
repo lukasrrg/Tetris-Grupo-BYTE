@@ -121,7 +121,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
             case 1:
 //                return CARGAR_PARTIDA;
             case 2:
-                return CONFIG_DELUXE;
+                return OPCIONES_DELUXE;
             case 3:
                 return PANTALLA_INICIAL;
         }
@@ -240,9 +240,9 @@ int gameOver(int resolAncho, int resolAlto)
     return GAME_OVER;
 }
 
-int menuConfiguracion(int resolAncho, int resolAlto)
+int menuOpciones(int resolAncho, int resolAlto)
 {
-    return CONFIGURACION;
+    return OPCIONES;
 }
 
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
@@ -365,7 +365,7 @@ int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla)
         return MENU_PRINCIPAL_DELUXE;
 
     gbt_volcar_backbuffer();
-    return CONFIG_DELUXE;
+    return OPCIONES_DELUXE;
 }
 
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto)

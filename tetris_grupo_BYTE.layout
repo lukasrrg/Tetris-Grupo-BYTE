@@ -2,24 +2,23 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="tBoton.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="tJugador.c" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="8" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1280" topLine="11" />
+			<Cursor1 position="383" topLine="0" />
 		</Cursor>
+		<Folding>
+			<Collapse line="3" />
+			<Collapse line="21" />
+		</Folding>
 	</File>
-	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+	<File name="texto.c" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4354" topLine="160" />
+			<Cursor1 position="14762" topLine="525" />
 		</Cursor>
 	</File>
 	<File name="tMino.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="9" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="431" topLine="21" />
-		</Cursor>
-	</File>
-	<File name="tPantalla.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="611" topLine="16" />
 		</Cursor>
 	</File>
 	<File name="tGrilla.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
@@ -31,49 +30,6 @@
 			<Collapse line="117" />
 			<Collapse line="141" />
 		</Folding>
-	</File>
-	<File name="texto.c" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="14762" topLine="525" />
-		</Cursor>
-	</File>
-	<File name="paleta.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="542" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="texto.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3388" topLine="41" />
-		</Cursor>
-	</File>
-	<File name="tBoton.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1155" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="tPantalla.c" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="12643" topLine="9" />
-		</Cursor>
-		<Folding>
-			<Collapse line="3" />
-			<Collapse line="94" />
-			<Collapse line="135" />
-			<Collapse line="194" />
-			<Collapse line="238" />
-			<Collapse line="243" />
-			<Collapse line="248" />
-			<Collapse line="342" />
-			<Collapse line="371" />
-			<Collapse line="408" />
-			<Collapse line="422" />
-		</Folding>
-	</File>
-	<File name="tGrilla.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="271" topLine="0" />
-		</Cursor>
 	</File>
 	<File name="tMino.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
 		<Cursor>
@@ -90,9 +46,62 @@
 			<Collapse line="431" />
 		</Folding>
 	</File>
+	<File name="paleta.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="542" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="tPantalla.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="611" topLine="16" />
+		</Cursor>
+	</File>
+	<File name="tBoton.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1155" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="paleta.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="744" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="tGrilla.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="271" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="tPantalla.c" open="1" top="1" tabpos="11" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9866" topLine="45" />
+		</Cursor>
+		<Folding>
+			<Collapse line="3" />
+			<Collapse line="94" />
+			<Collapse line="135" />
+			<Collapse line="194" />
+			<Collapse line="238" />
+			<Collapse line="243" />
+			<Collapse line="248" />
+			<Collapse line="342" />
+			<Collapse line="371" />
+			<Collapse line="408" />
+			<Collapse line="422" />
+		</Folding>
+	</File>
+	<File name="texto.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3388" topLine="41" />
+		</Cursor>
+	</File>
+	<File name="tBoton.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1280" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4354" topLine="160" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
