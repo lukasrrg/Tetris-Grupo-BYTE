@@ -86,45 +86,8 @@ int main(int argc, char *argv[])
 
     srand(time(0));
 
-
-<<<<<<< HEAD
     tGrilla grillaDeFondo;
     if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
-=======
-
-    srand(time(0));                                 //Se abre el randomizador
-
-
-
-
-    //Tetrominos para ir probando
-    tTetromino tetrominoO;
-    tetrominoCrear(&tetrominoO, TETRO_O, 0, 10);
-
-    tTetromino tetrominoZ;
-    tetrominoCrear(&tetrominoZ, TETRO_Z, 1, 1);
-
-    tTetromino tetrominoT;
-    tetrominoCrear(&tetrominoT, TETRO_T, 2, 8);
-
-    tTetromino tetrominoS;
-    tetrominoCrear(&tetrominoS, TETRO_S, 3, 15);
-
-    tTetromino tetrominoL;
-    tetrominoCrear(&tetrominoL, TETRO_L, 6, 10);
-
-    tTetromino tetrominoJ;
-    tetrominoCrear(&tetrominoJ, TETRO_J, 1, 2);
-
-    tTetromino tetrominoI;
-    tetrominoCrear(&tetrominoI, TETRO_I, 0, 1);
-
-
-
-
-    tGrilla grillaTetrominosInactivos;                             //Grilla que muestra los tetrominos inactivos (los que quedaron al fondo)
-    if (!grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto))                      //Se pide el espacio en memoria
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
     {
         return ERROR_MEMORIA_GRILLA;
     }
@@ -133,18 +96,6 @@ int main(int argc, char *argv[])
 
     double velActual = VEL_CAIDA_DEFAULT;
     int modoVelocidad = VEL_NORMAL;
-<<<<<<< HEAD
-
-    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);
-    if (!tempCaida)
-        return ERROR_CREAR_TEMPORIZADOR;
-    gbt_temporizador_pausar(tempCaida);
-
-    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_CAIDA_DEFAULT);
-    if (!tempInactiv)
-        return ERROR_CREAR_TEMPORIZADOR;
-    gbt_temporizador_pausar(tempInactiv);
-=======
     tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);    //Inicialización del temporizador para la caida
     if (!tempCaida)
         return ERROR_CREAR_TEMPORIZADOR;
@@ -153,8 +104,6 @@ int main(int argc, char *argv[])
     if (!tempInactiv)
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempInactiv);                          //Se lo pausa ya que todavia no sera utilizado
-
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;
@@ -210,7 +159,6 @@ int main(int argc, char *argv[])
             case JUGANDO:
                 if (partidaNueva)
                 {
-<<<<<<< HEAD
                     tetrominoCargarVector(tetroActivos, cantTetrominos);
                     grillaDestruir(&grillaDeFondo);
                     grillaCrear(&grillaDeFondo, resolAncho, resolAlto, modoDeluxe ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
@@ -218,20 +166,7 @@ int main(int argc, char *argv[])
                 }
                 gbt_temporizador_reanudar(tempCaida);
                 while (estadoDeJuego == JUGANDO)
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad);
-=======
-                    tetrominoCargarVector(tetroActivos, CANT_TETROMINOS_CLASSIC);            //Resetea los tetrominos para la nueva partida
-                    grillaDestruir(&grillaTetrominosInactivos);                 //Resetea la grilla para la nueva partida
-                    grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto);
-                    partidaNueva = false;
-                }
-                gbt_temporizador_reanudar(tempCaida);
-
-                while (estadoDeJuego == JUGANDO)
-                {
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaTetrominosInactivos, &tempCaida, &tempInactiv, &velActual, &modoVelocidad);
-                }
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
+                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad, modoDeluxe);
                 break;
 
             case PAUSA:
@@ -241,7 +176,6 @@ int main(int argc, char *argv[])
                 int pasoP = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
                 int totalAltoP = 5*ALTO_BOTON_DEFAULT + 4*SEPARACION_ENTRE_BOTON;
                 int baseYP = (resolAlto - totalAltoP) / 2;
-<<<<<<< HEAD
                 botonCrear(&botonesMenuPausa[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP,           B, VE, "REANUDAR",       N);
                 botonCrear(&botonesMenuPausa[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + pasoP,   B, AM, "CARGAR PARTIDA", N);
                 botonCrear(&botonesMenuPausa[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 2*pasoP, B, AM, "GUARDAR PARTIDA",N);
@@ -269,34 +203,6 @@ int main(int argc, char *argv[])
     gbt_temporizador_destruir(tempInactiv);
     grillaDestruir(&grillaDeFondo);
     gbt_destruir_ventana();
-=======
-                // Boton Reanudar
-                botonCrear(&botonesMenuPausa[0], APUNTADO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP,           B, VE, "REANUDAR", N);
-                // Boton Cargar Partida
-                botonCrear(&botonesMenuPausa[1], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + pasoP,   B, AM, "CARGAR PARTIDA", N);
-                // Boton Guardar Partida
-                botonCrear(&botonesMenuPausa[2], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + 2*pasoP, B, AM, "GUARDAR PARTIDA", N);
-                // Boton Cheat
-                botonCrear(&botonesMenuPausa[3], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + 3*pasoP, B, RB, "CHEAT", N);
-                // Boton Salir al Menu
-                botonCrear(&botonesMenuPausa[4], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 4*pasoP, B, R, "SALIR AL MENU", N);   while (estadoDeJuego == PAUSA)
-
-                estadoDeJuego = menuPausa(resolAncho, resolAlto, &cursorBoton, botonesMenuPausa, 5);
-
-                break;
-        }
-    }
-
-
-
-
-
-
-    gbt_temporizador_destruir(tempCaida);
-    gbt_temporizador_destruir(tempInactiv);
-    grillaDestruir(&grillaTetrominosInactivos);                //Se libera el espacio en memoria de la grilla
-    gbt_destruir_ventana();         //Cierra ventana y GBT
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
     gbt_cerrar();
 
     return 0;
