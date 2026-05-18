@@ -661,3 +661,91 @@
 	<string.h>
 	<stdbool.h>
 
+1779048269 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<stdbool.h>
+	<string.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"texto.h"
+	"tPantalla.h"
+	"tGrilla.h"
+	"tJugador.h"
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1779048269 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tpantalla.h
+	<stdio.h>
+	"tBoton.h"
+	"tGrilla.h"
+	"tJugador.h"
+
+1779048254 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1779048269 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	<stdlib.h>
+
+1779048269 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+
+1779048269 c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tjugador.h
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+
+1779048254 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\paleta.c
+	"paleta.h"
+
+1779048254 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tboton.c
+	"tBoton.h"
+
+1779048254 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\texto.c
+	"texto.h"
+
+1779048269 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tgrilla.c
+	"tGrilla.h"
+
+1779048269 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tjugador.c
+	"tJugador.h"
+
+1779048269 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tmino.c
+	"tMino.h"
+
+1779048269 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tpantalla.c
+	"tPantalla.h"
+
