@@ -1,7 +1,11 @@
 #include "tMino.h"
 
 //Matrices para los tetrominos
+<<<<<<< HEAD
+const char tetrominoVec[CANT_TETROMINOS_DELUXE][4][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
+=======
 const char tetrominoVec[CANT_TETROMINOS][4][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
+>>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 {
     {{//Tetromino T Rotacion 0
         {'X', 'X', 'X', ' '},
