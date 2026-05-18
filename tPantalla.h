@@ -26,8 +26,13 @@
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
+<<<<<<< HEAD
 #define VEL_CAIDA_DEFAULT 1.0   //Segundos hasta que el tetromino baja un cuadrado
 #define SIN_INFORMACION -1      //Para cuadros de texto sin parametro numerico
+=======
+#define VEL_CAIDA_DEFAULT 1 //Cantidad de segundos (tipo de dato double) hasta que se desencade que el tetromin baje un cuadrado
+#define SIN_INFORMACION -1  //Se pone en los cuadros de texto cuando dicho cuadro no necesita mostrar ningun parametro
+>>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 
 #define IZQUIERDA -1
 #define DERECHA 1
@@ -44,11 +49,17 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int gameOver(int resolAncho, int resolAlto);
 int menuConfiguracion(int resolAncho, int resolAlto);
+<<<<<<< HEAD
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
 int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla);
 
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);
 void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color);
 void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto);
+=======
+void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);
+void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color);
+void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto); //Dibujar un rectangulo con las medidas especificadas, en la posicion dada y color dado. Escribe el parametro numerico, si este vale SIN_INFORMACION no se escribe ningun numero
+>>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 
 #endif // TPANTALLA_H_INCLUDED

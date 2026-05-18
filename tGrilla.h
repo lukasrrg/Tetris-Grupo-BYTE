@@ -14,6 +14,7 @@
 #define ALTO_GRILLA_INVISIBLE (ALTO_GRILLA_TOTAL - ALTO_GRILLA_VISIBLE)  // 4 filas ocultas sobre el techo
 #define PRIMERA_FILA_VISIBLE 4
 
+<<<<<<< HEAD
 typedef struct              //Grilla in-game
 {
     tMino *vecMinos;
@@ -30,5 +31,26 @@ bool tetrominoColisionaSuelo(tTetromino *tetro);                                
 bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla);             //Chequea colision con minos ya anclados
 bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado); //Chequea colision lateral con bordes y minos
 void grillaActualizar(tGrilla *grilla, tTetromino *tetro);                      //Ancla el tetromino en la grilla
+=======
+
+
+
+typedef struct              //Grilla in-game
+{
+    tMino *vecMinos;
+    int ancho;          //Cuantos minos de ancho tiene
+    int alto;           //Cuantos minos de alto tiene
+} tGrilla;
+
+bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto);           //Pide memoria necesaria para la grilla
+void grillaDestruir(tGrilla *p);        //Libera la memoria de la grilla
+void grillaDeFondoDibujar(int resolAncho, int resolAlto);        //FUNCION INNECESARIA, SE PUEDE REEMPLAZAR POR dibujarRectangulo()
+void grillaDibujar(const tGrilla *p);         //Dibujar grilla en pantalla
+void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto);        //Dibuja en la grilla un tetromino en (tetro->posX, tetro->posY)
+bool tetrominoColisionaSuelo(tTetromino *tetro);    //Chequea la colision entre el tetromino y el suelo
+bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grillaTetrominos); //Cheque la colision entre el tetromino actual y los ya anclados
+bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grillaTetrominos, int lado);
+void grillaActualizar(tGrilla *grilla, tTetromino *tetro);  //Actualiza los minos de la grilla (usado principalmente para que queden los tetrominos en el fondo guardados)
+>>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 
 #endif // TGRILLA_H_INCLUDED

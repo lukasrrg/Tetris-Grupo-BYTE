@@ -22,12 +22,20 @@
 #define TETRO_P 9
 #define TETRO_V 10
 
+<<<<<<< HEAD
 #define CANT_TETROMINOS_DELUXE 11
+=======
+#define CANT_TETROMINOS 11
+>>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 #define CANT_TETROMINOS_CLASSIC 7
 #define TAM_VEC_TETROMINOS 5
 
 //Matrices de tetrominos
+<<<<<<< HEAD
 extern const char tetrominoVec[CANT_TETROMINOS_DELUXE][4][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO];
+=======
+extern const char tetrominoVec[CANT_TETROMINOS][4][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO];
+>>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 
 typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 {
