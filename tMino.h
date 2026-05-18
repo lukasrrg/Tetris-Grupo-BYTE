@@ -22,16 +22,17 @@
 #define TETRO_P 9
 #define TETRO_V 10
 
-#define CANT_TETROMINOS 11
+#define CANT_TETROMINOS_DELUXE 11
+#define CANT_TETROMINOS_CLASSIC 7
 #define TAM_VEC_TETROMINOS 5
 
 //Matrices de tetrominos
-extern const char tetrominoVec[CANT_TETROMINOS][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO];
+
+extern const char tetrominoVec[CANT_TETROMINOS_DELUXE][4][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO];
 
 typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 {
-//    bool activo; //Puede que no haga falta esta implementacion
-//    int tam;  //Puede que no haga falta esta implementacion
+    bool estado;
     int posX;
     int posY;
     int color;
@@ -39,19 +40,23 @@ typedef struct      //Esta estructura define cada Mino, o sea, cada CUADRADRITO
 
 typedef struct
 {
-    char tipo;      //Tipos de tetromino: T L J I S Z O
-    int posX;
-    int posY;
+    char tipo;      //Tipos de tetromino: T L J I S Z O X C P V
+    int rotacion;
+    int posX;       //Posicion en X en relacion a la grilla
+    int posY;       //Posicion en Y en relacion a la grilla
     int color;
     int anchoMat;
     int altoMat;
 //    char matriz[TAM_TETROMINO][TAM_TETROMINO];
 } tTetromino;
 
-void minoCrear(tMino *mino, int pX, int pY, int col);
+void minoCrear(tMino *mino, int pX, int pY, int col, bool est);
 void minoDibujar(tMino *mino);
 void minoColorDibujar(int color, int pX, int pY);
 void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
-void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS]);
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos);         //Toma un vector de un tamaño TAM_VEC_TETROMINOS y lo carga con tetrominos al azar
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector
+void tetrominoDibujar(tTetromino *tetro, int posX, int posY);       //Dibuja un tetromino en una coordenada especifica
+void tetrominoRotar(tTetromino *tetro, int sentido);
 
 #endif // TMINO_H_INCLUDED
