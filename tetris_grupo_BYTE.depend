@@ -506,7 +506,7 @@
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"texto.h"
 
-1779072338 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
+1779111371 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"tMino.h"
 	<stdlib.h>
@@ -565,7 +565,7 @@
 1779072348 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1779072373 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
+1779110714 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 
 1779036702 source:c:\users\lucas\onedrive\escritorio\tetris - 1705\tetris-grupo-byte-main\main.c

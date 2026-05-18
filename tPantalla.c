@@ -352,14 +352,14 @@ int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla)
     escribirTexto("ANCHO GRILLA", &curEtiq, AM);
 
     tCursorTexto curAyuda = {0, resolAlto - 20};
-    escribirTexto("A D CAMBIAR  ENTER OK  ESC VOLVER", &curAyuda, GC);
+    escribirTexto("W S CAMBIAR ENTER OK ESC VOLVER", &curAyuda, GC);
 
     tCursorTexto curValor = {0, 70};
     escribirNumero(*anchoGrilla, &curValor, B);  //Muestra el valor actual del ancho
 
-    if (tecla == GBTK_a && *anchoGrilla > ANCHO_GRILLA_MIN)
+    if ( (tecla == GBTK_s || tecla == GBTK_ABAJO) && *anchoGrilla > ANCHO_GRILLA_MIN)
         (*anchoGrilla)--;
-    if (tecla == GBTK_d && *anchoGrilla < ANCHO_GRILLA_MAX)
+    if ( (tecla == GBTK_w || tecla == GBTK_ARRIBA) && *anchoGrilla < ANCHO_GRILLA_MAX)
         (*anchoGrilla)++;
     if (tecla == GBTK_ENTER || tecla == GBTK_ESCAPE)
         return MENU_PRINCIPAL_DELUXE;
