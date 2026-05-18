@@ -2,58 +2,62 @@
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
-    gbt_borrar_backbuffer(N);
-
+    gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
     gbt_procesar_entrada();
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
-    botonActualizarTodosInactivo(vecBotones, ce);
+
+    botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
 
     int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
     int anchoTotalTitulo = anchoLetraConEspacio * 6;
+
     tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 30 };
 
     caracterDibujarEscalado('T', &cursorTitulo, R,  ESCALA_TITULO);
     caracterDibujarEscalado('E', &cursorTitulo, AZ, ESCALA_TITULO);
     caracterDibujarEscalado('T', &cursorTitulo, RB, ESCALA_TITULO);
-    caracterDibujarEscalado('R', &cursorTitulo, B,  ESCALA_TITULO);
-    caracterDibujarEscalado('I', &cursorTitulo, AM, ESCALA_TITULO);
-    caracterDibujarEscalado('S', &cursorTitulo, VE, ESCALA_TITULO);
+    caracterDibujarEscalado('R', &cursorTitulo, B, ESCALA_TITULO);
+    caracterDibujarEscalado('I', &cursorTitulo, AM,  ESCALA_TITULO);
+    caracterDibujarEscalado('S', &cursorTitulo, VE,  ESCALA_TITULO);
 
     tBoton *i;
     tBoton *finVec = vecBotones + ce;
     for(i = vecBotones; i < finVec; i++)
         botonDibujar(i);
 
-    if (tecla == GBTK_w)
-        *cursor = (*cursor - 1 + ce) % ce;
-    else if (tecla == GBTK_s)
-        *cursor = (*cursor + 1) % ce;
-    else if (tecla == GBTK_ESCAPE)
+    if (tecla == GBTK_w)               //'W' subir cursor
+        *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_s)               //'S' bajar cursor
+        *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
         return SALIR_DEL_JUEGO;
-    else if (tecla == GBTK_ENTER)
+    else if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
     {
         switch (*cursor)
         {
-            case 0: return MENU_PRINCIPAL_CLASSIC;
-            case 1: return MENU_PRINCIPAL_DELUXE;
-            case 2: return SALIR_DEL_JUEGO;
+            case 0:
+                return MENU_PRINCIPAL_CLASSIC;
+            case 1:
+                return MENU_PRINCIPAL_DELUXE;
+            case 2:
+                return SALIR_DEL_JUEGO;
         }
     }
 
     gbt_volcar_backbuffer();
+
     return PANTALLA_INICIAL;
 }
 
 int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
-    gbt_borrar_backbuffer(N);
-
+    gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
     gbt_procesar_entrada();
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
-    botonActualizarTodosInactivo(vecBotones, ce);
+    botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
 
     tBoton *i;
@@ -61,35 +65,40 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
     for(i = vecBotones; i < finVec; i++)
         botonDibujar(i);
 
-    if (tecla == GBTK_w)
-        *cursor = (*cursor - 1 + ce) % ce;
-    else if (tecla == GBTK_s)
-        *cursor = (*cursor + 1) % ce;
-    else if (tecla == GBTK_ESCAPE)
+    if (tecla == GBTK_w)               //'W' subir cursor
+        *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_s)               //'S' bajar cursor
+        *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
         return SALIR_DEL_JUEGO;
-    else if (tecla == GBTK_ENTER)
+    else if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
     {
         switch (*cursor)
         {
-            case 0: return INGRESO_NOMBRE;
-            case 1: // return CARGAR_PARTIDA; (sin implementar)
-            case 2: // return CONFIGURACION;  (sin implementar)
-            case 3: return PANTALLA_INICIAL;
+            case 0:
+                return INGRESO_NOMBRE;         //Empieza la partida
+            case 1:
+//                return CARGAR_PARTIDA;
+            case 2:
+//                return CONFIGURACION;
+            case 3:
+                return PANTALLA_INICIAL;
         }
     }
 
     gbt_volcar_backbuffer();
+
     return MENU_PRINCIPAL_CLASSIC;
 }
 
 int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
-    gbt_borrar_backbuffer(N);
+    gbt_borrar_backbuffer(N);                   //Si habia algo en pantalla, lo borra
 
     gbt_procesar_entrada();
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
-    botonActualizarTodosInactivo(vecBotones, ce);
+    botonActualizarTodosInactivo(vecBotones, ce);    //Setea todos los botones como INACTIVOS para dejar solamente iluminado a aquel APUNTADO por el cursor
     (vecBotones + *cursor)->estado = APUNTADO;
 
     tBoton *i;
@@ -97,28 +106,33 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
     for(i = vecBotones; i < finVec; i++)
         botonDibujar(i);
 
-    if (tecla == GBTK_w)
-        *cursor = (*cursor - 1 + ce) % ce;
-    else if (tecla == GBTK_s)
-        *cursor = (*cursor + 1) % ce;
-    else if (tecla == GBTK_ESCAPE)
+    if (tecla == GBTK_w)               //'W' subir cursor
+        *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_s)               //'S' bajar cursor
+        *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Salir del juego
         return SALIR_DEL_JUEGO;
-    else if (tecla == GBTK_ENTER)
+    else if (tecla == GBTK_ENTER)            //Si se toca ENTER se lleva al jugador a otra pantalla, segun donde este el cursor
     {
         switch (*cursor)
         {
-            case 0: return INGRESO_NOMBRE;
-            case 1: // return CARGAR_PARTIDA; (sin implementar)
-            case 2: return CONFIG_DELUXE;
-            case 3: return PANTALLA_INICIAL;
+            case 0:
+                return INGRESO_NOMBRE;         //Empieza la partida
+            case 1:
+//                return CARGAR_PARTIDA;
+            case 2:
+                return CONFIG_DELUXE;
+            case 3:
+                return PANTALLA_INICIAL;
         }
     }
 
     gbt_volcar_backbuffer();
+
     return MENU_PRINCIPAL_DELUXE;
 }
 
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad)
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad, bool modo)
 {
     int lineas = 0;
     int puntaje = 0;
@@ -132,13 +146,11 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 
     int anchoGrillaPx = grilla->anchoGrilla * TAM_MINO;
     int altoGrillaPx  = ALTO_GRILLA_VISIBLE * TAM_MINO;
-    dibujarRectangulo((resolAncho - anchoGrillaPx)/2, (resolAlto - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
 
     infoInterfazDeJuego(lineas, puntaje, puntajeMax, nivel, tetroActivo[1].tipo, resolAncho, resolAlto);
-
     grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto, grilla->anchoGrilla);
-
     grillaDibujar(grilla);
+    dibujarRectangulo((resolAncho - anchoGrillaPx)/2, (resolAlto - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
 
     if (gbt_temporizador_consumir(*tempCaida))
     {
@@ -147,7 +159,7 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
         if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))
         {
             grillaActualizar(grilla, tetroActivo);
-            actualizarVectorTetrominos(tetroActivo, CANT_TETROMINOS_CLASSIC);
+            actualizarVectorTetrominos(tetroActivo, modo ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC );
             //TODO: agregar pequeño tiempo de espera antes de anclar el tetromino
         }
     }
@@ -156,9 +168,9 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
         tetroActivo->posX--;
     else if (tecla == GBTK_d && !tetrominoColisionaLateralmente(tetroActivo, grilla, DERECHA))
         tetroActivo->posX++;
-    else if (tecla == GBTK_j)           //Rotacion antihoraria (TODO: verificar colision)
+    else if (tecla == GBTK_j || tecla == GBTK_q)           //Rotacion antihoraria (TODO: verificar colision)
         tetrominoRotar(tetroActivo, ANTIHORARIO);
-    else if (tecla == GBTK_l)           //Rotacion horaria    (TODO: verificar colision)
+    else if (tecla == GBTK_l || tecla == GBTK_e)           //Rotacion horaria    (TODO: verificar colision)
         tetrominoRotar(tetroActivo, HORARIO);
     else if (tecla == GBTK_ESCAPE || tecla == GBTK_p)
         return PAUSA;
@@ -193,24 +205,31 @@ int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, in
     tBoton *finVec = vecBotones + ce;
     for(i = vecBotones; i < finVec; i++)
         botonDibujar(i);
-
-    if (tecla == GBTK_w)
-        *cursor = (*cursor - 1 + ce) % ce;
-    else if (tecla == GBTK_s)
-        *cursor = (*cursor + 1) % ce;
-    else if (tecla == GBTK_ESCAPE)
+    if (tecla == GBTK_w)               //'W' subir cursor
+        *cursor = (*cursor - 1 + ce)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_s)               //'S' bajar cursor
+        *cursor = (*cursor + 1)%ce;                      //Evito salir del rango del vector de botones
+    else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Reanudar
         return JUGANDO;
     else if (tecla == GBTK_ENTER)
-    {
-        switch (*cursor)
         {
-            case 0: return JUGANDO;
-            case 1: break;  //CARGAR PARTIDA (sin implementar)
-            case 2: break;  //GUARDAR PARTIDA (sin implementar)
-            case 3: break;  //CHEAT (sin implementar)
-            case 4: return PANTALLA_INICIAL;
+            switch (*cursor)
+            {
+                case 0:
+                    return JUGANDO;         //REANUDAR
+                case 1:
+    //                return CARGAR_PARTIDA;
+                    break;                  //CARGAR PARTIDA (sin implementar)
+                case 2:
+    //                return GUARDAR_PARTIDA;
+                    break;                  //GUARDAR PARTIDA (sin implementar)
+                case 3:
+    //                return CHEAT; //ACTIVAR CHEATS
+                    break;
+                case 4:
+                    return PANTALLA_INICIAL; //VUELVE AL MENU
+            }
         }
-    }
 
     gbt_volcar_backbuffer();
     return PAUSA;
@@ -359,21 +378,21 @@ void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, cha
 
     tCursorTexto cursor = {espaciadoBordes, espaciadoBordes};
 
-    //Informacion de la izquierda
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "LINEAS: ",    lineas,     anchoCuadros, altoCuadros, M, B);
+    //Dibujo la informacion de la izquierda
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "LINEAS: ", lineas, anchoCuadros, altoCuadros, M, B);         //Muestra la cantidad de lineas
     cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "SCORE: ",     puntaje,    anchoCuadros, altoCuadros, M, B);
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "SCORE: ", puntaje, anchoCuadros, altoCuadros, M, B);         //Muestra el puntaje actual
     cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "TOP SCORE: ", puntajeMax, anchoCuadros, altoCuadros, M, B);
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "TOP SCORE: ", puntajeMax, anchoCuadros, altoCuadros, M, B);         //Muestra el mayor puntaje
     cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "NIVEL: ",     nivel,      anchoCuadros, altoCuadros, M, B);
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "NIVEL: ", nivel, anchoCuadros, altoCuadros, M, B);         //Muestra el nivel actual
     cursor.posY += altoCuadros + espacioEntreCuadros;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "GRUPO BYTE", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "GRUPO BYTE", SIN_INFORMACION, anchoCuadros, altoCuadros, M, B);         //Nuestro grupo
 
-    //Informacion de la derecha
+    //Dibujo la informacion de la derecha
     cursor.posX = resolAncho - espaciadoBordes - anchoCuadros;
     cursor.posY = espaciadoBordes;
-    dibujarCuadroTexto(cursor.posX, cursor.posY, "SIGUIENTE: ", SIN_INFORMACION, anchoCuadros, altoCuadroSiguiente, M, B);
+    dibujarCuadroTexto(cursor.posX, cursor.posY, "SIGUIENTE: ", SIN_INFORMACION, anchoCuadros, altoCuadroSiguiente, M, B);  //Muestra el siguiente tetromino
 
     tTetromino siguienteTetro;
     tetrominoCrear(&siguienteTetro, sigTetromino, 0, 0);
@@ -390,20 +409,19 @@ void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color)
 {
     int i;
 
-    for (i = 0; i < ancho; i++)
+    for (i = 0; i < ancho; i++)         //Linea superior
         gbt_dibujar_pixel(posX + i, posY, color);
-    for (i = 0; i < alto; i++)
+    for (i = 0; i < alto; i++)          //Linea derecha
         gbt_dibujar_pixel(posX + ancho - 1, posY + i, color);
-    for (i = ancho - 1; i >= 0; i--)
+    for (i = ancho - 1; i >= 0; i--)    //Linea inferior
         gbt_dibujar_pixel(posX + i, posY + alto - 1, color);
-    for (i = alto - 1; i >= 0; i--)
+    for (i = alto - 1; i >= 0; i--)     //Linea izquierda
         gbt_dibujar_pixel(posX, posY + i, color);
 }
 
 void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto)
 {
     tCursorTexto cursor = {posX + 2, posY + 2};
-
     dibujarRectangulo(posX, posY, ancho, alto, colorCuadro);
     escribirTexto(str, &cursor, colorTexto);
 

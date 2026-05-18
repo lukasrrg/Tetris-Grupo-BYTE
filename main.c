@@ -86,7 +86,6 @@ int main(int argc, char *argv[])
 
     srand(time(0));
 
-
     tGrilla grillaDeFondo;
     if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
     {
@@ -97,16 +96,14 @@ int main(int argc, char *argv[])
 
     double velActual = VEL_CAIDA_DEFAULT;
     int modoVelocidad = VEL_NORMAL;
-
-    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);
+    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);    //Inicialización del temporizador para la caida
     if (!tempCaida)
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempCaida);
-
-    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_CAIDA_DEFAULT);
+    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_CAIDA_DEFAULT);    //Inicialización del temporizador para inactivar tetromino
     if (!tempInactiv)
         return ERROR_CREAR_TEMPORIZADOR;
-    gbt_temporizador_pausar(tempInactiv);
+    gbt_temporizador_pausar(tempInactiv);                          //Se lo pausa ya que todavia no sera utilizado
 
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;
@@ -169,7 +166,7 @@ int main(int argc, char *argv[])
                 }
                 gbt_temporizador_reanudar(tempCaida);
                 while (estadoDeJuego == JUGANDO)
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad);
+                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad, modoDeluxe);
                 break;
 
             case PAUSA:
