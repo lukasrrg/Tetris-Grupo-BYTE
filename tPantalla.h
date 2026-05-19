@@ -23,6 +23,7 @@
 #define OPCIONES 7
 #define INGRESO_NOMBRE 8
 #define OPCIONES_DELUXE 9
+#define OPCIONES_CLASSIC 10
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
