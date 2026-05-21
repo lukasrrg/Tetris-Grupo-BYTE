@@ -121,7 +121,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
             case 1:
 //                return CARGAR_PARTIDA;
             case 2:
-                return OPCIONES_DELUXE;
+                return OPCIONES;
             case 3:
                 return PANTALLA_INICIAL;
         }
@@ -240,8 +240,156 @@ int gameOver(int resolAncho, int resolAlto)
     return GAME_OVER;
 }
 
-int menuOpciones(int resolAncho, int resolAlto)
+int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto, double *velCaida, int *anchoGrilla, bool modoDeluxe)
 {
+    static int tempAncho  = 0;
+    static int tempAlto   = 0;
+    static int tempVelIdx = 1;
+    static int tempGrilla = 0;
+    static bool iniciado  = false;
+    static int cursorOpc  = 0;
+
+    const char *nombresVel[3] = {"RAPIDO", "NORMAL", "LENTO"};
+    const double valoresVel[3] = {VEL_CAIDA_RAPIDO, VEL_CAIDA_DEFAULT, VEL_CAIDA_LENTO};
+
+    int cantItems = modoDeluxe ? 3 : 2;
+
+    if (!iniciado)
+    {
+        tempAncho  = *nuevoAncho;
+        tempAlto   = *nuevoAlto;
+        tempGrilla = *anchoGrilla;
+
+        if (*velCaida == VEL_CAIDA_RAPIDO)
+            tempVelIdx = 0;
+        else if (*velCaida == VEL_CAIDA_LENTO)
+            tempVelIdx = 2;
+        else
+            tempVelIdx = 1;
+
+        iniciado = true;
+    }
+
+    gbt_borrar_backbuffer(N);
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    // Titulo
+    tCursorTexto cur = {(resolAncho - 8*6) / 2, 12};
+    escribirTexto("OPCIONES", &cur, B);
+
+    // Items
+    int margenIzq  = 15;
+    int margenVal  = 120;
+    int primerFila = 40;
+    int separFila  = 18;
+
+    // RESOLUCION
+    cur.posX = margenIzq;
+    cur.posY = primerFila;
+    escribirTexto("RESOLUCION", &cur, cursorOpc == 0 ? AM : GC);
+    cur.posX = margenVal;
+    escribirTexto(" ", &cur, cursorOpc == 0 ? AM : GC);
+    if (tempAncho == ANCHO_VENTANA_CGA)
+        escribirTexto("CGA 320X200", &cur, cursorOpc == 0 ? AM : GC);
+    else
+        escribirTexto("VGA 640X480", &cur, cursorOpc == 0 ? AM : GC);
+    escribirTexto(" ", &cur, cursorOpc == 0 ? AM : GC);
+
+    // VELOCIDAD DE CAIDA
+    cur.posX = margenIzq;
+    cur.posY = primerFila + separFila;
+    escribirTexto("VELOCIDAD DE CAIDA", &cur, cursorOpc == 1 ? AM : GC);
+    cur.posX = margenVal;
+    escribirTexto(" ", &cur, cursorOpc == 1 ? AM : GC);
+    escribirTexto(nombresVel[tempVelIdx], &cur, cursorOpc == 1 ? AM : GC);
+    escribirTexto(" ", &cur, cursorOpc == 1 ? AM : GC);
+
+    // ANCHO GRILLA (solo deluxe)
+    if (modoDeluxe)
+    {
+        cur.posX = margenIzq;
+        cur.posY = primerFila + 2*separFila;
+        escribirTexto("ANCHO GRILLA", &cur, cursorOpc == 2 ? AM : GC);
+        cur.posX = margenVal;
+        escribirTexto(" ", &cur, cursorOpc == 2 ? AM : GC);
+        escribirNumero(tempGrilla, &cur, cursorOpc == 2 ? AM : GC);
+        escribirTexto(" ", &cur, cursorOpc == 2 ? AM : GC);
+    }
+
+    // Ayuda
+    cur.posX = margenIzq;
+    cur.posY = resolAlto - 20;
+    escribirTexto("W S NAVEGAR  A D CAMBIAR", &cur, GO);
+    cur.posX = margenIzq;
+    cur.posY += 10;
+    escribirTexto("ENTER APLICAR  ESC CANCELAR", &cur, GO);
+
+    // Navegacion vertical
+    if (tecla == GBTK_w)
+        cursorOpc = (cursorOpc - 1 + cantItems) % cantItems;
+    else if (tecla == GBTK_s)
+        cursorOpc = (cursorOpc + 1) % cantItems;
+
+    // Cambio de valor
+    else if (tecla == GBTK_a || tecla == GBTK_d)
+    {
+        int dir = (tecla == GBTK_d) ? 1 : -1;
+
+        switch (cursorOpc)
+        {
+            case 0:   // Resolucion: toggle entre CGA y VGA
+                if (tempAncho == ANCHO_VENTANA_CGA)
+                {
+                    tempAncho = ANCHO_VENTANA_VGA;
+                    tempAlto  = ALTO_VENTANA_VGA;
+                }
+                else
+                {
+                    tempAncho = ANCHO_VENTANA_CGA;
+                    tempAlto  = ALTO_VENTANA_CGA;
+                }
+                break;
+
+            case 1:   // Velocidad de caida
+                tempVelIdx = (tempVelIdx + dir + 3) % 3;
+                break;
+
+            case 2:   // Ancho grilla
+                if (dir == 1 && tempGrilla < ANCHO_GRILLA_MAX)
+                    tempGrilla++;
+                else if (dir == -1 && tempGrilla > ANCHO_GRILLA_MIN)
+                    tempGrilla--;
+                break;
+        }
+    }
+
+    // ENTER: aplicar y volver
+    else if (tecla == GBTK_ENTER)
+    {
+        *nuevoAncho  = tempAncho;
+        *nuevoAlto   = tempAlto;
+        *velCaida    = valoresVel[tempVelIdx];
+        *anchoGrilla = tempGrilla;
+
+        iniciado  = false;
+        cursorOpc = 0;
+
+        gbt_volcar_backbuffer();
+        return modoDeluxe ? MENU_PRINCIPAL_DELUXE : MENU_PRINCIPAL_CLASSIC;
+    }
+
+    // ESC: cancelar sin aplicar
+    else if (tecla == GBTK_ESCAPE)
+    {
+        iniciado  = false;
+        cursorOpc = 0;
+
+        gbt_volcar_backbuffer();
+        return modoDeluxe ? MENU_PRINCIPAL_DELUXE : MENU_PRINCIPAL_CLASSIC;
+    }
+
+    gbt_volcar_backbuffer();
     return OPCIONES;
 }
 
@@ -337,35 +485,6 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
 
     gbt_volcar_backbuffer();
     return INGRESO_NOMBRE;
-}
-
-int menuConfigDeluxe(int resolAncho, int resolAlto, int *anchoGrilla)
-{
-    gbt_borrar_backbuffer(N);
-    gbt_procesar_entrada();
-    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
-
-    tCursorTexto curTit = {0, 15};
-    escribirTexto("CONFIGURACION", &curTit, B);
-
-    tCursorTexto curEtiq = {0, 40};
-    escribirTexto("ANCHO GRILLA", &curEtiq, AM);
-
-    tCursorTexto curAyuda = {0, resolAlto - 20};
-    escribirTexto("W S CAMBIAR ENTER OK ESC VOLVER", &curAyuda, GC);
-
-    tCursorTexto curValor = {0, 70};
-    escribirNumero(*anchoGrilla, &curValor, B);  //Muestra el valor actual del ancho
-
-    if ( (tecla == GBTK_s || tecla == GBTK_ABAJO) && *anchoGrilla > ANCHO_GRILLA_MIN)
-        (*anchoGrilla)--;
-    if ( (tecla == GBTK_w || tecla == GBTK_ARRIBA) && *anchoGrilla < ANCHO_GRILLA_MAX)
-        (*anchoGrilla)++;
-    if (tecla == GBTK_ENTER || tecla == GBTK_ESCAPE)
-        return MENU_PRINCIPAL_DELUXE;
-
-    gbt_volcar_backbuffer();
-    return OPCIONES_DELUXE;
 }
 
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto)
