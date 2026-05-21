@@ -80,7 +80,7 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
             case 1:
 //                return CARGAR_PARTIDA;
             case 2:
-//                return CONFIGURACION;
+                return OPCIONES;
             case 3:
                 return PANTALLA_INICIAL;
         }
