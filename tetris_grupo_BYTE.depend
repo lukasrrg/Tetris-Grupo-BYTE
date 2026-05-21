@@ -380,7 +380,7 @@
 1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tmino.c
 	"tMino.h"
 
-1779377031 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
+1779403307 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -566,7 +566,7 @@
 1779072348 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1779375970 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
+1779382846 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 	"tOpciones.h"
 
@@ -807,10 +807,10 @@
 1779048269 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 
-1779375752 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.c
+1779382846 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.c
 	"tOpciones.h"
 
-1779375725 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.h
+1779382846 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.h
 	<stdio.h>
 	<stdbool.h>
 	"tPantalla.h"

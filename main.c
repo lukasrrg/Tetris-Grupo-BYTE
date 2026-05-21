@@ -40,11 +40,17 @@
 int main(int argc, char *argv[])
 {
     int estadoDeJuego = PANTALLA_INICIAL;
-    int resolAncho = ANCHO_VENTANA_CGA, resolAlto = ALTO_VENTANA_CGA;
-    int anchoGrilla = ANCHO_GRILLA_DEFAULT;
+    int resolAncho, resolAlto;
+    int anchoGrilla;
     bool modoDeluxe = false;
     char nombreJugador[MAX_NOMBRE];
-
+    double velActual = VEL_CAIDA_DEFAULT;
+    tOpciones op;
+    opcionesCargar(&op); //Cargar opciones guardadas
+    resolAncho  = op.resolAncho;
+    resolAlto   = op.resolAlto;
+    velActual   = op.velCaida;
+    anchoGrilla = op.anchoGrilla;
 
     if (argc > 2)
         printf("Demasiados argumentos. No soportado. El juego se iniciara en resolucion CGA.\n");
@@ -62,7 +68,7 @@ int main(int argc, char *argv[])
             printf("Los argumentos validos son 'vga' o 'cga'. El juego se iniciara en resolucion CGA.\n");
     }
     else
-        printf("Iniciando el juego en resolucion CGA (320x200).\n");
+        printf("Iniciando el juego en resolucion %dx%d.\n", resolAncho, resolAlto);
 
 
     if (gbt_iniciar() != 0)
@@ -95,8 +101,6 @@ int main(int argc, char *argv[])
     }
 
     int cursorBoton;
-
-    double velActual = VEL_CAIDA_DEFAULT;
     int modoVelocidad = VEL_NORMAL;
     tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);    //Inicialización del temporizador para la caida
     if (!tempCaida)
@@ -110,13 +114,6 @@ int main(int argc, char *argv[])
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;
     int cantTetrominos = CANT_TETROMINOS_CLASSIC;
-
-    tOpciones op;
-    opcionesCargar(&op); //Cargar opciones guardadas
-    resolAncho  = op.resolAncho;
-    resolAlto   = op.resolAlto;
-    velActual   = op.velCaida;
-    anchoGrilla = op.anchoGrilla;
 
     while(estadoDeJuego)
     {
