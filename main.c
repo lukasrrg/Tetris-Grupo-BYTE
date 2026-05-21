@@ -26,6 +26,7 @@
 #include "tPantalla.h"
 #include "tGrilla.h"
 #include "tJugador.h"
+#include "tOpciones.h"
 
 //Codigos de errores
 #define TODO_OK 0
@@ -109,6 +110,13 @@ int main(int argc, char *argv[])
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;
     int cantTetrominos = CANT_TETROMINOS_CLASSIC;
+
+    tOpciones op;
+    opcionesCargar(&op); //Cargar opciones guardadas
+    resolAncho  = op.resolAncho;
+    resolAlto   = op.resolAlto;
+    velActual   = op.velCaida;
+    anchoGrilla = op.anchoGrilla;
 
     while(estadoDeJuego)
     {

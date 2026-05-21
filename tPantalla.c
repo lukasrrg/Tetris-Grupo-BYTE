@@ -1,4 +1,5 @@
 #include "tPantalla.h"
+#include "tOpciones.h"
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
@@ -371,6 +372,15 @@ int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto,
         *nuevoAlto   = tempAlto;
         *velCaida    = valoresVel[tempVelIdx];
         *anchoGrilla = tempGrilla;
+
+    // Guardar opciones en archivo
+        tOpciones op;
+        op.resolAncho  = tempAncho;
+        op.resolAlto   = tempAlto;
+        op.velCaida    = valoresVel[tempVelIdx];
+        op.anchoGrilla = tempGrilla;
+        op.paleta      = 0;
+        opcionesGuardar(&op);
 
         iniciado  = false;
         cursorOpc = 0;
