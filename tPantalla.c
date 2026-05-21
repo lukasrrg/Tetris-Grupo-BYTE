@@ -181,8 +181,9 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     grillaDibujar(grilla);
     dibujarRectangulo((resolAncho - anchoGrillaPx)/2, (resolAlto - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
 
-    //if(!cheats)
-   // {
+    if(!cheats)
+    {
+        /// JUEGO SIN CHEATS ACTIVADOS
         if (gbt_temporizador_consumir(*tempCaida))
         {
             tetroActivo->posY++;
@@ -194,42 +195,50 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
                 //TODO: agregar pequeño tiempo de espera antes de anclar el tetromino
             }
         }
+        if (gbt_tecla_sostenida(GBTK_s) && *modoVelocidad != VEL_RAPIDA)
+        {
+            gbt_temporizador_destruir(*tempCaida);
+            *tempCaida = gbt_temporizador_crear(*velActual / FACTOR_VEL_RAPIDA);
+            *modoVelocidad = VEL_RAPIDA;
+        }
+        else if (*modoVelocidad != VEL_NORMAL && !gbt_tecla_sostenida(GBTK_s))
+        {
+            gbt_temporizador_destruir(*tempCaida);
+            *tempCaida = gbt_temporizador_crear(*velActual);
+            *modoVelocidad = VEL_NORMAL;
+        }
 
-   //  }
+    }
+    else
+    {
+        ///JUEGO CON CHEATS ACTIVADO
+        if (tecla == GBTK_s)
+        {
+            tetroActivo->posY++;
+
+            if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))
+            {
+                grillaActualizar(grilla, tetroActivo);
+                actualizarVectorTetrominos(tetroActivo, modo ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC );
+            }
+
+        }
+        tCursorTexto cursorCheat = {12, resolAlto - 20};
+        escribirTexto("CHEAT: ON", &cursorCheat, R);
+    }
     if (tecla == GBTK_a && !tetrominoColisionaLateralmente(tetroActivo, grilla, IZQUIERDA))
         tetroActivo->posX--;
     else if (tecla == GBTK_d && !tetrominoColisionaLateralmente(tetroActivo, grilla, DERECHA))
         tetroActivo->posX++;
 
-  /*  else if (tecla == GBTK_s)
-    {
-        tetroActivo->posY++;
 
-        if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))
-        {
-            tetroActivo->posY--;
-            grillaActualizar(grilla, tetroActivo);
-
-        }
-    }*/
     else if (tecla == GBTK_j || tecla == GBTK_q)           //Rotacion antihoraria (TODO: verificar colision)
         tetrominoRotar(tetroActivo, ANTIHORARIO);
     else if (tecla == GBTK_l || tecla == GBTK_e)           //Rotacion horaria    (TODO: verificar colision)
         tetrominoRotar(tetroActivo, HORARIO);
     else if (tecla == GBTK_ESCAPE || tecla == GBTK_p)
         return PAUSA;
-    else if (gbt_tecla_sostenida(GBTK_s) && *modoVelocidad != VEL_RAPIDA)
-    {
-        gbt_temporizador_destruir(*tempCaida);
-        *tempCaida = gbt_temporizador_crear(*velActual / FACTOR_VEL_RAPIDA);
-        *modoVelocidad = VEL_RAPIDA;
-    }
-    else if (*modoVelocidad != VEL_NORMAL && !gbt_tecla_sostenida(GBTK_s))
-    {
-        gbt_temporizador_destruir(*tempCaida);
-        *tempCaida = gbt_temporizador_crear(*velActual);
-        *modoVelocidad = VEL_NORMAL;
-    }
+    else
 
     gbt_volcar_backbuffer();
     return JUGANDO;
