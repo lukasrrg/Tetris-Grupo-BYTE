@@ -29,16 +29,10 @@ typedef struct {
     tCeldaGuardada celdas[ANCHO_GRILLA_MAX * ALTO_GRILLA_TOTAL];
 } tPartida;
 
-// Guarda o sobreescribe la partida del jugador
-void partidaGuardar(const tPartida *p);
 
-// Carga la partida del jugador. Devuelve true si existe.
-bool partidaCargar(const char *nombre, tPartida *p);
-
-// Serializa la grilla hacia tPartida
-void partidaSerializarGrilla(tPartida *p, const tGrilla *grilla);
-
-// Restaura la grilla desde tPartida (recalcula posiciones)
-void partidaRestaurarGrilla(const tPartida *p, tGrilla *grilla, int resolAncho, int resolAlto);
+void partidaGuardar(const tPartida *p); // Guarda o sobreescribe la partida del jugador
+bool partidaCargar(const char *nombre, bool modoDeluxe, tPartida *p); // Carga la partida del jugador. Devuelve true si existe.
+void partidaSerializarGrilla(tPartida *p, const tGrilla *grilla); // Serializa la grilla hacia tPartida
+void partidaRestaurarGrilla(const tPartida *p, tGrilla *grilla, int resolAncho, int resolAlto); // Restaura la grilla desde tPartida (recalcula posiciones)
 
 #endif // TPARTIDA_H_INCLUDED

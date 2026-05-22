@@ -403,7 +403,7 @@ int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto,
 
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
 {
-    static int subEstado = 0;   // 0 = escribiendo, 1 = preguntando sobreescritura
+    static int subEstado = 0;
     static char nombre[MAX_NOMBRE] = "";
     static int largo = 0;
 
@@ -446,7 +446,6 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
                 strcpy(nuevo.nombre, nombre);
                 nuevo.puntaje_max = 0;
                 jugadorGuardar(&nuevo);
-
                 subEstado = 0;
                 nombre[0] = '\0';
                 largo = 0;
@@ -468,19 +467,14 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
         escribirTexto(nombre, &curNombre, AM);
 
         tCursorTexto curPregunta = {10, 90};
-        escribirTexto("ESE NOMBRE YA EXISTE", &curPregunta, RB);
+        escribirTexto("JUGADOR YA EXISTE", &curPregunta, RB);
 
         tCursorTexto curOpc = {10, 110};
-        escribirTexto("ENTER SOBREESCRIBIR  ESC VOLVER", &curOpc, GC);
+        escribirTexto("ENTER NUEVA PARTIDA  ESC VOLVER", &curOpc, GC);
 
         if (tecla == GBTK_ENTER)
         {
             strcpy(nombreOut, nombre);
-            tJugador existente;
-            strcpy(existente.nombre, nombre);
-            existente.puntaje_max = 0;
-            jugadorGuardar(&existente);
-
             subEstado = 0;
             nombre[0] = '\0';
             largo = 0;
@@ -495,7 +489,7 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
     return INGRESO_NOMBRE;
 }
 
-int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
+int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE], bool modoDeluxe)
 {
     static char nombre[MAX_NOMBRE] = "";
     static int  largo = 0;
@@ -532,7 +526,7 @@ int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE
         if (tecla == GBTK_ENTER && largo > 0)
         {
             tPartida temp;
-            if (partidaCargar(nombre, &temp))
+            if (partidaCargar(nombre, modoDeluxe, &temp))
                 subEstado = 1;
             else
                 subEstado = 2;

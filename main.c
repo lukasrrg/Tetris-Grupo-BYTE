@@ -252,7 +252,7 @@ int main(int argc, char *argv[])
                     case CARGAR_PARTIDA:
                     {
                         tPartida p;
-                        if (partidaCargar(nombreJugador, &p))
+                        if (partidaCargar(nombreJugador, modoDeluxe, &p))
                         {
                             puntaje     = p.puntaje;
                             lineas      = p.lineas;
@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
 
                     case INGRESO_NOMBRE_CARGA:
                         while (estadoDeJuego == INGRESO_NOMBRE_CARGA)
-                        estadoDeJuego = ingresarNombreCarga(resolAncho, resolAlto, nombreJugador);
+                        estadoDeJuego = estadoDeJuego = ingresarNombreCarga(resolAncho, resolAlto, nombreJugador, modoDeluxe);
                         break;
         }
 }

@@ -18,7 +18,7 @@ void partidaGuardar(const tPartida *p)
     int i;
     for (i = 0; i < cant; i++)
     {
-        if (strcmp(buf[i].nombre, p->nombre) == 0)
+        if (strcmp(buf[i].nombre, p->nombre) == 0 && buf[i].modoDeluxe == p->modoDeluxe)
         {
             buf[i] = *p;
             encontrado = true;
@@ -37,7 +37,7 @@ void partidaGuardar(const tPartida *p)
     }
 }
 
-bool partidaCargar(const char *nombre, tPartida *p)
+bool partidaCargar(const char *nombre, bool modoDeluxe, tPartida *p)
 {
     FILE *f = fopen(PARTIDAS_BIN, "rb");
     if (!f) return false;
@@ -45,7 +45,7 @@ bool partidaCargar(const char *nombre, tPartida *p)
     tPartida temp;
     while (fread(&temp, sizeof(tPartida), 1, f) == 1)
     {
-        if (strcmp(temp.nombre, nombre) == 0)
+        if (strcmp(temp.nombre, nombre) == 0 && temp.modoDeluxe == modoDeluxe)
         {
             *p = temp;
             fclose(f);
