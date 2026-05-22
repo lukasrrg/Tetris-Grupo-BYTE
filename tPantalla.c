@@ -1,5 +1,6 @@
 #include "tPantalla.h"
 #include "tOpciones.h"
+#include "tPartida.h"
 
 int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce)
 {
@@ -79,7 +80,7 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
             case 0:
                 return INGRESO_NOMBRE;         //Empieza la partida
             case 1:
-                return CARGAR_PARTIDA;
+                return INGRESO_NOMBRE_CARGA;
             case 2:
                 return OPCIONES;
             case 3:
@@ -120,7 +121,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
             case 0:
                 return INGRESO_NOMBRE;         //Empieza la partida
             case 1:
-                return CARGAR_PARTIDA;
+                return INGRESO_NOMBRE_CARGA;
             case 2:
                 return OPCIONES;
             case 3:
@@ -492,6 +493,90 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
 
     gbt_volcar_backbuffer();
     return INGRESO_NOMBRE;
+}
+
+int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
+{
+    static char nombre[MAX_NOMBRE] = "";
+    static int  largo = 0;
+    static int  subEstado = 0;  // 0 = escribiendo, 1 = exito, 2 = no encontrada
+
+    gbt_borrar_backbuffer(N);
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    tCursorTexto cur = {(resolAncho - 14*6) / 2, 20};
+    escribirTexto("CARGAR PARTIDA", &cur, B);
+
+    if (subEstado == 0)
+    {
+        tCursorTexto curNombre = {(resolAncho - MAX_NOMBRE*6) / 2, 60};
+        escribirTexto(nombre, &curNombre, AM);
+
+        tCursorTexto curAyuda = {10, resolAlto - 20};
+        escribirTexto("ENTER CONFIRMAR  ESC CANCELAR", &curAyuda, GO);
+
+        char c = 0;
+        if (tecla >= GBTK_a && tecla <= GBTK_z)
+            c = 'A' + (tecla - GBTK_a);
+
+        if (c != 0 && largo < MAX_NOMBRE - 1)
+        {
+            nombre[largo++] = c;
+            nombre[largo]   = '\0';
+        }
+
+        if (tecla == GBTK_RETROCESO && largo > 0)
+            nombre[--largo] = '\0';
+
+        if (tecla == GBTK_ENTER && largo > 0)
+        {
+            tPartida temp;
+            if (partidaCargar(nombre, &temp))
+                subEstado = 1;
+            else
+                subEstado = 2;
+        }
+
+        if (tecla == GBTK_ESCAPE)
+        {
+            nombre[0] = '\0';
+            largo = 0;
+            subEstado = 0;
+            gbt_volcar_backbuffer();
+            return PANTALLA_INICIAL;
+        }
+    }
+    else if (subEstado == 1)
+    {
+        tCursorTexto curOk = {10, 90};
+        escribirTexto("PARTIDA CARGADA CON EXITO", &curOk, VB);
+        tCursorTexto curOpc = {10, 110};
+        escribirTexto("ENTER CONTINUAR", &curOpc, GC);
+
+        if (tecla == GBTK_ENTER)
+        {
+            strcpy(nombreOut, nombre);
+            nombre[0] = '\0';
+            largo = 0;
+            subEstado = 0;
+            gbt_volcar_backbuffer();
+            return CARGAR_PARTIDA;
+        }
+    }
+    else if (subEstado == 2)
+    {
+        tCursorTexto curErr = {10, 90};
+        escribirTexto("PARTIDA NO ENCONTRADA", &curErr, RB);
+        tCursorTexto curOpc = {10, 110};
+        escribirTexto("ENTER VOLVER", &curOpc, GC);
+
+        if (tecla == GBTK_ENTER)
+            subEstado = 0;
+    }
+
+    gbt_volcar_backbuffer();
+    return INGRESO_NOMBRE_CARGA;
 }
 
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto)

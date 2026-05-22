@@ -278,7 +278,12 @@ int main(int argc, char *argv[])
                         estadoDeJuego = modoDeluxe ? MENU_PRINCIPAL_DELUXE : MENU_PRINCIPAL_CLASSIC;
                         break;
                         }
-    }
+
+                    case INGRESO_NOMBRE_CARGA:
+                        while (estadoDeJuego == INGRESO_NOMBRE_CARGA)
+                        estadoDeJuego = ingresarNombreCarga(resolAncho, resolAlto, nombreJugador);
+                        break;
+        }
 }
 
     gbt_temporizador_destruir(tempCaida);
