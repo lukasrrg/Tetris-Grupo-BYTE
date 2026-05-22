@@ -79,7 +79,7 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
             case 0:
                 return INGRESO_NOMBRE;         //Empieza la partida
             case 1:
-//                return CARGAR_PARTIDA;
+                return CARGAR_PARTIDA;
             case 2:
                 return OPCIONES;
             case 3:
@@ -120,7 +120,7 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
             case 0:
                 return INGRESO_NOMBRE;         //Empieza la partida
             case 1:
-//                return CARGAR_PARTIDA;
+                return CARGAR_PARTIDA;
             case 2:
                 return OPCIONES;
             case 3:
@@ -133,22 +133,19 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
     return MENU_PRINCIPAL_DELUXE;
 }
 
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad, bool modo)
+int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad, bool modo, int *puntaje, int *lineas, int *nivel)
 {
-    int lineas = 0;
-    int puntaje = 0;
-    int puntajeMax = 0;
-    int nivel = 1;
+
+    int puntajeMax = 0;   // TODO: leer del jugador guardado
 
     gbt_borrar_backbuffer(N);
-
     gbt_procesar_entrada();
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
     int anchoGrillaPx = grilla->anchoGrilla * TAM_MINO;
     int altoGrillaPx  = ALTO_GRILLA_VISIBLE * TAM_MINO;
 
-    infoInterfazDeJuego(lineas, puntaje, puntajeMax, nivel, tetroActivo[1].tipo, resolAncho, resolAlto);
+    infoInterfazDeJuego(*lineas,*puntaje,puntajeMax, *nivel, tetroActivo[1].tipo, resolAncho, resolAlto);
     grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto, grilla->anchoGrilla);
     grillaDibujar(grilla);
     dibujarRectangulo((resolAncho - anchoGrillaPx)/2, (resolAlto - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
@@ -219,11 +216,11 @@ int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, in
                 case 0:
                     return JUGANDO;         //REANUDAR
                 case 1:
-    //                return CARGAR_PARTIDA;
-                    break;                  //CARGAR PARTIDA (sin implementar)
+                    return CARGAR_PARTIDA;
+                    break;                  //CARGAR PARTIDA
                 case 2:
-    //                return GUARDAR_PARTIDA;
-                    break;                  //GUARDAR PARTIDA (sin implementar)
+                   return GUARDAR_PARTIDA;
+                    break;                  //GUARDAR PARTIDA
                 case 3:
     //                return CHEAT; //ACTIVAR CHEATS
                     break;

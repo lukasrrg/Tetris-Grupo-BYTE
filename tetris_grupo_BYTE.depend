@@ -380,7 +380,7 @@
 1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tmino.c
 	"tMino.h"
 
-1779403307 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
+1779410801 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -393,6 +393,7 @@
 	"tGrilla.h"
 	"tJugador.h"
 	"tOpciones.h"
+	"tPartida.h"
 
 1778361245 4bf5bb5b3f31fb5e0ae0daef8b67a69a7a4ca
 	<stdio.h>
@@ -497,7 +498,7 @@
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	<string.h>
 
-1779373055 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
+1779405691 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
 	<stdio.h>
 	"tBoton.h"
 	"tGrilla.h"
@@ -566,7 +567,7 @@
 1779072348 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1779382846 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
+1779409689 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 	"tOpciones.h"
 
@@ -814,4 +815,15 @@
 	<stdio.h>
 	<stdbool.h>
 	"tPantalla.h"
+
+1779404997 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpartida.c
+	"tPartida.h"
+	<string.h>
+
+1779404968 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpartida.h
+	<stdio.h>
+	<stdbool.h>
+	"tMino.h"
+	"tGrilla.h"
+	"tJugador.h"
 

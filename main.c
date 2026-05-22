@@ -27,6 +27,7 @@
 #include "tGrilla.h"
 #include "tJugador.h"
 #include "tOpciones.h"
+#include "tPartida.h"
 
 //Codigos de errores
 #define TODO_OK 0
@@ -45,6 +46,9 @@ int main(int argc, char *argv[])
     bool modoDeluxe = false;
     char nombreJugador[MAX_NOMBRE];
     double velActual = VEL_CAIDA_DEFAULT;
+    int puntaje  = 0;
+    int lineas   = 0;
+    int nivel    = 1;
     tOpciones op;
     opcionesCargar(&op); //Cargar opciones guardadas
     resolAncho  = op.resolAncho;
@@ -164,17 +168,18 @@ int main(int argc, char *argv[])
 
             case JUGANDO:
                 if (partidaNueva)
-                {
+                {   puntaje = 0;
+                    lineas  = 0;
+                    nivel   = 1;
                     tetrominoCargarVector(tetroActivos, cantTetrominos);
                     grillaDestruir(&grillaDeFondo);
                     grillaCrear(&grillaDeFondo, resolAncho, resolAlto, modoDeluxe ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
                     partidaNueva = false;
                 }
                 gbt_temporizador_reanudar(tempCaida);
-                while (estadoDeJuego == JUGANDO)
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad, modoDeluxe);
+                    while (estadoDeJuego == JUGANDO)
+                    {estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad, modoDeluxe, &puntaje, &lineas, &nivel);}                break;
                 break;
-
             case PAUSA:
                 gbt_temporizador_pausar(tempCaida);
                 cursorBoton = 0;
@@ -226,6 +231,53 @@ int main(int argc, char *argv[])
                         gbt_temporizador_pausar(tempCaida);
                         break;
                     }
+
+                    case GUARDAR_PARTIDA:
+                {
+                        tPartida p;
+                        strcpy(p.nombre, nombreJugador);
+                        p.puntaje     = puntaje;
+                        p.lineas      = lineas;
+                        p.nivel       = nivel;
+                        p.velCaida    = velActual;
+                        p.anchoGrilla = anchoGrilla;
+                        p.modoDeluxe  = modoDeluxe;
+                        memcpy(p.tetrominos, tetroActivos, sizeof(tetroActivos));
+                        partidaSerializarGrilla(&p, &grillaDeFondo);
+                        partidaGuardar(&p);
+                        estadoDeJuego = PAUSA;
+                        break;
+                }
+
+                    case CARGAR_PARTIDA:
+                    {
+                        tPartida p;
+                        if (partidaCargar(nombreJugador, &p))
+                        {
+                            puntaje     = p.puntaje;
+                            lineas      = p.lineas;
+                            nivel       = p.nivel;
+                            velActual   = p.velCaida;
+                            anchoGrilla = p.anchoGrilla;
+                            modoDeluxe  = p.modoDeluxe;
+                            memcpy(tetroActivos, p.tetrominos, sizeof(tetroActivos));
+
+                            grillaDestruir(&grillaDeFondo);
+                            grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla);
+                            partidaRestaurarGrilla(&p, &grillaDeFondo, resolAncho, resolAlto);
+
+                            gbt_temporizador_destruir(tempCaida);
+                            tempCaida = gbt_temporizador_crear(velActual);
+                            if (!tempCaida) return ERROR_CREAR_TEMPORIZADOR;
+                            gbt_temporizador_pausar(tempCaida);
+
+                            partidaNueva = false;
+                            estadoDeJuego = JUGANDO; }
+
+                        else
+                        estadoDeJuego = modoDeluxe ? MENU_PRINCIPAL_DELUXE : MENU_PRINCIPAL_CLASSIC;
+                        break;
+                        }
     }
 }
 
