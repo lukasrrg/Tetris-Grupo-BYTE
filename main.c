@@ -26,6 +26,8 @@
 #include "tPantalla.h"
 #include "tGrilla.h"
 #include "tJugador.h"
+#include "tOpciones.h"
+#include "tPartida.h"
 
 //Codigos de errores
 #define TODO_OK 0
@@ -39,10 +41,20 @@
 int main(int argc, char *argv[])
 {
     int estadoDeJuego = PANTALLA_INICIAL;
-    int resolAncho = ANCHO_VENTANA_CGA, resolAlto = ALTO_VENTANA_CGA;
-    int anchoGrilla = ANCHO_GRILLA_DEFAULT;
+    int resolAncho, resolAlto;
+    int anchoGrilla;
     bool modoDeluxe = false;
     char nombreJugador[MAX_NOMBRE];
+    double velActual = VEL_CAIDA_DEFAULT;
+    int puntaje  = 0;
+    int lineas   = 0;
+    int nivel    = 1;
+    tOpciones op;
+    opcionesCargar(&op); //Cargar opciones guardadas
+    resolAncho  = op.resolAncho;
+    resolAlto   = op.resolAlto;
+    velActual   = op.velCaida;
+    anchoGrilla = op.anchoGrilla;
 
     if (argc > 2)
         printf("Demasiados argumentos. No soportado. El juego se iniciara en resolucion CGA.\n");
@@ -60,7 +72,7 @@ int main(int argc, char *argv[])
             printf("Los argumentos validos son 'vga' o 'cga'. El juego se iniciara en resolucion CGA.\n");
     }
     else
-        printf("Iniciando el juego en resolucion CGA (320x200).\n");
+        printf("Iniciando el juego en resolucion %dx%d.\n", resolAncho, resolAlto);
 
 
     if (gbt_iniciar() != 0)
@@ -86,65 +98,14 @@ int main(int argc, char *argv[])
 
     srand(time(0));
 
-
-<<<<<<< HEAD
     tGrilla grillaDeFondo;
     if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
-=======
-
-    srand(time(0));                                 //Se abre el randomizador
-
-
-
-
-    //Tetrominos para ir probando
-    tTetromino tetrominoO;
-    tetrominoCrear(&tetrominoO, TETRO_O, 0, 10);
-
-    tTetromino tetrominoZ;
-    tetrominoCrear(&tetrominoZ, TETRO_Z, 1, 1);
-
-    tTetromino tetrominoT;
-    tetrominoCrear(&tetrominoT, TETRO_T, 2, 8);
-
-    tTetromino tetrominoS;
-    tetrominoCrear(&tetrominoS, TETRO_S, 3, 15);
-
-    tTetromino tetrominoL;
-    tetrominoCrear(&tetrominoL, TETRO_L, 6, 10);
-
-    tTetromino tetrominoJ;
-    tetrominoCrear(&tetrominoJ, TETRO_J, 1, 2);
-
-    tTetromino tetrominoI;
-    tetrominoCrear(&tetrominoI, TETRO_I, 0, 1);
-
-
-
-
-    tGrilla grillaTetrominosInactivos;                             //Grilla que muestra los tetrominos inactivos (los que quedaron al fondo)
-    if (!grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto))                      //Se pide el espacio en memoria
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
     {
         return ERROR_MEMORIA_GRILLA;
     }
 
     int cursorBoton;
-
-    double velActual = VEL_CAIDA_DEFAULT;
     int modoVelocidad = VEL_NORMAL;
-<<<<<<< HEAD
-
-    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);
-    if (!tempCaida)
-        return ERROR_CREAR_TEMPORIZADOR;
-    gbt_temporizador_pausar(tempCaida);
-
-    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_CAIDA_DEFAULT);
-    if (!tempInactiv)
-        return ERROR_CREAR_TEMPORIZADOR;
-    gbt_temporizador_pausar(tempInactiv);
-=======
     tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);    //Inicialización del temporizador para la caida
     if (!tempCaida)
         return ERROR_CREAR_TEMPORIZADOR;
@@ -153,8 +114,6 @@ int main(int argc, char *argv[])
     if (!tempInactiv)
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempInactiv);                          //Se lo pausa ya que todavia no sera utilizado
-
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
 
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;
@@ -185,7 +144,7 @@ int main(int argc, char *argv[])
                 int baseYC = (resolAlto - totalAltoC) / 2;
                 botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC,           B, AM, "NUEVA PARTIDA",  N);
                 botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC + pasoC,   B, AM, "CARGAR PARTIDA", N);
-                botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC + 2*pasoC, B, VE, "CONFIGURACION",  N);
+                botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC + 2*pasoC, B, VE, "OPCIONES",  N);
                 botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_CHICO,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2,  baseYC + 3*pasoC, B, R,  "ATRAS",          N);
                 while(estadoDeJuego == MENU_PRINCIPAL_CLASSIC)
                     estadoDeJuego = menuPrincipalClassic(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalClassic, 4);
@@ -201,7 +160,7 @@ int main(int argc, char *argv[])
                 int baseYD = (resolAlto - totalAltoD) / 2;
                 botonCrear(&botonesMenuPrincipalDeluxe[0], APUNTADO, ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYD,           B, AM, "NUEVA PARTIDA",  N);
                 botonCrear(&botonesMenuPrincipalDeluxe[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, baseYD + pasoD,   B, AM, "CARGAR PARTIDA", N);
-                botonCrear(&botonesMenuPrincipalDeluxe[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, baseYD + 2*pasoD, B, VE, "CONFIGURACION",  N);
+                botonCrear(&botonesMenuPrincipalDeluxe[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, baseYD + 2*pasoD, B, VE, "OPCIONES",  N);
                 botonCrear(&botonesMenuPrincipalDeluxe[3], INACTIVO, ANCHO_BOTON_CHICO,   ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2,   baseYD + 3*pasoD, B, R,  "ATRAS",          N);
                 while(estadoDeJuego == MENU_PRINCIPAL_DELUXE)
                     estadoDeJuego = menuPrincipalDeluxe(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalDeluxe, 4);
@@ -209,31 +168,18 @@ int main(int argc, char *argv[])
 
             case JUGANDO:
                 if (partidaNueva)
-                {
-<<<<<<< HEAD
+                {   puntaje = 0;
+                    lineas  = 0;
+                    nivel   = 1;
                     tetrominoCargarVector(tetroActivos, cantTetrominos);
                     grillaDestruir(&grillaDeFondo);
                     grillaCrear(&grillaDeFondo, resolAncho, resolAlto, modoDeluxe ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
                     partidaNueva = false;
                 }
                 gbt_temporizador_reanudar(tempCaida);
-                while (estadoDeJuego == JUGANDO)
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad);
-=======
-                    tetrominoCargarVector(tetroActivos, CANT_TETROMINOS_CLASSIC);            //Resetea los tetrominos para la nueva partida
-                    grillaDestruir(&grillaTetrominosInactivos);                 //Resetea la grilla para la nueva partida
-                    grillaCrear(&grillaTetrominosInactivos, resolAncho, resolAlto);
-                    partidaNueva = false;
-                }
-                gbt_temporizador_reanudar(tempCaida);
-
-                while (estadoDeJuego == JUGANDO)
-                {
-                    estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaTetrominosInactivos, &tempCaida, &tempInactiv, &velActual, &modoVelocidad);
-                }
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
+                    while (estadoDeJuego == JUGANDO)
+                    {estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad, modoDeluxe, &puntaje, &lineas, &nivel);}                break;
                 break;
-
             case PAUSA:
                 gbt_temporizador_pausar(tempCaida);
                 cursorBoton = 0;
@@ -241,7 +187,6 @@ int main(int argc, char *argv[])
                 int pasoP = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
                 int totalAltoP = 5*ALTO_BOTON_DEFAULT + 4*SEPARACION_ENTRE_BOTON;
                 int baseYP = (resolAlto - totalAltoP) / 2;
-<<<<<<< HEAD
                 botonCrear(&botonesMenuPausa[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP,           B, VE, "REANUDAR",       N);
                 botonCrear(&botonesMenuPausa[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + pasoP,   B, AM, "CARGAR PARTIDA", N);
                 botonCrear(&botonesMenuPausa[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 2*pasoP, B, AM, "GUARDAR PARTIDA",N);
@@ -258,45 +203,93 @@ int main(int argc, char *argv[])
                     estadoDeJuego = ingresarNombre(resolAncho, resolAlto, nombreJugador);
                 break;
 
-            case CONFIG_DELUXE:
-                while (estadoDeJuego == CONFIG_DELUXE)
-                    estadoDeJuego = menuConfigDeluxe(resolAncho, resolAlto, &anchoGrilla);
-                break;
+            case OPCIONES:
+                {
+                    int resolAnchoAntes = resolAncho;
+
+                    while (estadoDeJuego == OPCIONES)
+                        estadoDeJuego = menuOpciones(resolAncho, resolAlto, &resolAncho, &resolAlto, &velActual, &anchoGrilla, modoDeluxe);
+                    if (resolAncho != resolAnchoAntes)
+                        {
+                            gbt_destruir_ventana();
+                            char nombreVentana[128];
+                            sprintf(nombreVentana, "Ventana %dx%d", resolAncho, resolAlto);
+                            if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, ESCALA_VENTANA) != 0)
+                            {
+                                fprintf(stderr, "Error al recrear la ventana: %s\n", gbt_obtener_log());
+                                return ERROR_ABRIENDO_VENTANA;
+                            }
+                            grillaDestruir(&grillaDeFondo);
+                            if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
+                                return ERROR_MEMORIA_GRILLA;
+                        }
+
+                        gbt_temporizador_destruir(tempCaida);
+                        tempCaida = gbt_temporizador_crear(velActual);
+                        if (!tempCaida)
+                            return ERROR_CREAR_TEMPORIZADOR;
+                        gbt_temporizador_pausar(tempCaida);
+                        break;
+                    }
+
+                    case GUARDAR_PARTIDA:
+                {
+                        tPartida p;
+                        strcpy(p.nombre, nombreJugador);
+                        p.puntaje     = puntaje;
+                        p.lineas      = lineas;
+                        p.nivel       = nivel;
+                        p.velCaida    = velActual;
+                        p.anchoGrilla = anchoGrilla;
+                        p.modoDeluxe  = modoDeluxe;
+                        memcpy(p.tetrominos, tetroActivos, sizeof(tetroActivos));
+                        partidaSerializarGrilla(&p, &grillaDeFondo);
+                        partidaGuardar(&p);
+                        estadoDeJuego = PAUSA;
+                        break;
+                }
+
+                    case CARGAR_PARTIDA:
+                    {
+                        tPartida p;
+                        if (partidaCargar(nombreJugador, modoDeluxe, &p))
+                        {
+                            puntaje     = p.puntaje;
+                            lineas      = p.lineas;
+                            nivel       = p.nivel;
+                            velActual   = p.velCaida;
+                            anchoGrilla = p.modoDeluxe ? p.anchoGrilla : ANCHO_GRILLA_DEFAULT;
+                            modoDeluxe  = p.modoDeluxe;
+                            memcpy(tetroActivos, p.tetrominos, sizeof(tetroActivos));
+
+                            grillaDestruir(&grillaDeFondo);
+                            grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla);
+                            partidaRestaurarGrilla(&p, &grillaDeFondo, resolAncho, resolAlto);
+
+                            gbt_temporizador_destruir(tempCaida);
+                            tempCaida = gbt_temporizador_crear(velActual);
+                            if (!tempCaida) return ERROR_CREAR_TEMPORIZADOR;
+                            gbt_temporizador_pausar(tempCaida);
+
+                            partidaNueva = false;
+                            estadoDeJuego = JUGANDO; }
+
+                        else
+                        estadoDeJuego = modoDeluxe ? MENU_PRINCIPAL_DELUXE : MENU_PRINCIPAL_CLASSIC;
+                        break;
+                        }
+
+                    case INGRESO_NOMBRE_CARGA:
+                        while (estadoDeJuego == INGRESO_NOMBRE_CARGA)
+                        estadoDeJuego = estadoDeJuego = ingresarNombreCarga(resolAncho, resolAlto, nombreJugador, modoDeluxe);
+                        break;
         }
-    }
+}
 
     gbt_temporizador_destruir(tempCaida);
     gbt_temporizador_destruir(tempInactiv);
     grillaDestruir(&grillaDeFondo);
     gbt_destruir_ventana();
-=======
-                // Boton Reanudar
-                botonCrear(&botonesMenuPausa[0], APUNTADO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP,           B, VE, "REANUDAR", N);
-                // Boton Cargar Partida
-                botonCrear(&botonesMenuPausa[1], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + pasoP,   B, AM, "CARGAR PARTIDA", N);
-                // Boton Guardar Partida
-                botonCrear(&botonesMenuPausa[2], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + 2*pasoP, B, AM, "GUARDAR PARTIDA", N);
-                // Boton Cheat
-                botonCrear(&botonesMenuPausa[3], INACTIVO,  ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYP + 3*pasoP, B, RB, "CHEAT", N);
-                // Boton Salir al Menu
-                botonCrear(&botonesMenuPausa[4], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 4*pasoP, B, R, "SALIR AL MENU", N);   while (estadoDeJuego == PAUSA)
-
-                estadoDeJuego = menuPausa(resolAncho, resolAlto, &cursorBoton, botonesMenuPausa, 5);
-
-                break;
-        }
-    }
-
-
-
-
-
-
-    gbt_temporizador_destruir(tempCaida);
-    gbt_temporizador_destruir(tempInactiv);
-    grillaDestruir(&grillaTetrominosInactivos);                //Se libera el espacio en memoria de la grilla
-    gbt_destruir_ventana();         //Cierra ventana y GBT
->>>>>>> bafd173e0d91aff7488c7bdf4932643df57b838d
     gbt_cerrar();
 
     return 0;
