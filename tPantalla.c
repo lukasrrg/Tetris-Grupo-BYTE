@@ -230,12 +230,23 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
         tetroActivo->posX--;
     else if (tecla == GBTK_d && !tetrominoColisionaLateralmente(tetroActivo, grilla, DERECHA))
         tetroActivo->posX++;
-
-
-    else if (tecla == GBTK_j || tecla == GBTK_q)           //Rotacion antihoraria (TODO: verificar colision)
+    else if (tecla == GBTK_j || tecla == GBTK_q)
+    {
         tetrominoRotar(tetroActivo, ANTIHORARIO);
-    else if (tecla == GBTK_l || tecla == GBTK_e)           //Rotacion horaria    (TODO: verificar colision)
+
+        if (tetroActivo->posX < 0 || (tetroActivo->posX + tetroActivo->anchoMat) > grilla->anchoGrilla || tetrominoColisionaConOtro(tetroActivo, grilla)) //Validamos que este en la grilla
+        {
+            tetrominoRotar(tetroActivo, HORARIO);
+        }
+    }
+    else if (tecla == GBTK_l || tecla == GBTK_e)
+    {
         tetrominoRotar(tetroActivo, HORARIO);
+        if (tetroActivo->posX < 0 || (tetroActivo->posX + tetroActivo->anchoMat) > grilla->anchoGrilla || tetrominoColisionaConOtro(tetroActivo, grilla))
+        {
+            tetrominoRotar(tetroActivo, ANTIHORARIO);
+        }
+    }
     else if (tecla == GBTK_ESCAPE || tecla == GBTK_p)
         return PAUSA;
     else
