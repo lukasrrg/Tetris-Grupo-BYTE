@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 {
     bool cheatsActivos = false;
     int estadoDeJuego = PANTALLA_INICIAL;
+    int paletaElegida = 0;
     int resolAncho = ANCHO_VENTANA_CGA, resolAlto = ALTO_VENTANA_CGA;
     int anchoGrilla = ANCHO_GRILLA_DEFAULT;
     bool modoDeluxe = false;
@@ -195,12 +196,36 @@ int main(int argc, char *argv[])
                     estadoDeJuego = ingresarNombre(resolAncho, resolAlto, nombreJugador);
                 break;
 
-            case CONFIG_DELUXE:
-                while (estadoDeJuego == CONFIG_DELUXE)
-                    estadoDeJuego = menuConfigDeluxe(resolAncho, resolAlto, &anchoGrilla);
-                break;
+            case OPCIONES:
+                int resolAnchoAntes = resolAncho;
+
+                while (estadoDeJuego == OPCIONES)
+                    estadoDeJuego = menuOpciones(resolAncho, resolAlto, &resolAncho, &resolAlto, &velActual, &anchoGrilla, &paletaElegida, modoDeluxe);
+                if (resolAncho != resolAnchoAntes)
+                    {
+                        gbt_destruir_ventana();
+                        char nombreVentana[128];
+                        sprintf(nombreVentana, "Ventana %dx%d", resolAncho, resolAlto);
+                        if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, ESCALA_VENTANA) != 0)
+                        {
+                            fprintf(stderr, "Error al recrear la ventana: %s\n", gbt_obtener_log());
+                            return ERROR_ABRIENDO_VENTANA;
+                        }
+                        grillaDestruir(&grillaDeFondo);
+                        if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
+                            return ERROR_MEMORIA_GRILLA;
+                    }
+
+                    gbt_temporizador_destruir(tempCaida);
+                    tempCaida = gbt_temporizador_crear(velActual);
+                    if (!tempCaida)
+                        return ERROR_CREAR_TEMPORIZADOR;
+                    gbt_temporizador_pausar(tempCaida);
+                    break;
+            }
         }
-    }
+
+
 
     gbt_temporizador_destruir(tempCaida);
     gbt_temporizador_destruir(tempInactiv);

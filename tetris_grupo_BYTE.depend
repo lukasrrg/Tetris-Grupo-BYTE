@@ -918,13 +918,13 @@
 	<string.h>
 	<stdbool.h>
 
-1779073565 source:c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\paleta.c
+1779485078 source:c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\paleta.c
 	"paleta.h"
 
-1779073362 c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\paleta.h
+1779486524 c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\paleta.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 
-1779128483 source:c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\main.c
+1779493911 source:c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -937,7 +937,7 @@
 	"tGrilla.h"
 	"tJugador.h"
 
-1779119041 c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\tpantalla.h
+1779493999 c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\tpantalla.h
 	<stdio.h>
 	"tBoton.h"
 	"tGrilla.h"
@@ -962,6 +962,6 @@
 1779117557 source:c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1779396201 source:c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\tpantalla.c
+1779494778 source:c:\users\colom\onedrive\escritorio\tp topicos 2\tetris-grupo-byte\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 
