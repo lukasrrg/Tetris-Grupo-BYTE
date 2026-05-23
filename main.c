@@ -43,7 +43,11 @@
 int main(int argc, char *argv[])
 {
     int estadoDeJuego = PANTALLA_INICIAL;
-    int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO];
+    int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO];      //En este vector se guarda toda la data que sirve para correr el juego
+
+    for (int i = 0; i < CANT_TETROMINOS_DELUXE; i++)
+        infoJuego[i] = 0;
+
     int anchoGrilla;
     char nombreJugador[MAX_NOMBRE];
     double velActual = VEL_CAIDA_DEFAULT;
@@ -175,8 +179,6 @@ int main(int argc, char *argv[])
                 grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], infoJuego[MODO_DE_JUEGO] ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
                 partidaNueva = false;
             }
-//            vectorInfoJuego[RESOL_ANCHO] = resolAncho;
-//            vectorInfoJuego[RESOL_ALTO] = resolAlto;
             gbt_temporizador_reanudar(tempCaida);
             while (estadoDeJuego == JUGANDO)
                 estadoDeJuego = interfazJuego(infoJuego, tetroActivos, &grillaDeFondo, &tempCaida, &tempFijacion, &velActual, &modoVelocidad);
