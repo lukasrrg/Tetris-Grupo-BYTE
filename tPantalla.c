@@ -39,12 +39,12 @@ int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBoton
     {
         switch (*cursor)
         {
-            case 0:
-                return MENU_PRINCIPAL_CLASSIC;
-            case 1:
-                return MENU_PRINCIPAL_DELUXE;
-            case 2:
-                return SALIR_DEL_JUEGO;
+        case 0:
+            return MENU_PRINCIPAL_CLASSIC;
+        case 1:
+            return MENU_PRINCIPAL_DELUXE;
+        case 2:
+            return SALIR_DEL_JUEGO;
         }
     }
 
@@ -77,14 +77,14 @@ int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vec
     {
         switch (*cursor)
         {
-            case 0:
-                return INGRESO_NOMBRE;         //Empieza la partida
-            case 1:
-                return INGRESO_NOMBRE_CARGA;
-            case 2:
-                return OPCIONES;
-            case 3:
-                return PANTALLA_INICIAL;
+        case 0:
+            return INGRESO_NOMBRE;         //Empieza la partida
+        case 1:
+            return INGRESO_NOMBRE_CARGA;
+        case 2:
+            return OPCIONES;
+        case 3:
+            return PANTALLA_INICIAL;
         }
     }
 
@@ -118,14 +118,14 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
     {
         switch (*cursor)
         {
-            case 0:
-                return INGRESO_NOMBRE;         //Empieza la partida
-            case 1:
-                return INGRESO_NOMBRE_CARGA;
-            case 2:
-                return OPCIONES;
-            case 3:
-                return PANTALLA_INICIAL;
+        case 0:
+            return INGRESO_NOMBRE;         //Empieza la partida
+        case 1:
+            return INGRESO_NOMBRE_CARGA;
+        case 2:
+            return OPCIONES;
+        case 3:
+            return PANTALLA_INICIAL;
         }
     }
 
@@ -134,11 +134,9 @@ int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecB
     return MENU_PRINCIPAL_DELUXE;
 }
 
-int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad, bool modo, int *puntaje, int *lineas, int *nivel)
+int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempInactiv, double *velActual, int *modoVelocidad)
 {
-
-    int puntajeMax = 0;   // TODO: leer del jugador guardado
-
+//    int puntajeMax = 0;   // TODO: leer del jugador guardado
     gbt_borrar_backbuffer(N);
     gbt_procesar_entrada();
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
@@ -146,10 +144,10 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     int anchoGrillaPx = grilla->anchoGrilla * TAM_MINO;
     int altoGrillaPx  = ALTO_GRILLA_VISIBLE * TAM_MINO;
 
-    infoInterfazDeJuego(*lineas,*puntaje,puntajeMax, *nivel, tetroActivo[1].tipo, resolAncho, resolAlto);
-    grillaDibujarTetromino(tetroActivo, resolAncho, resolAlto, grilla->anchoGrilla);
-    grillaDibujar(grilla);
-    dibujarRectangulo((resolAncho - anchoGrillaPx)/2, (resolAlto - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
+    infoInterfazDeJuego(infoJuego[LINEAS], infoJuego[SCORE], infoJuego[TOP_SCORE], infoJuego[NIVEL], tetroActivo[1].tipo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
+    grillaDibujarTetromino(tetroActivo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], grilla->anchoGrilla);
+    grillaDibujar(grilla, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
+    dibujarRectangulo((infoJuego[RESOL_ANCHO] - anchoGrillaPx)/2, (infoJuego[RESOL_ALTO] - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
 
     if (gbt_temporizador_consumir(*tempCaida))
     {
@@ -157,8 +155,14 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
 
         if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))
         {
-            grillaActualizar(grilla, tetroActivo);
-            actualizarVectorTetrominos(tetroActivo, modo ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC );
+            tetroActivo->posY--;
+
+            if (tetroActivo->posY <= 0)         //Si el tetromino se bloquea tocando el techo, se termina la partida
+                return GAME_OVER;
+
+            grillaActualizar(grilla, tetroActivo);      //Guarda el tetromino colisionado en la grilla
+            infoJuego[LINEAS] += grillaChequearLinea(grilla, tetroActivo);   //Si hay lineas completas, las elimina y se aumenta la cantidad de lineas completas
+            actualizarVectorTetrominos(tetroActivo, infoJuego[MODO_DE_JUEGO] ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC ); //Crea un nuevo tetromino y lo coloca al final del vector
             //TODO: agregar pequeño tiempo de espera antes de anclar el tetromino
         }
     }
@@ -211,24 +215,24 @@ int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, in
     else if (tecla == GBTK_ESCAPE)           //'Esc' ---> Reanudar
         return JUGANDO;
     else if (tecla == GBTK_ENTER)
+    {
+        switch (*cursor)
         {
-            switch (*cursor)
-            {
-                case 0:
-                    return JUGANDO;         //REANUDAR
-                case 1:
-                    return CARGAR_PARTIDA;
-                    break;                  //CARGAR PARTIDA
-                case 2:
-                   return GUARDAR_PARTIDA;
-                    break;                  //GUARDAR PARTIDA
-                case 3:
-    //                return CHEAT; //ACTIVAR CHEATS
-                    break;
-                case 4:
-                    return PANTALLA_INICIAL; //VUELVE AL MENU
-            }
+        case 0:
+            return JUGANDO;         //REANUDAR
+        case 1:
+            return CARGAR_PARTIDA;
+            break;                  //CARGAR PARTIDA
+        case 2:
+            return GUARDAR_PARTIDA;
+            break;                  //GUARDAR PARTIDA
+        case 3:
+            //                return CHEAT; //ACTIVAR CHEATS
+            break;
+        case 4:
+            return PANTALLA_INICIAL; //VUELVE AL MENU
         }
+    }
 
     gbt_volcar_backbuffer();
     return PAUSA;
@@ -236,6 +240,29 @@ int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, in
 
 int gameOver(int resolAncho, int resolAlto)
 {
+    gbt_borrar_backbuffer(N);
+
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    tCursorTexto cursor;
+
+    cursor.posX = 10;
+    cursor.posY = 10;
+
+    escribirTexto("GAME OVER", &cursor, R);
+
+    if (tecla == GBTK_ENTER)
+    {
+        return PANTALLA_INICIAL;
+    }
+    if (tecla == GBTK_ESCAPE)
+    {
+        return SALIR_DEL_JUEGO;
+    }
+
+    gbt_volcar_backbuffer();
+
     return GAME_OVER;
 }
 
@@ -337,29 +364,29 @@ int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto,
 
         switch (cursorOpc)
         {
-            case 0:   // Resolucion: toggle entre CGA y VGA
-                if (tempAncho == ANCHO_VENTANA_CGA)
-                {
-                    tempAncho = ANCHO_VENTANA_VGA;
-                    tempAlto  = ALTO_VENTANA_VGA;
-                }
-                else
-                {
-                    tempAncho = ANCHO_VENTANA_CGA;
-                    tempAlto  = ALTO_VENTANA_CGA;
-                }
-                break;
+        case 0:   // Resolucion: toggle entre CGA y VGA
+            if (tempAncho == ANCHO_VENTANA_CGA)
+            {
+                tempAncho = ANCHO_VENTANA_VGA;
+                tempAlto  = ALTO_VENTANA_VGA;
+            }
+            else
+            {
+                tempAncho = ANCHO_VENTANA_CGA;
+                tempAlto  = ALTO_VENTANA_CGA;
+            }
+            break;
 
-            case 1:   // Velocidad de caida
-                tempVelIdx = (tempVelIdx + dir + 3) % 3;
-                break;
+        case 1:   // Velocidad de caida
+            tempVelIdx = (tempVelIdx + dir + 3) % 3;
+            break;
 
-            case 2:   // Ancho grilla
-                if (dir == 1 && tempGrilla < ANCHO_GRILLA_MAX)
-                    tempGrilla++;
-                else if (dir == -1 && tempGrilla > ANCHO_GRILLA_MIN)
-                    tempGrilla--;
-                break;
+        case 2:   // Ancho grilla
+            if (dir == 1 && tempGrilla < ANCHO_GRILLA_MAX)
+                tempGrilla++;
+            else if (dir == -1 && tempGrilla > ANCHO_GRILLA_MIN)
+                tempGrilla--;
+            break;
         }
     }
 
@@ -371,7 +398,7 @@ int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto,
         *velCaida    = valoresVel[tempVelIdx];
         *anchoGrilla = tempGrilla;
 
-    // Guardar opciones en archivo
+        // Guardar opciones en archivo
         tOpciones op;
         op.resolAncho  = tempAncho;
         op.resolAlto   = tempAlto;

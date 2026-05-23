@@ -11,7 +11,8 @@
 //    {' ', ' ', ' ', ' ', ' '}
 
 
-const char aMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char aMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', ' ', 'X', ' ', ' '},
     {' ', 'X', ' ', 'X', ' '},
     {' ', 'X', ' ', 'X', ' '},
@@ -21,7 +22,8 @@ const char aMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char bMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char bMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -31,7 +33,8 @@ const char bMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', 'X', 'X', 'X', ' '}
 };
 
-const char cMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char cMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', ' '},
@@ -41,7 +44,8 @@ const char cMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', 'X', ' '}
 };
 
-const char dMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char dMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', ' ', ' '},
     {'X', ' ', ' ', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
@@ -51,7 +55,8 @@ const char dMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', 'X', 'X', ' ', ' '}
 };
 
-const char eMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char eMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', 'X', 'X'},
     {'X', ' ', ' ', ' ', ' '},
     {'X', ' ', ' ', ' ', ' '},
@@ -61,7 +66,8 @@ const char eMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', 'X', 'X', 'X', 'X'}
 };
 
-const char fMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char fMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', 'X', 'X'},
     {'X', ' ', ' ', ' ', ' '},
     {'X', ' ', ' ', ' ', ' '},
@@ -71,7 +77,8 @@ const char fMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', ' '}
 };
 
-const char gMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char gMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', ' '},
@@ -81,7 +88,8 @@ const char gMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', 'X', ' '}
 };
 
-const char hMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char hMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -91,7 +99,8 @@ const char hMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char iMay1[ALTO_ESTANDAR_LETRA][3] = {
+const char iMay1[ALTO_ESTANDAR_LETRA][3] =
+{
     {'X', 'X', 'X'},
     {' ', 'X', ' '},
     {' ', 'X', ' '},
@@ -101,7 +110,8 @@ const char iMay1[ALTO_ESTANDAR_LETRA][3] = {
     {'X', 'X', 'X',}
 };
 
-const char jMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char jMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', 'X', 'X', 'X', 'X'},
     {' ', ' ', ' ', 'X', ' '},
     {' ', ' ', ' ', 'X', ' '},
@@ -111,7 +121,8 @@ const char jMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', ' ', ' '}
 };
 
-const char kMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char kMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', 'X', ' '},
     {'X', ' ', 'X', ' ', ' '},
@@ -121,7 +132,8 @@ const char kMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char lMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char lMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', ' '},
     {'X', ' ', ' ', ' ', ' '},
     {'X', ' ', ' ', ' ', ' '},
@@ -131,7 +143,8 @@ const char lMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', 'X', 'X', 'X', 'X'}
 };
 
-const char mMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char mMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', 'X', ' ', 'X', 'X'},
     {'X', ' ', 'X', ' ', 'X'},
@@ -141,7 +154,8 @@ const char mMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char nMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char nMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', 'X', ' ', ' ', 'X'},
@@ -151,7 +165,8 @@ const char nMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char oMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char oMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -161,7 +176,8 @@ const char oMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', 'X', ' '}
 };
 
-const char pMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char pMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -171,7 +187,8 @@ const char pMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', ' '}
 };
 
-const char qMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char qMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -181,7 +198,8 @@ const char qMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', 'X', ' '}
 };
 
-const char rMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char rMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -191,7 +209,8 @@ const char rMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char sMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char sMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', 'X', 'X', 'X', ' '},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', ' '},
@@ -201,7 +220,8 @@ const char sMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', 'X', ' '}
 };
 
-const char tMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char tMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', 'X', 'X'},
     {'X', ' ', 'X', ' ', 'X'},
     {' ', ' ', 'X', ' ', ' '},
@@ -211,7 +231,8 @@ const char tMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', 'X', ' '}
 };
 
-const char uMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char uMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -221,7 +242,8 @@ const char uMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', 'X', 'X', 'X', ' '}
 };
 
-const char vMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char vMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -231,7 +253,8 @@ const char vMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', ' ', 'X', ' ', ' '}
 };
 
-const char wMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char wMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
@@ -241,7 +264,8 @@ const char wMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char xMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char xMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
     {' ', 'X', ' ', 'X', ' '},
@@ -251,7 +275,8 @@ const char xMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', ' ', ' ', ' ', 'X'}
 };
 
-const char yMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char yMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', ' ', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' ', 'X'},
     {' ', 'X', ' ', 'X', ' '},
@@ -261,7 +286,8 @@ const char yMay1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', ' ', 'X', ' ', ' '}
 };
 
-const char zMay1[ALTO_ESTANDAR_LETRA][5] = {
+const char zMay1[ALTO_ESTANDAR_LETRA][5] =
+{
     {'X', 'X', 'X', 'X', 'X'},
     {' ', ' ', ' ', ' ', 'X'},
     {' ', ' ', ' ', 'X', ' '},
@@ -271,7 +297,8 @@ const char zMay1[ALTO_ESTANDAR_LETRA][5] = {
     {'X', 'X', 'X', 'X', 'X'},
 };
 
-const char espacio1[ALTO_ESTANDAR_LETRA][2] = {
+const char espacio1[ALTO_ESTANDAR_LETRA][2] =
+{
     {' ', ' '},
     {' ', ' '},
     {' ', ' '},
@@ -281,7 +308,8 @@ const char espacio1[ALTO_ESTANDAR_LETRA][2] = {
     {' ', ' '}
 };
 
-const char cero1[ALTO_ESTANDAR_LETRA][4] = {
+const char cero1[ALTO_ESTANDAR_LETRA][4] =
+{
     {' ', 'X', 'X', ' '},
     {'X', ' ', ' ', 'X'},
     {'X', ' ', 'X', 'X'},
@@ -291,7 +319,8 @@ const char cero1[ALTO_ESTANDAR_LETRA][4] = {
     {' ', 'X', 'X', ' '}
 };
 
-const char uno1[ALTO_ESTANDAR_LETRA][3] = {
+const char uno1[ALTO_ESTANDAR_LETRA][3] =
+{
     {' ', 'X', ' '},
     {'X', 'X', ' '},
     {' ', 'X', ' '},
@@ -301,7 +330,8 @@ const char uno1[ALTO_ESTANDAR_LETRA][3] = {
     {'X', 'X', 'X'}
 };
 
-const char dos1[ALTO_ESTANDAR_LETRA][4] = {
+const char dos1[ALTO_ESTANDAR_LETRA][4] =
+{
     {' ', 'X', 'X', ' '},
     {'X', ' ', ' ', 'X'},
     {' ', ' ', ' ', 'X'},
@@ -311,7 +341,8 @@ const char dos1[ALTO_ESTANDAR_LETRA][4] = {
     {'X', 'X', 'X', 'X'}
 };
 
-const char tres1[ALTO_ESTANDAR_LETRA][4] = {
+const char tres1[ALTO_ESTANDAR_LETRA][4] =
+{
     {' ', 'X', 'X', ' '},
     {'X', ' ', ' ', 'X'},
     {' ', ' ', ' ', 'X'},
@@ -321,7 +352,8 @@ const char tres1[ALTO_ESTANDAR_LETRA][4] = {
     {' ', 'X', 'X', ' '}
 };
 
-const char cuatro1[ALTO_ESTANDAR_LETRA][5] = {
+const char cuatro1[ALTO_ESTANDAR_LETRA][5] =
+{
     {' ', ' ', ' ', 'X', ' '},
     {' ', ' ', 'X', 'X', ' '},
     {' ', 'X', ' ', 'X', ' '},
@@ -331,7 +363,8 @@ const char cuatro1[ALTO_ESTANDAR_LETRA][5] = {
     {' ', ' ', ' ', 'X', ' '}
 };
 
-const char cinco1[ALTO_ESTANDAR_LETRA][4] = {
+const char cinco1[ALTO_ESTANDAR_LETRA][4] =
+{
     {'X', 'X', 'X', 'X'},
     {'X', ' ', ' ', ' '},
     {'X', 'X', 'X', ' '},
@@ -341,7 +374,8 @@ const char cinco1[ALTO_ESTANDAR_LETRA][4] = {
     {' ', 'X', 'X', ' '}
 };
 
-const char seis1[ALTO_ESTANDAR_LETRA][4] = {
+const char seis1[ALTO_ESTANDAR_LETRA][4] =
+{
     {' ', 'X', 'X', ' '},
     {'X', ' ', ' ', 'X'},
     {'X', ' ', ' ', ' '},
@@ -351,7 +385,8 @@ const char seis1[ALTO_ESTANDAR_LETRA][4] = {
     {' ', 'X', 'X', ' '}
 };
 
-const char siete1[ALTO_ESTANDAR_LETRA][4] = {
+const char siete1[ALTO_ESTANDAR_LETRA][4] =
+{
     {'X', 'X', 'X', 'X'},
     {' ', ' ', ' ', 'X'},
     {' ', ' ', 'X', ' '},
@@ -361,7 +396,8 @@ const char siete1[ALTO_ESTANDAR_LETRA][4] = {
     {' ', 'X', ' ', ' '}
 };
 
-const char ocho1[ALTO_ESTANDAR_LETRA][4] = {
+const char ocho1[ALTO_ESTANDAR_LETRA][4] =
+{
     {' ', 'X', 'X', ' '},
     {'X', ' ', ' ', 'X'},
     {'X', ' ', ' ', 'X'},
@@ -371,7 +407,8 @@ const char ocho1[ALTO_ESTANDAR_LETRA][4] = {
     {' ', 'X', 'X', ' '}
 };
 
-const char nueve1[ALTO_ESTANDAR_LETRA][4] = {
+const char nueve1[ALTO_ESTANDAR_LETRA][4] =
+{
     {' ', 'X', 'X', ' '},
     {'X', ' ', ' ', 'X'},
     {'X', ' ', ' ', 'X'},
@@ -381,7 +418,8 @@ const char nueve1[ALTO_ESTANDAR_LETRA][4] = {
     {' ', 'X', 'X', ' '}
 };
 
-const char dosPuntos1[ALTO_ESTANDAR_LETRA][2] = {
+const char dosPuntos1[ALTO_ESTANDAR_LETRA][2] =
+{
     {' ', ' '},
     {'X', 'X'},
     {'X', 'X'},
@@ -392,7 +430,8 @@ const char dosPuntos1[ALTO_ESTANDAR_LETRA][2] = {
 };
 
 //Fuente 1
-const tCaracter fuente1[CANTIDAD_DE_CARACTERES] = {
+const tCaracter fuente1[CANTIDAD_DE_CARACTERES] =
+{
     {5, aMay1[0]},  //0
     {5, bMay1[0]},  //1
     {5, cMay1[0]},  //2
@@ -468,11 +507,11 @@ int obtenerIndice(char caracter)        //Si le das un char, devuelve el indice 
         return caracter + 27;
     switch(caracter)                    //Completar para el resto de caracteres faltantes a medida que se vayan agregando
     {
-        case ' ':
-            return 26;
-            break;
-        case ':':
-            return 37;
+    case ' ':
+        return 26;
+        break;
+    case ':':
+        return 37;
     }
 
     return 0;
@@ -545,13 +584,18 @@ void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int es
     const tCaracter *caracter = &fuente1[obtenerIndice(carac)];
     const char *p;
 
-    for (i = 0; i < caracter->espaciado; i++) {
-        for (j = 0; j < ALTO_ESTANDAR_LETRA; j++) {
+    for (i = 0; i < caracter->espaciado; i++)
+    {
+        for (j = 0; j < ALTO_ESTANDAR_LETRA; j++)
+        {
             p = caracter->matriz + (j * caracter->espaciado + i);
 
-            if (*p == 'X') {
-                for(ei = 0; ei < escala; ei++) {
-                    for(ej = 0; ej < escala; ej++) {
+            if (*p == 'X')
+            {
+                for(ei = 0; ei < escala; ei++)
+                {
+                    for(ej = 0; ej < escala; ej++)
+                    {
                         gbt_dibujar_pixel(cursor->posX + (i * escala) + ei,
                                           cursor->posY + (j * escala) + ej,
                                           color);

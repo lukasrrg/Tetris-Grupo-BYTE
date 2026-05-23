@@ -6,7 +6,7 @@ bool jugadorExiste(const char *nombre)
     if (!f) return false;
 
     tJugador temp;
-        while (fread(&temp, sizeof(tJugador), 1, f) == 1)
+    while (fread(&temp, sizeof(tJugador), 1, f) == 1)
     {
         if (strcmp(temp.nombre, nombre) == 0)
         {

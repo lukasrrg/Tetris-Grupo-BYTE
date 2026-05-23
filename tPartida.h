@@ -10,13 +10,8 @@
 #define PARTIDAS_BIN "partidas.bin"
 #define MAX_PARTIDAS 100
 
-// Celda serializable (sin posiciones de píxeles)
-typedef struct {
-    bool estado;
-    int  color;
-} tCeldaGuardada;
-
-typedef struct {
+typedef struct
+{
     char   nombre[MAX_NOMBRE];
     int    puntaje;
     int    lineas;
@@ -26,7 +21,7 @@ typedef struct {
     bool   modoDeluxe;
     tTetromino tetrominos[TAM_VEC_TETROMINOS];
     // ANCHO_GRILLA_MAX * ALTO_GRILLA_TOTAL celdas
-    tCeldaGuardada celdas[ANCHO_GRILLA_MAX * ALTO_GRILLA_TOTAL];
+    tMino matMinos[ANCHO_GRILLA_MAX * ALTO_GRILLA_TOTAL];
 } tPartida;
 
 
