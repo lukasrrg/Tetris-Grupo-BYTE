@@ -52,24 +52,28 @@ void mostrarVector(const int *vec, size_t ce)
     printf("\n");
 }
 
-void** matrizCrear(size_t filas, size_t columnas, size_t tamElem){
+void** matrizCrear(size_t filas, size_t columnas, size_t tamElem)
+{
 
     if(!filas || !columnas || !tamElem)
         return NULL;
 
     void** matriz = malloc(filas * sizeof(void*));
 
-    if(!matriz){
+    if(!matriz)
+    {
         return NULL;
     }
 
     void **ultimaFila = matriz + filas - 1;
 
-    for(void **fila = matriz; fila <= ultimaFila; fila++){
+    for(void **fila = matriz; fila <= ultimaFila; fila++)
+    {
 
         *fila = malloc(columnas * tamElem);
 
-        if(!*fila){
+        if(!*fila)
+        {
             matrizDestruir(matriz, fila - matriz);
             return NULL;
         }
@@ -78,14 +82,16 @@ void** matrizCrear(size_t filas, size_t columnas, size_t tamElem){
     return matriz;
 }
 
-void matrizDestruir(void** matriz, size_t filas){
+void matrizDestruir(void** matriz, size_t filas)
+{
 
     if(!matriz)
         return;
 
     void **ultimaFila = matriz + filas - 1;
 
-    for(void **fila = matriz; fila <= ultimaFila; fila++){
+    for(void **fila = matriz; fila <= ultimaFila; fila++)
+    {
         free(*fila);
         *fila = NULL;
     }

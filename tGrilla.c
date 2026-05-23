@@ -84,7 +84,7 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, in
     int posX;   //Posicion en X del MINO que se va a dibujar (NO relativo a la grilla)
     int posY;   //Posicion en Y del MINO que se va a dibujar (NO relativo a la grilla)
 
-    for(fila = 0;fila < tetro->altoMat; fila++)
+    for(fila = 0; fila < tetro->altoMat; fila++)
     {
         for(col = 0; col < tetro->anchoMat; col++)
         {

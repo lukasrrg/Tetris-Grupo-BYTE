@@ -1,7 +1,7 @@
 #include "paleta.h"
 
-tGBT_ColorRGB paletaCGA[CANT_COLORES] = {
-
+tGBT_ColorRGB paletaCGA[CANT_COLORES] =
+{
     /// 0-15: Colores CGA (16 colores)
     {0x00, 0x00, 0x00}, // 0:   Negro
     {0x00, 0x00, 0xAA}, // 1:   Azul
