@@ -57,10 +57,18 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="tMino.h" />
+		<Unit filename="tOpciones.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tOpciones.h" />
 		<Unit filename="tPantalla.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="tPantalla.h" />
+		<Unit filename="tPartida.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tPartida.h" />
 		<Unit filename="texto.c">
 			<Option compilerVar="CC" />
 		</Unit>

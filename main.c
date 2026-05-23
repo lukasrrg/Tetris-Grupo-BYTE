@@ -258,7 +258,7 @@ int main(int argc, char *argv[])
                             lineas      = p.lineas;
                             nivel       = p.nivel;
                             velActual   = p.velCaida;
-                            anchoGrilla = p.anchoGrilla;
+                            anchoGrilla = p.modoDeluxe ? p.anchoGrilla : ANCHO_GRILLA_DEFAULT;
                             modoDeluxe  = p.modoDeluxe;
                             memcpy(tetroActivos, p.tetrominos, sizeof(tetroActivos));
 
