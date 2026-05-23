@@ -155,14 +155,23 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
 
         if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))
         {
-            tetroActivo->posY--;
+            tetroActivo->posY--;        //Si ya colisiono, entonces hay que revertir la ultima bajada del tetromino
 
             if (tetroActivo->posY <= 0)         //Si el tetromino se bloquea tocando el techo, se termina la partida
                 return GAME_OVER;
 
+            infoJuego[(int)tetroActivo->tipo]++;
+
+            system("cls");
+            for (int i = 0; i < CANT_TETROMINOS_DELUXE; i++)
+            {
+                printf("TETRO %d: %d\n", i, infoJuego[i]);
+            }
+
+
             grillaActualizar(grilla, tetroActivo);      //Guarda el tetromino colisionado en la grilla
             infoJuego[LINEAS] += grillaChequearLinea(grilla, tetroActivo);   //Si hay lineas completas, las elimina y se aumenta la cantidad de lineas completas
-            actualizarVectorTetrominos(tetroActivo, infoJuego[MODO_DE_JUEGO] ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC ); //Crea un nuevo tetromino y lo coloca al final del vector
+            actualizarVectorTetrominos(tetroActivo, infoJuego[MODO_DE_JUEGO] ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC, infoJuego); //Crea un nuevo tetromino y lo coloca al final del vector
             //TODO: agregar pequeño tiempo de espera antes de anclar el tetromino
         }
     }

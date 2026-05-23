@@ -436,11 +436,31 @@ void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetromin
     }
 }
 
-void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos)
+bool _existeOtroMenosFrecuente(int indiceActual, int totalTetrominos, int tetrominosColocados[CANT_TETROMINOS_DELUXE])
+{
+    int i;
+
+    for(i = 0; i < totalTetrominos; i++)
+    {
+        if (tetrominosColocados[i] < tetrominosColocados[indiceActual])
+            return true;
+    }
+
+    return false;
+}
+
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos, int tetrominosColocados[CANT_TETROMINOS_DELUXE])
 {
     vectorShiftear(vec, 1, TAM_VEC_TETROMINOS, sizeof(tTetromino), IZQUIERDA);
 
-    tetrominoCrear(&vec[TAM_VEC_TETROMINOS - 1], rand()%totalTetrominos, 4, 0);
+    int proximoTetromino = rand()%totalTetrominos;
+
+    while(_existeOtroMenosFrecuente(proximoTetromino, totalTetrominos, tetrominosColocados)) //Mientras existe uno que haya aparecido menos cantidad de veces, se recalcula el random
+    {
+        proximoTetromino = rand()%totalTetrominos;
+    }
+
+    tetrominoCrear(&vec[TAM_VEC_TETROMINOS - 1], proximoTetromino, 4, 0);
     vec[TAM_VEC_TETROMINOS - 1].posY = -1*vec[TAM_VEC_TETROMINOS - 1].altoMat;
 }
 
