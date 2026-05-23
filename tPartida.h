@@ -25,7 +25,6 @@ typedef struct {
     int    anchoGrilla;
     bool   modoDeluxe;
     tTetromino tetrominos[TAM_VEC_TETROMINOS];
-    // ANCHO_GRILLA_MAX * ALTO_GRILLA_TOTAL celdas
     tCeldaGuardada celdas[ANCHO_GRILLA_MAX * ALTO_GRILLA_TOTAL];
 } tPartida;
 

@@ -232,23 +232,6 @@ int main(int argc, char *argv[])
                         break;
                     }
 
-                    case GUARDAR_PARTIDA:
-                {
-                        tPartida p;
-                        strcpy(p.nombre, nombreJugador);
-                        p.puntaje     = puntaje;
-                        p.lineas      = lineas;
-                        p.nivel       = nivel;
-                        p.velCaida    = velActual;
-                        p.anchoGrilla = anchoGrilla;
-                        p.modoDeluxe  = modoDeluxe;
-                        memcpy(p.tetrominos, tetroActivos, sizeof(tetroActivos));
-                        partidaSerializarGrilla(&p, &grillaDeFondo);
-                        partidaGuardar(&p);
-                        estadoDeJuego = PAUSA;
-                        break;
-                }
-
                     case CARGAR_PARTIDA:
                     {
                         tPartida p;
@@ -281,10 +264,57 @@ int main(int argc, char *argv[])
 
                     case INGRESO_NOMBRE_CARGA:
                         while (estadoDeJuego == INGRESO_NOMBRE_CARGA)
-                        estadoDeJuego = estadoDeJuego = ingresarNombreCarga(resolAncho, resolAlto, nombreJugador, modoDeluxe);
+                        estadoDeJuego = ingresarNombreCarga(resolAncho, resolAlto, nombreJugador, modoDeluxe);
                         break;
-        }
-}
+
+                    case GUARDAR_PARTIDA:
+                    {
+                        // Si ya existe partida guardada para este jugador y modo, pedir confirmacion
+                        tPartida temp;
+                        if (partidaCargar(nombreJugador, modoDeluxe, &temp))
+                        {
+                            estadoDeJuego = CONFIRMAR_SOBREESCRITURA;
+                            break;
+                        }
+
+                        // No existe: guardar sin preguntar
+                        tPartida p;
+                        strcpy(p.nombre, nombreJugador);
+                        p.puntaje     = puntaje;
+                        p.lineas      = lineas;
+                        p.nivel       = nivel;
+                        p.velCaida    = velActual;
+                        p.anchoGrilla = anchoGrilla;
+                        p.modoDeluxe  = modoDeluxe;
+                        memcpy(p.tetrominos, tetroActivos, sizeof(tetroActivos));
+                        partidaSerializarGrilla(&p, &grillaDeFondo);
+                        partidaGuardar(&p);
+                        estadoDeJuego = PAUSA;
+                        break;
+                    }
+
+                    case CONFIRMAR_SOBREESCRITURA:
+                        while (estadoDeJuego == CONFIRMAR_SOBREESCRITURA)
+                            estadoDeJuego = confirmarSobreescritura(resolAncho, resolAlto);
+                        // Si el jugador confirmo, hacer el guardado efectivo
+                        if (estadoDeJuego == GUARDAR_PARTIDA)
+                        {
+                            tPartida p;
+                            strcpy(p.nombre, nombreJugador);
+                            p.puntaje     = puntaje;
+                            p.lineas      = lineas;
+                            p.nivel       = nivel;
+                            p.velCaida    = velActual;
+                            p.anchoGrilla = anchoGrilla;
+                            p.modoDeluxe  = modoDeluxe;
+                            memcpy(p.tetrominos, tetroActivos, sizeof(tetroActivos));
+                            partidaSerializarGrilla(&p, &grillaDeFondo);
+                            partidaGuardar(&p);
+                            estadoDeJuego = PAUSA;
+                        }
+                        break;
+        } //Cierra switch
+} //Cierra while
 
     gbt_temporizador_destruir(tempCaida);
     gbt_temporizador_destruir(tempInactiv);

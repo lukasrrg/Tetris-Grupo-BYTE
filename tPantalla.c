@@ -637,3 +637,30 @@ void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int
         escribirNumero(parametro, &cursor, colorTexto);
     }
 }
+
+int confirmarSobreescritura(int resolAncho, int resolAlto)
+{
+    gbt_borrar_backbuffer(N);
+    gbt_procesar_entrada();
+    eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
+
+    tCursorTexto cur = {(resolAncho - 30*6) / 2, resolAlto/2 - 20};
+    escribirTexto("YA EXISTE UNA PARTIDA GUARDADA", &cur, RB);
+
+    //cur.posX = (resolAncho - 16*6) / 2;
+    //cur.posY += 12;
+    //escribirTexto("PRESIONA ENTER PARA SOBREE", &cur, B);
+
+    cur.posX = 10;
+    cur.posY += 26;
+    escribirTexto("ENTER SOBREESCRIBIR  ESC CANCELAR", &cur, GC);
+
+    gbt_volcar_backbuffer();
+
+    if (tecla == GBTK_ENTER)
+        return GUARDAR_PARTIDA;
+    if (tecla == GBTK_ESCAPE)
+        return PAUSA;
+
+    return CONFIRMAR_SOBREESCRITURA;
+}
