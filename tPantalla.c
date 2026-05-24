@@ -211,7 +211,7 @@ int interfazJuego(int resolAncho, int resolAlto, tTetromino tetroActivo[TAM_VEC_
     }
     else
     {
-        ///JUEGO CON CHEATS ACTIVADO
+        ///JUEGO CON CHEATS ACTIVADOS
         if (tecla == GBTK_s)
         {
             tetroActivo->posY++;
