@@ -239,7 +239,7 @@ int gameOver(int resolAncho, int resolAlto)
     return GAME_OVER;
 }
 
-int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto, double *velCaida, int *anchoGrilla, bool modoDeluxe)
+int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto, double *velCaida, int *anchoGrilla, bool modoDeluxe, int escala)
 {
     static int tempAncho  = 0;
     static int tempAlto   = 0;
@@ -255,8 +255,8 @@ int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto,
 
     if (!iniciado)
     {
-        tempAncho  = *nuevoAncho;
-        tempAlto   = *nuevoAlto;
+        tempAncho  = (escala == 4) ? ANCHO_VENTANA_VGA : ANCHO_VENTANA_CGA;
+        tempAlto   = (escala == 4) ? ALTO_VENTANA_VGA  : ALTO_VENTANA_CGA;
         tempGrilla = *anchoGrilla;
 
         if (*velCaida == VEL_CAIDA_RAPIDO)

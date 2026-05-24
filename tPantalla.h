@@ -50,7 +50,7 @@ int menuPausa(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, in
 int gameOver(int resolAncho, int resolAlto);
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
 int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE], bool modoDeluxe);
-int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto, double *velCaida, int *anchoGrilla, bool modoDeluxe);
+int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto, double *velCaida, int *anchoGrilla, bool modoDeluxe, int escala);
 int confirmarSobreescritura(int resolAncho, int resolAlto);
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);
 void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color);

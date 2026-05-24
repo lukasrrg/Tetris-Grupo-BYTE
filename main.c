@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
     bool modoDeluxe = false;
     char nombreJugador[MAX_NOMBRE];
     double velActual = VEL_CAIDA_DEFAULT;
+    int escalaVentana = 2;
     int puntaje  = 0;
     int lineas   = 0;
     int nivel    = 1;
@@ -53,6 +54,9 @@ int main(int argc, char *argv[])
     opcionesCargar(&op); //Cargar opciones guardadas
     resolAncho  = op.resolAncho;
     resolAlto   = op.resolAlto;
+    escalaVentana = (resolAncho >= ANCHO_VENTANA_VGA) ? 4 : 2; // Leer la resolución guardada solo para determinar la escala
+    resolAncho = ANCHO_VENTANA_CGA; // Logica interna siempre en CGA
+    resolAlto = ALTO_VENTANA_CGA;
     velActual   = op.velCaida;
     anchoGrilla = op.anchoGrilla;
 
@@ -63,8 +67,7 @@ int main(int argc, char *argv[])
         if (strcmp(argv[1], "vga") == 0 || strcmp(argv[1], "VGA") == 0)
         {
             printf("Iniciando el juego en resolucion VGA (640x480).\n");
-            resolAlto = ALTO_VENTANA_VGA;
-            resolAncho = ANCHO_VENTANA_VGA;
+            escalaVentana = 4;
         }
         else if (strcmp(argv[1], "cga") == 0 || strcmp(argv[1], "CGA") == 0)
             printf("Iniciando el juego en resolucion CGA (320x200).\n");
@@ -72,7 +75,7 @@ int main(int argc, char *argv[])
             printf("Los argumentos validos son 'vga' o 'cga'. El juego se iniciara en resolucion CGA.\n");
     }
     else
-        printf("Iniciando el juego en resolucion %dx%d.\n", resolAncho, resolAlto);
+        printf("Iniciando el juego en resolucion %dx%d.\n", escalaVentana == 4 ? ANCHO_VENTANA_VGA : ANCHO_VENTANA_CGA, escalaVentana == 4 ? ALTO_VENTANA_VGA  : ALTO_VENTANA_CGA);
 
 
     if (gbt_iniciar() != 0)
@@ -90,7 +93,7 @@ int main(int argc, char *argv[])
     char nombreVentana[128];
     sprintf(nombreVentana, "Ventana %dx%d", resolAncho, resolAlto);
 
-    if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, ESCALA_VENTANA) != 0)
+    if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, escalaVentana) != 0)
     {
         fprintf(stderr, "Error al iniciar el modulo de graficos de GBT: %s\n", gbt_obtener_log());
         return ERROR_ABRIENDO_VENTANA;
@@ -203,35 +206,35 @@ int main(int argc, char *argv[])
                     estadoDeJuego = ingresarNombre(resolAncho, resolAlto, nombreJugador);
                 break;
 
-            case OPCIONES:
+                case OPCIONES:
                 {
-                    int resolAnchoAntes = resolAncho;
-
+                    int nuevoAncho = (escalaVentana == 4) ? ANCHO_VENTANA_VGA : ANCHO_VENTANA_CGA;
+                    int nuevoAlto  = (escalaVentana == 4) ? ALTO_VENTANA_VGA  : ALTO_VENTANA_CGA;
                     while (estadoDeJuego == OPCIONES)
-                        estadoDeJuego = menuOpciones(resolAncho, resolAlto, &resolAncho, &resolAlto, &velActual, &anchoGrilla, modoDeluxe);
-                    if (resolAncho != resolAnchoAntes)
-                        {
-                            gbt_destruir_ventana();
-                            char nombreVentana[128];
-                            sprintf(nombreVentana, "Ventana %dx%d", resolAncho, resolAlto);
-                            if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, ESCALA_VENTANA) != 0)
-                            {
-                                fprintf(stderr, "Error al recrear la ventana: %s\n", gbt_obtener_log());
-                                return ERROR_ABRIENDO_VENTANA;
-                            }
-                            grillaDestruir(&grillaDeFondo);
-                            if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
-                                return ERROR_MEMORIA_GRILLA;
-                        }
-
-                        gbt_temporizador_destruir(tempCaida);
-                        tempCaida = gbt_temporizador_crear(velActual);
-                        if (!tempCaida)
-                            return ERROR_CREAR_TEMPORIZADOR;
-                        gbt_temporizador_pausar(tempCaida);
-                        break;
+                        estadoDeJuego = menuOpciones(resolAncho, resolAlto, &nuevoAncho, &nuevoAlto, &velActual, &anchoGrilla, modoDeluxe, escalaVentana);
+                    escalaVentana = (nuevoAncho >= ANCHO_VENTANA_VGA) ? 4 : 2;
+                    resolAncho = ANCHO_VENTANA_CGA;
+                    resolAlto  = ALTO_VENTANA_CGA;
+                    gbt_destruir_ventana();
+                    char nombreVentana[128];
+                    sprintf(nombreVentana, "Ventana %dx%d", resolAncho, resolAlto);
+                    if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, escalaVentana) != 0)
+                    {
+                        fprintf(stderr, "Error al recrear la ventana: %s\n", gbt_obtener_log());
+                        return ERROR_ABRIENDO_VENTANA;
                     }
-
+                    grillaDestruir(&grillaDeFondo);
+                    if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
+                    {
+                        return ERROR_MEMORIA_GRILLA;
+                    }
+                    gbt_temporizador_destruir(tempCaida);
+                    tempCaida = gbt_temporizador_crear(velActual);
+                    if (!tempCaida)
+                        return ERROR_CREAR_TEMPORIZADOR;
+                    gbt_temporizador_pausar(tempCaida);
+                    break;
+                }
                     case CARGAR_PARTIDA:
                     {
                         tPartida p;
