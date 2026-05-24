@@ -380,7 +380,7 @@
 1778361245 source:c:\users\lucas\onedrive\escritorio\tetris_1300\tetris 10052026-1157\tmino.c
 	"tMino.h"
 
-1779654550 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -410,7 +410,7 @@
 
 1778021954 c:\users\un homo sapiens\desktop\backup proyecto tetris\lib\gbt_v2026.1c.01\include\gbt\gbt.h
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt.h
 	"gbt_entrada.h"
 	"gbt_graficos.h"
 	"gbt_logger.h"
@@ -476,46 +476,46 @@
 
 1779031812 c:\users\un homo sapiens\desktop\backup proyecto tetris\tgrilla.h
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
 	<stdint.h>
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
 	<stdint.h>
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
 	<stdint.h>
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
 	<stdlib.h>
 	<stdint.h>
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	<string.h>
 
-1779636845 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
+1779657723 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.h
 	<stdio.h>
 	"tBoton.h"
 	"tGrilla.h"
 	"tJugador.h"
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.h
+1779657711 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"texto.h"
 
-1779544585 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
+1779657723 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"tMino.h"
 	<stdlib.h>
 
 1779031812 c:\users\un homo sapiens\desktop\backup proyecto tetris\tmino.h
 
-1779544585 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.h
+1779657723 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.h
 	<stdbool.h>
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"paleta.h"
@@ -552,22 +552,22 @@
 
 1779035727 
 
-1779544585 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\paleta.c
 	"paleta.h"
 
-1779461962 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.c
+1779657711 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tboton.c
 	"tBoton.h"
 
-1779461962 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\texto.c
 	"texto.h"
 
-1779544585 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tgrilla.c
 	"tGrilla.h"
 
-1779544585 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1779636845 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 	"tOpciones.h"
 	"tPartida.h"
@@ -713,10 +713,10 @@
 	<string.h>
 	<stdbool.h>
 
-1779461962 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.c
 	"tJugador.h"
 
-1779461962 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.h
+1779657723 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tjugador.h
 	<stdio.h>
 	<string.h>
 	<stdbool.h>
@@ -809,19 +809,19 @@
 1779048269 source:c:\users\lucas\onedrive\escritorio\tetris\backup\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 
-1779544585 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.c
+1779657711 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.c
 	"tOpciones.h"
 
-1779544585 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.h
+1779657723 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\topciones.h
 	<stdio.h>
 	<stdbool.h>
 	"tPantalla.h"
 
-1779544585 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpartida.c
+1779657723 source:c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpartida.c
 	"tPartida.h"
 	<string.h>
 
-1779565855 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpartida.h
+1779657723 c:\users\lucas\onedrive\escritorio\tetris\tetris-grupo-byte\tpartida.h
 	<stdio.h>
 	<stdbool.h>
 	"tMino.h"
