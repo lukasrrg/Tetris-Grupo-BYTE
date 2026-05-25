@@ -37,6 +37,24 @@ void partidaGuardar(const tPartida *p)
     }
 }
 
+bool partidaExiste(const char *nombre, bool modoDeluxe)
+{
+    FILE *f = fopen(PARTIDAS_BIN, "rb");
+    if (!f) return false;
+
+    tPartida temp;
+    while (fread(&temp, sizeof(tPartida), 1, f) == 1)
+    {
+        if (strcmp(temp.nombre, nombre) == 0 && temp.modoDeluxe == modoDeluxe)
+        {
+            fclose(f);
+            return true;
+        }
+    }
+    fclose(f);
+    return false;
+}
+
 bool partidaCargar(const char *nombre, bool modoDeluxe, tPartida *p)
 {
     FILE *f = fopen(PARTIDAS_BIN, "rb");

@@ -25,6 +25,7 @@
 #define GUARDAR_PARTIDA  9
 #define CARGAR_PARTIDA  10
 #define INGRESO_NOMBRE_CARGA 11
+#define CONFIRMAR_SOBREESCRITURA 12
 #define SALIR_DEL_JUEGO 0
 
 //Datos del juego
@@ -77,6 +78,7 @@ int gameOver(int resolAncho, int resolAlto);
 int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE]);
 int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE], bool modoDeluxe);
 int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto, double *velCaida, int *anchoGrilla, bool modoDeluxe);
+int confirmarSobreescritura(int resolAncho, int resolAlto);
 void infoInterfazDeJuego(int lineas, int puntaje, int puntajeMax, int nivel, char sigTetromino, int resolAncho, int resolAlto);
 void dibujarRectangulo(int posX, int posY, int ancho, int alto, int color);
 void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int ancho, int alto, int colorCuadro, int colorTexto);

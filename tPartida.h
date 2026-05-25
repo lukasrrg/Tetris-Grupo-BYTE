@@ -25,7 +25,8 @@ typedef struct
 } tPartida;
 
 
-void partidaGuardar(const tPartida *p); // Guarda o sobreescribe la partida del jugador
+void partidaGuardar(const tPartida *p);
+bool partidaExiste(const char *nombre, bool modoDeluxe); // Devuelve true si ya hay partida guardada para ese jugador/modo
 bool partidaCargar(const char *nombre, bool modoDeluxe, tPartida *p); // Carga la partida del jugador. Devuelve true si existe.
 void partidaSerializarGrilla(tPartida *p, const tGrilla *grilla); // Serializa la grilla hacia tPartida
 void partidaRestaurarGrilla(const tPartida *p, tGrilla *grilla, int resolAncho, int resolAlto); // Restaura la grilla desde tPartida (recalcula posiciones)
