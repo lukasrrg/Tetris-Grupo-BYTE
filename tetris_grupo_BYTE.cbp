@@ -73,6 +73,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="texto.h" />
+		<Unit filename="vectores_matrices.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="vectores_matrices.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

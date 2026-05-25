@@ -7,7 +7,8 @@
 
 #define OPCIONES_BIN "opciones.bin"
 
-typedef struct {
+typedef struct
+{
     int resolAncho;
     int resolAlto;
     double velCaida;

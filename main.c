@@ -26,39 +26,43 @@
 #include "tPantalla.h"
 #include "tGrilla.h"
 #include "tJugador.h"
+#include "vectores_matrices.h"
 #include "tOpciones.h"
 #include "tPartida.h"
 
 //Codigos de errores
 #define TODO_OK 0
-#define ERROR_MEMORIA_GRILLA    -333
-#define ERROR_INICIAR_GBT       -148
-#define ERROR_ABRIENDO_VENTANA  -3000
-#define ERROR_APLICANDO_PALETA  -666
-#define ERROR_CREAR_TEMPORIZADOR 1234
+#define ERROR_MEMORIA_GRILLA     -333
+#define ERROR_INICIAR_GBT        -148
+#define ERROR_ABRIENDO_VENTANA   -3000
+#define ERROR_APLICANDO_PALETA   -666
+#define ERROR_CREAR_TEMPORIZADOR  1234
 
 
 int main(int argc, char *argv[])
 {
     int estadoDeJuego = PANTALLA_INICIAL;
-    int resolAncho, resolAlto;
+    int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO];  // Vector con toda la data del juego
+
+    // Inicializar contadores de tetrominos en 0
+    for (int i = 0; i < CANT_TETROMINOS_DELUXE; i++)
+        infoJuego[i] = 0;
+
     int anchoGrilla;
-    bool modoDeluxe = false;
     char nombreJugador[MAX_NOMBRE];
     double velActual = VEL_CAIDA_DEFAULT;
-    int escalaVentana = 2;
-    int puntaje  = 0;
-    int lineas   = 0;
-    int nivel    = 1;
     tOpciones op;
-    opcionesCargar(&op); //Cargar opciones guardadas
-    resolAncho  = op.resolAncho;
-    resolAlto   = op.resolAlto;
-    escalaVentana = (resolAncho >= ANCHO_VENTANA_VGA) ? 4 : 2; // Leer la resolución guardada solo para determinar la escala
-    resolAncho = ANCHO_VENTANA_CGA; // Logica interna siempre en CGA
-    resolAlto = ALTO_VENTANA_CGA;
+    opcionesCargar(&op);
     velActual   = op.velCaida;
     anchoGrilla = op.anchoGrilla;
+
+    // La logica interna SIEMPRE trabaja en CGA (320x200).
+    // La escala de ventana (x2 o x4) controla el tamaÃ±o visible.
+    infoJuego[RESOL_ANCHO] = ANCHO_VENTANA_CGA;
+    infoJuego[RESOL_ALTO]  = ALTO_VENTANA_CGA;
+
+    // La resolucion guardada en opciones determina la escala inicial
+    int escalaVentana = (op.resolAncho >= ANCHO_VENTANA_VGA) ? 4 : 2;
 
     if (argc > 2)
         printf("Demasiados argumentos. No soportado. El juego se iniciara en resolucion CGA.\n");
@@ -70,12 +74,16 @@ int main(int argc, char *argv[])
             escalaVentana = 4;
         }
         else if (strcmp(argv[1], "cga") == 0 || strcmp(argv[1], "CGA") == 0)
+        {
             printf("Iniciando el juego en resolucion CGA (320x200).\n");
+            escalaVentana = 2;
+        }
         else
             printf("Los argumentos validos son 'vga' o 'cga'. El juego se iniciara en resolucion CGA.\n");
     }
     else
-        printf("Iniciando el juego en resolucion %dx%d.\n", escalaVentana == 4 ? ANCHO_VENTANA_VGA : ANCHO_VENTANA_CGA, escalaVentana == 4 ? ALTO_VENTANA_VGA  : ALTO_VENTANA_CGA);
+        printf("Iniciando el juego en escala x%d (%dx%d logico).\n", escalaVentana,
+               infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
 
 
     if (gbt_iniciar() != 0)
@@ -91,9 +99,9 @@ int main(int argc, char *argv[])
     }
 
     char nombreVentana[128];
-    sprintf(nombreVentana, "Ventana %dx%d", resolAncho, resolAlto);
+    sprintf(nombreVentana, "Ventana %dx%d", infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
 
-    if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, escalaVentana) != 0)
+    if (gbt_crear_ventana(nombreVentana, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], escalaVentana) != 0)
     {
         fprintf(stderr, "Error al iniciar el modulo de graficos de GBT: %s\n", gbt_obtener_log());
         return ERROR_ABRIENDO_VENTANA;
@@ -102,225 +110,238 @@ int main(int argc, char *argv[])
     srand(time(0));
 
     tGrilla grillaDeFondo;
-    if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
-    {
+    if (!grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], anchoGrilla))
         return ERROR_MEMORIA_GRILLA;
-    }
 
     int cursorBoton;
     int modoVelocidad = VEL_NORMAL;
-    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);    //Inicialización del temporizador para la caida
+    tGBT_Temporizador *tempCaida = gbt_temporizador_crear(velActual);
     if (!tempCaida)
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempCaida);
-    tGBT_Temporizador *tempInactiv = gbt_temporizador_crear(VEL_CAIDA_DEFAULT);    //Inicialización del temporizador para inactivar tetromino
-    if (!tempInactiv)
+
+    tGBT_Temporizador *tempFijacion = gbt_temporizador_crear(VEL_CAIDA_DEFAULT);
+    if (!tempFijacion)
         return ERROR_CREAR_TEMPORIZADOR;
-    gbt_temporizador_pausar(tempInactiv);                          //Se lo pausa ya que todavia no sera utilizado
+    gbt_temporizador_pausar(tempFijacion);
 
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];
     bool partidaNueva = true;
-    int cantTetrominos = CANT_TETROMINOS_CLASSIC;
 
-    while(estadoDeJuego)
+    tPartida partida;
+
+    while (estadoDeJuego)
     {
         switch (estadoDeJuego)
         {
-            case PANTALLA_INICIAL:
-                cursorBoton = 0;
-                tBoton botonesPantallaInicial[3];
-                botonCrear(&botonesPantallaInicial[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto - ALTO_BOTON_DEFAULT)/2, B, AM, "MODO CLASSIC", N);
-                botonCrear(&botonesPantallaInicial[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, (resolAlto + ALTO_BOTON_DEFAULT)/2 + SEPARACION_ENTRE_BOTON, B, VE, "MODO DELUXE", N);
-                botonCrear(&botonesPantallaInicial[2], INACTIVO, ANCHO_BOTON_CHICO,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2,  (resolAlto + 3*ALTO_BOTON_DEFAULT)/2 + SEPARACION_ENTRE_BOTON*2, B, R, "SALIR", N);
-                while (estadoDeJuego == PANTALLA_INICIAL)
-                    estadoDeJuego = pantallaInicial(resolAncho, resolAlto, &cursorBoton, botonesPantallaInicial, 3);
-                partidaNueva = true;
-                break;
+        case PANTALLA_INICIAL:
+            cursorBoton = 0;
+            tBoton botonesPantallaInicial[3];
+            botonCrear(&botonesPantallaInicial[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, (infoJuego[RESOL_ALTO] - ALTO_BOTON_DEFAULT)/2,                            B, AM, "MODO CLASSIC", N);
+            botonCrear(&botonesPantallaInicial[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, (infoJuego[RESOL_ALTO] + ALTO_BOTON_DEFAULT)/2 + SEPARACION_ENTRE_BOTON,   B, VE, "MODO DELUXE",  N);
+            botonCrear(&botonesPantallaInicial[2], INACTIVO, ANCHO_BOTON_CHICO,  ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_CHICO)/2,  (infoJuego[RESOL_ALTO] + 3*ALTO_BOTON_DEFAULT)/2 + SEPARACION_ENTRE_BOTON*2, B, R,  "SALIR",        N);
+            while (estadoDeJuego == PANTALLA_INICIAL)
+                estadoDeJuego = pantallaInicial(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &cursorBoton, botonesPantallaInicial, 3);
+            partidaNueva = true;
+            break;
 
-            case MENU_PRINCIPAL_CLASSIC:
-                cursorBoton = 0;
-                modoDeluxe = false;
-                cantTetrominos = CANT_TETROMINOS_CLASSIC;
+        case MENU_PRINCIPAL_CLASSIC:
+            cursorBoton = 0;
+            infoJuego[MODO_DE_JUEGO] = MODO_CLASSIC;
+            {
                 tBoton botonesMenuPrincipalClassic[4];
-                int pasoC = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
+                int pasoC      = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
                 int totalAltoC = 4*ALTO_BOTON_DEFAULT + 3*SEPARACION_ENTRE_BOTON;
-                int baseYC = (resolAlto - totalAltoC) / 2;
-                botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC,           B, AM, "NUEVA PARTIDA",  N);
-                botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC + pasoC,   B, AM, "CARGAR PARTIDA", N);
-                botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYC + 2*pasoC, B, VE, "OPCIONES",  N);
-                botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_CHICO,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2,  baseYC + 3*pasoC, B, R,  "ATRAS",          N);
-                while(estadoDeJuego == MENU_PRINCIPAL_CLASSIC)
-                    estadoDeJuego = menuPrincipalClassic(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalClassic, 4);
-                break;
+                int baseYC     = (infoJuego[RESOL_ALTO] - totalAltoC) / 2;
+                botonCrear(&botonesMenuPrincipalClassic[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYC,           B, AM, "NUEVA PARTIDA",  N);
+                botonCrear(&botonesMenuPrincipalClassic[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYC + pasoC,   B, AM, "CARGAR PARTIDA", N);
+                botonCrear(&botonesMenuPrincipalClassic[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYC + 2*pasoC, B, VE, "OPCIONES",       N);
+                botonCrear(&botonesMenuPrincipalClassic[3], INACTIVO, ANCHO_BOTON_CHICO,  ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_CHICO)/2,  baseYC + 3*pasoC, B, R,  "ATRAS",          N);
+                while (estadoDeJuego == MENU_PRINCIPAL_CLASSIC)
+                    estadoDeJuego = menuPrincipalClassic(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &cursorBoton, botonesMenuPrincipalClassic, 4);
+            }
+            break;
 
-            case MENU_PRINCIPAL_DELUXE:
-                cursorBoton = 0;
-                modoDeluxe = true;
-                cantTetrominos = CANT_TETROMINOS_DELUXE;
+        case MENU_PRINCIPAL_DELUXE:
+            cursorBoton = 0;
+            infoJuego[MODO_DE_JUEGO] = MODO_DELUXE;
+            {
                 tBoton botonesMenuPrincipalDeluxe[4];
-                int pasoD = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
+                int pasoD      = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
                 int totalAltoD = 4*ALTO_BOTON_DEFAULT + 3*SEPARACION_ENTRE_BOTON;
-                int baseYD = (resolAlto - totalAltoD) / 2;
-                botonCrear(&botonesMenuPrincipalDeluxe[0], APUNTADO, ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2,  baseYD,           B, AM, "NUEVA PARTIDA",  N);
-                botonCrear(&botonesMenuPrincipalDeluxe[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, baseYD + pasoD,   B, AM, "CARGAR PARTIDA", N);
-                botonCrear(&botonesMenuPrincipalDeluxe[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_MEDIANO)/2, baseYD + 2*pasoD, B, VE, "OPCIONES",  N);
-                botonCrear(&botonesMenuPrincipalDeluxe[3], INACTIVO, ANCHO_BOTON_CHICO,   ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_CHICO)/2,   baseYD + 3*pasoD, B, R,  "ATRAS",          N);
-                while(estadoDeJuego == MENU_PRINCIPAL_DELUXE)
-                    estadoDeJuego = menuPrincipalDeluxe(resolAncho, resolAlto, &cursorBoton, botonesMenuPrincipalDeluxe, 4);
-                break;
+                int baseYD     = (infoJuego[RESOL_ALTO] - totalAltoD) / 2;
+                botonCrear(&botonesMenuPrincipalDeluxe[0], APUNTADO, ANCHO_BOTON_GRANDE,  ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2,  baseYD,           B, AM, "NUEVA PARTIDA",  N);
+                botonCrear(&botonesMenuPrincipalDeluxe[1], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_MEDIANO)/2, baseYD + pasoD,   B, AM, "CARGAR PARTIDA", N);
+                botonCrear(&botonesMenuPrincipalDeluxe[2], INACTIVO, ANCHO_BOTON_MEDIANO, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_MEDIANO)/2, baseYD + 2*pasoD, B, VE, "OPCIONES",       N);
+                botonCrear(&botonesMenuPrincipalDeluxe[3], INACTIVO, ANCHO_BOTON_CHICO,   ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_CHICO)/2,   baseYD + 3*pasoD, B, R,  "ATRAS",          N);
+                while (estadoDeJuego == MENU_PRINCIPAL_DELUXE)
+                    estadoDeJuego = menuPrincipalDeluxe(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &cursorBoton, botonesMenuPrincipalDeluxe, 4);
+            }
+            break;
 
-            case JUGANDO:
-                if (partidaNueva)
-                {   puntaje = 0;
-                    lineas  = 0;
-                    nivel   = 1;
-                    tetrominoCargarVector(tetroActivos, cantTetrominos);
-                    grillaDestruir(&grillaDeFondo);
-                    grillaCrear(&grillaDeFondo, resolAncho, resolAlto, modoDeluxe ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
-                    partidaNueva = false;
-                }
-                gbt_temporizador_reanudar(tempCaida);
-                    while (estadoDeJuego == JUGANDO)
-                    {estadoDeJuego = interfazJuego(resolAncho, resolAlto, tetroActivos, &grillaDeFondo, &tempCaida, &tempInactiv, &velActual, &modoVelocidad, modoDeluxe, &puntaje, &lineas, &nivel);}                break;
-                break;
-            case PAUSA:
-                gbt_temporizador_pausar(tempCaida);
-                cursorBoton = 0;
+        case JUGANDO:
+            if (partidaNueva)
+            {
+                tetrominoCargarVector(tetroActivos, infoJuego[MODO_DE_JUEGO] ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC);
+                infoJuego[LINEAS]    = 0;
+                infoJuego[SCORE]     = 0;
+                infoJuego[TOP_SCORE] = 0;  // TODO: leer del archivo de jugadores
+                infoJuego[NIVEL]     = 1;
+                grillaDestruir(&grillaDeFondo);
+                grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO],
+                            infoJuego[MODO_DE_JUEGO] ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
+                partidaNueva = false;
+            }
+            gbt_temporizador_reanudar(tempCaida);
+            while (estadoDeJuego == JUGANDO)
+                estadoDeJuego = interfazJuego(infoJuego, tetroActivos, &grillaDeFondo, &tempCaida, &tempFijacion, &velActual, &modoVelocidad);
+            break;
+
+        case PAUSA:
+            gbt_temporizador_pausar(tempCaida);
+            cursorBoton = 0;
+            {
                 tBoton botonesMenuPausa[5];
-                int pasoP = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
+                int pasoP      = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
                 int totalAltoP = 5*ALTO_BOTON_DEFAULT + 4*SEPARACION_ENTRE_BOTON;
-                int baseYP = (resolAlto - totalAltoP) / 2;
-                botonCrear(&botonesMenuPausa[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP,           B, VE, "REANUDAR",       N);
-                botonCrear(&botonesMenuPausa[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + pasoP,   B, AM, "CARGAR PARTIDA", N);
-                botonCrear(&botonesMenuPausa[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 2*pasoP, B, AM, "GUARDAR PARTIDA",N);
-                botonCrear(&botonesMenuPausa[3], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 3*pasoP, B, RB, "CHEAT",          N);
-                botonCrear(&botonesMenuPausa[4], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (resolAncho - ANCHO_BOTON_GRANDE)/2, baseYP + 4*pasoP, B, R,  "SALIR AL MENU",  N);
+                int baseYP     = (infoJuego[RESOL_ALTO] - totalAltoP) / 2;
+                botonCrear(&botonesMenuPausa[0], APUNTADO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYP,           B, VE, "REANUDAR",        N);
+                botonCrear(&botonesMenuPausa[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYP + pasoP,   B, AM, "CARGAR PARTIDA",  N);
+                botonCrear(&botonesMenuPausa[2], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYP + 2*pasoP, B, AM, "GUARDAR PARTIDA", N);
+                botonCrear(&botonesMenuPausa[3], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYP + 3*pasoP, B, RB, "CHEAT",           N);
+                botonCrear(&botonesMenuPausa[4], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYP + 4*pasoP, B, R,  "SALIR AL MENU",   N);
                 while (estadoDeJuego == PAUSA)
-                    estadoDeJuego = menuPausa(resolAncho, resolAlto, &cursorBoton, botonesMenuPausa, 5);
+                    estadoDeJuego = menuPausa(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &cursorBoton, botonesMenuPausa, 5);
                 if (estadoDeJuego == JUGANDO)
                     gbt_temporizador_reanudar(tempCaida);
-                break;
+            }
+            break;
 
-            case INGRESO_NOMBRE:
-                while (estadoDeJuego == INGRESO_NOMBRE)
-                    estadoDeJuego = ingresarNombre(resolAncho, resolAlto, nombreJugador);
-                break;
+        case INGRESO_NOMBRE:
+            while (estadoDeJuego == INGRESO_NOMBRE)
+                estadoDeJuego = ingresarNombre(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], nombreJugador);
+            break;
 
-                case OPCIONES:
+        case GAME_OVER:
+            while (estadoDeJuego == GAME_OVER)
+                estadoDeJuego = gameOver(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
+            break;
+
+        case OPCIONES:
+        {
+            // El menu de opciones trabaja con la escala (no con la resolucion logica)
+            // Le pasamos la escala actual codificada como resolucion VGA/CGA
+            int resolOpcionesAncho = (escalaVentana == 4) ? ANCHO_VENTANA_VGA : ANCHO_VENTANA_CGA;
+            int resolOpcionesAlto  = (escalaVentana == 4) ? ALTO_VENTANA_VGA  : ALTO_VENTANA_CGA;
+            int nuevaResolAncho = resolOpcionesAncho;
+            int nuevaResolAlto  = resolOpcionesAlto;
+
+            while (estadoDeJuego == OPCIONES)
+                estadoDeJuego = menuOpciones(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO],
+                                             &nuevaResolAncho, &nuevaResolAlto,
+                                             &velActual, &anchoGrilla, infoJuego[MODO_DE_JUEGO]);
+
+            int nuevaEscala = (nuevaResolAncho >= ANCHO_VENTANA_VGA) ? 4 : 2;
+            if (nuevaEscala != escalaVentana)
+            {
+                escalaVentana = nuevaEscala;
+                gbt_destruir_ventana();
+                char nombreVentana[128];
+                sprintf(nombreVentana, "Ventana %dx%d", infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
+                if (gbt_crear_ventana(nombreVentana, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], escalaVentana) != 0)
                 {
-                    int nuevoAncho = (escalaVentana == 4) ? ANCHO_VENTANA_VGA : ANCHO_VENTANA_CGA;
-                    int nuevoAlto  = (escalaVentana == 4) ? ALTO_VENTANA_VGA  : ALTO_VENTANA_CGA;
-                    while (estadoDeJuego == OPCIONES)
-                        estadoDeJuego = menuOpciones(resolAncho, resolAlto, &nuevoAncho, &nuevoAlto, &velActual, &anchoGrilla, modoDeluxe, escalaVentana);
-                    escalaVentana = (nuevoAncho >= ANCHO_VENTANA_VGA) ? 4 : 2;
-                    resolAncho = ANCHO_VENTANA_CGA;
-                    resolAlto  = ALTO_VENTANA_CGA;
-                    gbt_destruir_ventana();
-                    char nombreVentana[128];
-                    sprintf(nombreVentana, "Ventana %dx%d", resolAncho, resolAlto);
-                    if (gbt_crear_ventana(nombreVentana, resolAncho, resolAlto, escalaVentana) != 0)
-                    {
-                        fprintf(stderr, "Error al recrear la ventana: %s\n", gbt_obtener_log());
-                        return ERROR_ABRIENDO_VENTANA;
-                    }
-                    grillaDestruir(&grillaDeFondo);
-                    if (!grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla))
-                    {
-                        return ERROR_MEMORIA_GRILLA;
-                    }
-                    gbt_temporizador_destruir(tempCaida);
-                    tempCaida = gbt_temporizador_crear(velActual);
-                    if (!tempCaida)
-                        return ERROR_CREAR_TEMPORIZADOR;
-                    gbt_temporizador_pausar(tempCaida);
-                    break;
+                    fprintf(stderr, "Error al recrear la ventana: %s\n", gbt_obtener_log());
+                    return ERROR_ABRIENDO_VENTANA;
                 }
-                    case CARGAR_PARTIDA:
-                    {
-                        tPartida p;
-                        if (partidaCargar(nombreJugador, modoDeluxe, &p))
-                        {
-                            puntaje     = p.puntaje;
-                            lineas      = p.lineas;
-                            nivel       = p.nivel;
-                            velActual   = p.velCaida;
-                            anchoGrilla = p.modoDeluxe ? p.anchoGrilla : ANCHO_GRILLA_DEFAULT;
-                            modoDeluxe  = p.modoDeluxe;
-                            memcpy(tetroActivos, p.tetrominos, sizeof(tetroActivos));
+                grillaDestruir(&grillaDeFondo);
+                if (!grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], anchoGrilla))
+                    return ERROR_MEMORIA_GRILLA;
+            }
 
-                            grillaDestruir(&grillaDeFondo);
-                            grillaCrear(&grillaDeFondo, resolAncho, resolAlto, anchoGrilla);
-                            partidaRestaurarGrilla(&p, &grillaDeFondo, resolAncho, resolAlto);
+            gbt_temporizador_destruir(tempCaida);
+            tempCaida = gbt_temporizador_crear(velActual);
+            if (!tempCaida)
+                return ERROR_CREAR_TEMPORIZADOR;
+            gbt_temporizador_pausar(tempCaida);
+            break;
+        }
 
-                            gbt_temporizador_destruir(tempCaida);
-                            tempCaida = gbt_temporizador_crear(velActual);
-                            if (!tempCaida) return ERROR_CREAR_TEMPORIZADOR;
-                            gbt_temporizador_pausar(tempCaida);
+        case GUARDAR_PARTIDA:
+        {
+            strcpy(partida.nombre, nombreJugador);
+            partida.puntaje     = infoJuego[SCORE];
+            partida.lineas      = infoJuego[LINEAS];
+            partida.nivel       = infoJuego[NIVEL];
+            partida.velCaida    = velActual;
+            partida.anchoGrilla = anchoGrilla;
+            partida.modoDeluxe  = infoJuego[MODO_DE_JUEGO];
+            memcpy(partida.tetrominos, tetroActivos, sizeof(tetroActivos));
+            partidaSerializarGrilla(&partida, &grillaDeFondo);
 
-                            partidaNueva = false;
-                            estadoDeJuego = JUGANDO; }
+            if (partidaExiste(nombreJugador, infoJuego[MODO_DE_JUEGO]))
+            {
+                // Ya existe: pedir confirmacion antes de sobreescribir
+                estadoDeJuego = CONFIRMAR_SOBREESCRITURA;
+            }
+            else
+            {
+                partidaGuardar(&partida);
+                estadoDeJuego = PAUSA;
+            }
+            break;
+        }
 
-                        else
-                        estadoDeJuego = modoDeluxe ? MENU_PRINCIPAL_DELUXE : MENU_PRINCIPAL_CLASSIC;
-                        break;
-                        }
+        case CONFIRMAR_SOBREESCRITURA:
+            while (estadoDeJuego == CONFIRMAR_SOBREESCRITURA)
+                estadoDeJuego = confirmarSobreescritura(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
+            // Si el usuario confirmo (vuelve GUARDAR_PARTIDA), la partida ya esta
+            // serializada en 'partida', solo hay que guardarla
+            if (estadoDeJuego == GUARDAR_PARTIDA)
+            {
+                partidaGuardar(&partida);
+                estadoDeJuego = PAUSA;
+            }
+            break;
 
-                    case INGRESO_NOMBRE_CARGA:
-                        while (estadoDeJuego == INGRESO_NOMBRE_CARGA)
-                        estadoDeJuego = ingresarNombreCarga(resolAncho, resolAlto, nombreJugador, modoDeluxe);
-                        break;
+        case CARGAR_PARTIDA:
+        {
+            if (partidaCargar(nombreJugador, infoJuego[MODO_DE_JUEGO], &partida))
+            {
+                infoJuego[SCORE]         = partida.puntaje;
+                infoJuego[LINEAS]        = partida.lineas;
+                infoJuego[NIVEL]         = partida.nivel;
+                velActual                = partida.velCaida;
+                anchoGrilla              = partida.modoDeluxe ? partida.anchoGrilla : ANCHO_GRILLA_DEFAULT;
+                infoJuego[MODO_DE_JUEGO] = partida.modoDeluxe;
+                memcpy(tetroActivos, partida.tetrominos, sizeof(tetroActivos));
 
-                    case GUARDAR_PARTIDA:
-                    {
-                        // Si ya existe partida guardada para este jugador y modo, pedir confirmacion
-                        tPartida temp;
-                        if (partidaCargar(nombreJugador, modoDeluxe, &temp))
-                        {
-                            estadoDeJuego = CONFIRMAR_SOBREESCRITURA;
-                            break;
-                        }
+                grillaDestruir(&grillaDeFondo);
+                grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], anchoGrilla);
+                partidaRestaurarGrilla(&partida, &grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
 
-                        // No existe: guardar sin preguntar
-                        tPartida p;
-                        strcpy(p.nombre, nombreJugador);
-                        p.puntaje     = puntaje;
-                        p.lineas      = lineas;
-                        p.nivel       = nivel;
-                        p.velCaida    = velActual;
-                        p.anchoGrilla = anchoGrilla;
-                        p.modoDeluxe  = modoDeluxe;
-                        memcpy(p.tetrominos, tetroActivos, sizeof(tetroActivos));
-                        partidaSerializarGrilla(&p, &grillaDeFondo);
-                        partidaGuardar(&p);
-                        estadoDeJuego = PAUSA;
-                        break;
-                    }
+                gbt_temporizador_destruir(tempCaida);
+                tempCaida = gbt_temporizador_crear(velActual);
+                if (!tempCaida)
+                    return ERROR_CREAR_TEMPORIZADOR;
+                gbt_temporizador_pausar(tempCaida);
 
-                    case CONFIRMAR_SOBREESCRITURA:
-                        while (estadoDeJuego == CONFIRMAR_SOBREESCRITURA)
-                            estadoDeJuego = confirmarSobreescritura(resolAncho, resolAlto);
-                        // Si el jugador confirmo, hacer el guardado efectivo
-                        if (estadoDeJuego == GUARDAR_PARTIDA)
-                        {
-                            tPartida p;
-                            strcpy(p.nombre, nombreJugador);
-                            p.puntaje     = puntaje;
-                            p.lineas      = lineas;
-                            p.nivel       = nivel;
-                            p.velCaida    = velActual;
-                            p.anchoGrilla = anchoGrilla;
-                            p.modoDeluxe  = modoDeluxe;
-                            memcpy(p.tetrominos, tetroActivos, sizeof(tetroActivos));
-                            partidaSerializarGrilla(&p, &grillaDeFondo);
-                            partidaGuardar(&p);
-                            estadoDeJuego = PAUSA;
-                        }
-                        break;
-        } //Cierra switch
-} //Cierra while
+                partidaNueva = false;
+                estadoDeJuego = JUGANDO;
+            }
+            else
+                estadoDeJuego = infoJuego[MODO_DE_JUEGO] ? MENU_PRINCIPAL_DELUXE : MENU_PRINCIPAL_CLASSIC;
+            break;
+        }
+
+        case INGRESO_NOMBRE_CARGA:
+            while (estadoDeJuego == INGRESO_NOMBRE_CARGA)
+                estadoDeJuego = ingresarNombreCarga(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], nombreJugador, infoJuego[MODO_DE_JUEGO]);
+            break;
+        }
+    }
 
     gbt_temporizador_destruir(tempCaida);
-    gbt_temporizador_destruir(tempInactiv);
+    gbt_temporizador_destruir(tempFijacion);
     grillaDestruir(&grillaDeFondo);
     gbt_destruir_ventana();
     gbt_cerrar();

@@ -37,6 +37,24 @@ void partidaGuardar(const tPartida *p)
     }
 }
 
+bool partidaExiste(const char *nombre, bool modoDeluxe)
+{
+    FILE *f = fopen(PARTIDAS_BIN, "rb");
+    if (!f) return false;
+
+    tPartida temp;
+    while (fread(&temp, sizeof(tPartida), 1, f) == 1)
+    {
+        if (strcmp(temp.nombre, nombre) == 0 && temp.modoDeluxe == modoDeluxe)
+        {
+            fclose(f);
+            return true;
+        }
+    }
+    fclose(f);
+    return false;
+}
+
 bool partidaCargar(const char *nombre, bool modoDeluxe, tPartida *p)
 {
     FILE *f = fopen(PARTIDAS_BIN, "rb");
@@ -61,21 +79,14 @@ void partidaSerializarGrilla(tPartida *p, const tGrilla *grilla)
     int fila, col;
     tMino *mino;
 
-    for (fila = 0; fila < ALTO_GRILLA_TOTAL; fila++)
+    for (fila = 0; fila < grilla->alto; fila++)
     {
         for (col = 0; col < grilla->anchoGrilla; col++)
         {
-            mino = grilla->vecMinos + (fila * grilla->anchoGrilla + col);
+            mino = *(grilla->matMinos + fila) + col;
             int idx = fila * ANCHO_GRILLA_MAX + col;
-            p->celdas[idx].estado = mino->estado;
-            p->celdas[idx].color  = mino->color;
-        }
-        // Columnas no usadas se marcan vacías
-        for (col = grilla->anchoGrilla; col < ANCHO_GRILLA_MAX; col++)
-        {
-            int idx = fila * ANCHO_GRILLA_MAX + col;
-            p->celdas[idx].estado = false;
-            p->celdas[idx].color  = T;
+            p->matMinos[idx].estado = mino->estado;
+            p->matMinos[idx].color  = mino->color;
         }
     }
 }
@@ -90,10 +101,10 @@ void partidaRestaurarGrilla(const tPartida *p, tGrilla *grilla, int resolAncho, 
     {
         for (col = 0; col < grilla->anchoGrilla; col++)
         {
-            mino = grilla->vecMinos + (fila * grilla->anchoGrilla + col);
+            mino = *(grilla->matMinos + fila) + col;
             int idx = fila * ANCHO_GRILLA_MAX + col;
-            mino->estado = p->celdas[idx].estado;
-            mino->color  = p->celdas[idx].color;
+            mino->estado = p->matMinos[idx].estado;
+            mino->color  = p->matMinos[idx].color;
         }
     }
 }

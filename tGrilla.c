@@ -9,30 +9,19 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
     int offsetX = (resolAncho - anchoGrilla*TAM_MINO)/2;
     int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;
 
-    p->vecMinos = malloc(anchoGrilla*ALTO_GRILLA_TOTAL*sizeof(tMino)); //Pido memoria para toda la matriz grilla
-    if (p->vecMinos == NULL)
+    p->matMinos = (tMino **)matrizCrear(ALTO_GRILLA_TOTAL, anchoGrilla, sizeof(tMino)); //Pido memoria para toda la matriz grilla
+    if (p->matMinos == NULL)
     {
         return false;
     }
 
-    mino = p->vecMinos;
-
     int fila, col;
-
-    for(fila = 0; fila < PRIMERA_FILA_VISIBLE; fila++) //Setear los minos de las filas invisibles en 0, 0 e inactivo
-    {
-        for(col = 0; col < anchoGrilla; col++)
-        {
-            mino = p->vecMinos + (fila*anchoGrilla + col);
-            minoCrear(mino, 0, 0, T, false);
-        }
-    }
 
     for (fila = PRIMERA_FILA_VISIBLE; fila < ALTO_GRILLA_TOTAL; fila++) //Setea los minos de las filas visibles en su respectiva posicion correcta
     {
         for (col = 0; col < anchoGrilla; col++)
         {
-            mino = p->vecMinos + (fila*anchoGrilla + col);
+            mino = *(p->matMinos + fila) + col;
             minoCrear(mino, TAM_MINO*col + offsetX, TAM_MINO*(fila - PRIMERA_FILA_VISIBLE) + offsetY, T, false);
         }
     }
@@ -42,8 +31,8 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 
 void grillaDestruir(tGrilla *p)
 {
-    free(p->vecMinos);                //Libero memoria
-    p->vecMinos = NULL;
+    free(p->matMinos);                //Libero memoria
+    p->matMinos = NULL;
 }
 
 
@@ -68,18 +57,21 @@ void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla)
         gbt_dibujar_pixel(offsetX, offsetY + i, B);
 }
 
-void grillaDibujar(const tGrilla *p)
+void grillaDibujar(const tGrilla *p, int resolAncho, int resolAlto)
 {
     int fila, col;
     tMino *mino;
+
+    int offsetX = (resolAncho - p->anchoGrilla*TAM_MINO)/2;
+    int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;
 
     for (fila = PRIMERA_FILA_VISIBLE; fila < ALTO_GRILLA_TOTAL; fila++)
     {
         for (col = 0; col < p->anchoGrilla; col++)
         {
-            mino = p->vecMinos + (fila*p->anchoGrilla + col);
+            mino = *(p->matMinos + fila) + col;
             if (mino->estado)
-                minoDibujar(mino);
+                minoDibujar(mino->color, TAM_MINO*col + offsetX, TAM_MINO*(fila - PRIMERA_FILA_VISIBLE) + offsetY);
         }
     }
 }
@@ -92,7 +84,7 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, in
     int posX;   //Posicion en X del MINO que se va a dibujar (NO relativo a la grilla)
     int posY;   //Posicion en Y del MINO que se va a dibujar (NO relativo a la grilla)
 
-    for(fila = 0;fila < tetro->altoMat; fila++)
+    for(fila = 0; fila < tetro->altoMat; fila++)
     {
         for(col = 0; col < tetro->anchoMat; col++)
         {
@@ -101,7 +93,7 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, in
                 posX = (tetro->posX + col)*TAM_MINO + offsetX;
                 posY = (tetro->posY + fila)*TAM_MINO + offsetY;
 
-                minoColorDibujar(tetro->color, posX, posY); //Dibujar mino de color tetro->color
+                minoDibujar(tetro->color, posX, posY); //Dibujar mino de color tetro->color
             }
         }
     }
@@ -124,12 +116,11 @@ bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla)
     {
         for (j = 0; j < tetro->anchoMat; j++)
         {
-            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X' && tetro->posY + i >= 0)
             {
                 posActualX = tetro->posX + j;
                 posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
-                minoActual = grilla->vecMinos + (posActualY * grilla->anchoGrilla + posActualX);
-
+                minoActual = *(grilla->matMinos + posActualY) + posActualX;
                 if (minoActual->estado)
                     return true;
             }
@@ -155,11 +146,11 @@ bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado
     {
         for (j = 0; j < tetro->anchoMat; j++)
         {
-            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X' && tetro->posY + i >= 0)
             {
                 posActualX = tetro->posX + j + lado;
                 posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
-                minoActual = grilla->vecMinos + (posActualY * grilla->anchoGrilla + posActualX);
+                minoActual = *(grilla->matMinos + posActualY) + posActualX;
 
                 if (minoActual->estado)
                     return true;
@@ -175,6 +166,7 @@ void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
 {
     int i, j;
     int col, fila;
+    tMino *minoActual;
 
     for (i = 0; i < tetro->altoMat; i++)
     {
@@ -183,11 +175,70 @@ void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
             if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
             {
                 col = tetro->posX + j;
-                fila = tetro->posY + i + PRIMERA_FILA_VISIBLE - 1;
-                (grilla->vecMinos + fila*grilla->anchoGrilla + col)->estado = true;
-                (grilla->vecMinos + fila*grilla->anchoGrilla + col)->color = tetro->color;
+                fila = tetro->posY + i + PRIMERA_FILA_VISIBLE;
+                minoActual = *(grilla->matMinos + fila) + col;
 
+                minoActual->estado = true;
+                minoActual->color = tetro->color;
             }
         }
     }
+}
+
+void grillaSetearFilaInactiva(tGrilla *grilla)
+{
+    int i;
+    tMino *p = *(grilla->matMinos);
+
+    for (i = 0; i < grilla->anchoGrilla; i++)
+    {
+        p->estado = false;
+        p++;
+    }
+}
+
+int grillaChequearLinea(tGrilla *grilla, tTetromino *tetro)
+{
+    int fila, col;
+    int cantLineas = 0;
+
+    int filaInicial = tetro->posY;
+    int filaFinal = tetro->posY + tetro->altoMat;
+
+    bool hayLinea;
+
+    tMino *filaActual;
+
+    for(fila = filaInicial; fila < filaFinal; fila++)
+    {
+        hayLinea = true;
+
+        filaActual = *(grilla->matMinos + fila);
+
+        for(col = 0; col < grilla->anchoGrilla && hayLinea; col++)
+        {
+            if(!(filaActual + col)->estado)
+                hayLinea = false;
+        }
+
+        if(hayLinea)
+        {
+            tMino *filaEliminada = grilla->matMinos[fila];
+
+            for(int f = fila; f > 0; f--)
+            {
+                grilla->matMinos[f] = grilla->matMinos[f - 1];
+            }
+
+            grilla->matMinos[0] = filaEliminada;
+
+            grillaSetearFilaInactiva(grilla);
+
+            cantLineas++;
+
+            fila--;
+        }
+    }
+
+    return cantLineas;
 }
