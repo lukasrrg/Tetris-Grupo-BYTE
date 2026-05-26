@@ -18,12 +18,31 @@
 #define GO 8 //Gris oscuro
 #define AB 9 //Azul brillante
 #define VB 10 //Verde brillante
-#define CB 11 //Cian brillante
+#define NA 11 //Naranja
 #define RB 12 //Rojo brillante
 #define B 13 //Blanco
 #define AM 14 // Amarillo
 #define T 15 // Transparente
 
+//Letras de identificacion para la segunda paleta
+#define N    0   // Negro
+#define CN   1   // Cian Neon
+#define MN   2   // Magenta Neon
+#define AN   3   // Amarillo Neon
+#define VL   4   // Verde Lima
+#define RN   5   // Rojo Neon
+#define AE   6   // Azul Electrico
+#define G    7   // Gris Claro
+#define NB   8   // Naranja Brillante
+#define RF   9   // Rosa Fuerte
+#define VN   10  // Violeta Neon
+#define RCB  11  // Rojo Coral Brillante
+#define VAN  12  // Verde Agua Neon
+#define B    13  // Blanco Visible
+#define AND  14  // Amarillo Naranja / Dorado Brillante
+#define T    15  // Transparente
+
 extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
+extern tGBT_ColorRGB paletaVGA[CANT_COLORES];
 
 #endif // PALETA_H_INCLUDED

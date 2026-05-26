@@ -7,8 +7,8 @@
 #include "paleta.h"
 #include "vectores_matrices.h"
 
-//Tamaño de mino
-#define TAM_MINO 8
+//Tamaï¿½o de mino
+extern int TAM_MINO;    // 8=CGA, 16=VGA - se setea en main segun resolucion
 #define TAM_MAX_TETROMINO 4
 #define MAX_LINEAS_SIMULTANEAS 4
 
@@ -51,12 +51,12 @@ typedef struct
 //    char matriz[TAM_TETROMINO][TAM_TETROMINO];
 } tTetromino;
 
-void minoCrear(tMino *mino, int pX, int pY, int col, bool est);
+void minoCrear(tMino *mino, int col, bool est);
 void minoDibujar(int color, int pX, int pY);
 void tetrominoCrear(tTetromino *tetro, char tip, int grX, int grY);
-void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos);         //Toma un vector de un tamaño TAM_VEC_TETROMINOS y lo carga con tetrominos al azar
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos, int anchoGrilla);         //Toma un vector de un tamaï¿½o TAM_VEC_TETROMINOS y lo carga con tetrominos al azar
 bool _existeOtroMenosFrecuente(int indice, int totalTetrominos, int tetrominosColocados[CANT_TETROMINOS_DELUXE]);
-void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos, int tetrominosColocados[CANT_TETROMINOS_DELUXE]);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos, int tetrominosColocados[CANT_TETROMINOS_DELUXE], int anchoGrilla);    //Desplaza todos los elementos del vector a la izquierda y agrega un nuevo tetromino al final del vector
 void tetrominoDibujar(tTetromino *tetro, int posX, int posY);       //Dibuja un tetromino en una coordenada especifica
 void tetrominoRotar(tTetromino *tetro, int sentido);
 

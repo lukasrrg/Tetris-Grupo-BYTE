@@ -6,9 +6,6 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
     p->anchoGrilla = anchoGrilla;   //Sino las otras funciones van a leer basura
     p->alto = ALTO_GRILLA_TOTAL;
 
-    int offsetX = (resolAncho - anchoGrilla*TAM_MINO)/2;
-    int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;
-
     p->matMinos = (tMino **)matrizCrear(ALTO_GRILLA_TOTAL, anchoGrilla, sizeof(tMino)); //Pido memoria para toda la matriz grilla
     if (p->matMinos == NULL)
     {
@@ -17,12 +14,12 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 
     int fila, col;
 
-    for (fila = PRIMERA_FILA_VISIBLE; fila < ALTO_GRILLA_TOTAL; fila++) //Setea los minos de las filas visibles en su respectiva posicion correcta
+    for (fila = 0; fila < ALTO_GRILLA_TOTAL; fila++) //Setea los minos de las filas visibles en su respectiva posicion correcta
     {
         for (col = 0; col < anchoGrilla; col++)
         {
             mino = *(p->matMinos + fila) + col;
-            minoCrear(mino, TAM_MINO*col + offsetX, TAM_MINO*(fila - PRIMERA_FILA_VISIBLE) + offsetY, T, false);
+            minoCrear(mino, T, false);
         }
     }
 
@@ -116,13 +113,26 @@ bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla)
     {
         for (j = 0; j < tetro->anchoMat; j++)
         {
-            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X' && tetro->posY + i >= 0)
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
             {
                 posActualX = tetro->posX + j;
                 posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
-                minoActual = *(grilla->matMinos + posActualY) + posActualX;
-                if (minoActual->estado)
+
+                // Al rotar, choca con paredes laterales
+                if (posActualX < 0 || posActualX >= grilla->anchoGrilla)
                     return true;
+
+                // Al rotar, se pasa del piso
+                if (posActualY >= grilla->alto)
+                    return true;
+
+                // Al rotar, choca con otra pieza
+                if (posActualY >= 0)
+                {
+                    minoActual = *(grilla->matMinos + posActualY) + posActualX;
+                    if (minoActual->estado)
+                        return true;
+                }
             }
         }
     }
@@ -131,13 +141,6 @@ bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla)
 
 bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado)
 {
-    //Deteccion de colision con el borde izquierdo
-    if (tetro->posX + lado < 0)
-        return true;
-    //Deteccion de colision con el borde derecho
-    if (tetro->posX + tetro->anchoMat + lado == grilla->anchoGrilla + 1)
-        return true;
-
     int i, j;
     tMino *minoActual;
     int posActualX, posActualY;
@@ -146,14 +149,22 @@ bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado
     {
         for (j = 0; j < tetro->anchoMat; j++)
         {
-            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X' && tetro->posY + i >= 0)
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
             {
                 posActualX = tetro->posX + j + lado;
                 posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
-                minoActual = *(grilla->matMinos + posActualY) + posActualX;
 
-                if (minoActual->estado)
+                // Choca con pared izquierda o derecha
+                if (posActualX < 0 || posActualX >= grilla->anchoGrilla)
                     return true;
+
+                // Choca con otra pieza
+                if (posActualY < grilla->alto)
+                {
+                    minoActual = *(grilla->matMinos + posActualY) + posActualX;
+                    if (minoActual->estado)
+                        return true;
+                }
             }
         }
     }
@@ -202,8 +213,8 @@ int grillaChequearLinea(tGrilla *grilla, tTetromino *tetro)
     int fila, col;
     int cantLineas = 0;
 
-    int filaInicial = tetro->posY;
-    int filaFinal = tetro->posY + tetro->altoMat;
+    int filaInicial = tetro->posY +  PRIMERA_FILA_VISIBLE;
+    int filaFinal = tetro->posY + tetro->altoMat + PRIMERA_FILA_VISIBLE;
 
     bool hayLinea;
 

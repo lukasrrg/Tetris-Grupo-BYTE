@@ -1,5 +1,7 @@
 #include "tMino.h"
 
+int TAM_MINO = 8;   // valor por defecto CGA, main lo sobreescribe segun resolucion
+
 //Matrices para los tetrominos
 
 const char tetrominoVec[CANT_TETROMINOS_DELUXE][4][TAM_MAX_TETROMINO][TAM_MAX_TETROMINO] =
@@ -336,7 +338,7 @@ const char tetrominoVec[CANT_TETROMINOS_DELUXE][4][TAM_MAX_TETROMINO][TAM_MAX_TE
     }
 };
 
-void minoCrear(tMino *mino, int pX, int pY, int col, bool est)
+void minoCrear(tMino *mino, int col, bool est)
 {
     mino->color = col;
     mino->estado = est;
@@ -415,7 +417,7 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
     case TETRO_P:
         tetro->altoMat = 3;
         tetro->anchoMat = 2;
-        tetro->color = CB;
+        tetro->color = NA;
         break;
     case TETRO_V:
         tetro->altoMat = 2;
@@ -425,13 +427,13 @@ void tetrominoCrear(tTetromino *tetro, char tip, int pX, int pY)
     }
 }
 
-void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos)
+void tetrominoCargarVector(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos, int anchoGrilla)
 {
     int i;
 
     for(i = 0; i < TAM_VEC_TETROMINOS; i++)
     {
-        tetrominoCrear(&vec[i], rand()%totalTetrominos, 4, 0); //CAMBIAR EL PARAMETRO 4 A ALGO QUE CALCULE LA POS EN X A LA MITAD DE LA GRILLA
+        tetrominoCrear(&vec[i], rand()%totalTetrominos, anchoGrilla/2 - 1, 0);
         vec[i].posY = -1*vec[i].altoMat;
     }
 }
@@ -449,7 +451,7 @@ bool _existeOtroMenosFrecuente(int indiceActual, int totalTetrominos, int tetrom
     return false;
 }
 
-void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos, int tetrominosColocados[CANT_TETROMINOS_DELUXE])
+void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTetrominos, int tetrominosColocados[CANT_TETROMINOS_DELUXE], int anchoGrilla)
 {
     vectorShiftear(vec, 1, TAM_VEC_TETROMINOS, sizeof(tTetromino), IZQUIERDA);
 
@@ -460,7 +462,7 @@ void actualizarVectorTetrominos(tTetromino vec[TAM_VEC_TETROMINOS], int totalTet
         proximoTetromino = rand()%totalTetrominos;
     }
 
-    tetrominoCrear(&vec[TAM_VEC_TETROMINOS - 1], proximoTetromino, 4, 0);
+    tetrominoCrear(&vec[TAM_VEC_TETROMINOS - 1], proximoTetromino, anchoGrilla/2 - 1, 0);
     vec[TAM_VEC_TETROMINOS - 1].posY = -1*vec[TAM_VEC_TETROMINOS - 1].altoMat;
 }
 
