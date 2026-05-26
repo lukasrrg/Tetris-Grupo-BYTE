@@ -146,7 +146,8 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
     int anchoGrillaPx = grilla->anchoGrilla * TAM_MINO;
     int altoGrillaPx  = ALTO_GRILLA_VISIBLE * TAM_MINO;
 
-    infoInterfazDeJuego(infoJuego, tetroActivo[1].tipo,(int)(1000*(*velActual)));
+
+    infoInterfazDeJuego(infoJuego, tetroActivo[1].tipo, (int)(1000*(*velActual)));
     grillaDibujarTetromino(tetroActivo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], grilla->anchoGrilla);
     grillaDibujar(grilla, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
     dibujarRectangulo((infoJuego[RESOL_ANCHO] - anchoGrillaPx)/2, (infoJuego[RESOL_ALTO] - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
@@ -223,7 +224,6 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
                 gbt_temporizador_reanudar(*tempFijacion);
             }
         }
-
     }
 
 
@@ -346,6 +346,7 @@ int gameOver(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int
     int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
     int anchoTotalTitulo = anchoLetraConEspacio * 9;
     tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 20*_sy };
+
 
     caracterDibujarEscalado('G', &cursorTitulo, R, ESCALA_TITULO);
     caracterDibujarEscalado('A', &cursorTitulo, R, ESCALA_TITULO);

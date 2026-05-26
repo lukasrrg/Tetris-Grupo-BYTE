@@ -100,6 +100,7 @@ int main(int argc, char *argv[])
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempCaida);
     tGBT_Temporizador *tempFijacion = gbt_temporizador_crear(velActual/2);    //Inicializaci�n del temporizador para inactivar tetromino
+
     if (!tempFijacion)
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempFijacion);                          //Se lo pausa ya que todavia no sera utilizado
@@ -201,6 +202,7 @@ int main(int argc, char *argv[])
             botonCrear(&botonesMenuPausa[4], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, baseYP + 4*pasoP, B, R,  "SALIR AL MENU",  N);
             while (estadoDeJuego == PAUSA)
                 estadoDeJuego = menuPausa(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &cursorBoton, botonesMenuPausa, 5, &infoJuego[CHEATS_ACTIVADOS]);
+
             if (estadoDeJuego == CARGAR_PARTIDA)
                 estadoAnterior = PAUSA;
             break;
@@ -234,7 +236,7 @@ int main(int argc, char *argv[])
         {
             int resolAnchoAntes = infoJuego[RESOL_ANCHO];
             while (estadoDeJuego == OPCIONES)
-                estadoDeJuego = menuOpciones(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &infoJuego[RESOL_ANCHO], &infoJuego[RESOL_ALTO], &velActual, &anchoGrilla, infoJuego[MODO_DE_JUEGO]);
+                estadoDeJuego = menuOpciones(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &infoJuego[RESOL_ANCHO], &infoJuego[RESOL_ALTO], &op.velCaida, &anchoGrilla, infoJuego[MODO_DE_JUEGO]);
             if (infoJuego[RESOL_ANCHO] != resolAnchoAntes)
             {
                 gbt_destruir_ventana();

@@ -103,6 +103,7 @@ bool tetrominoColisionaSuelo(tTetromino *tetro)
     return false;
 }
 
+
 bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla)
 {
     int i, j;
@@ -170,8 +171,6 @@ bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado
     }
     return false;
 }
-
-
 
 void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
 {
