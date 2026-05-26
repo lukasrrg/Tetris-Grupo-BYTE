@@ -6,7 +6,7 @@ bool jugadorExiste(const char *nombre)
     if (!f) return false;
 
     tJugador temp;
-        while (fread(&temp, sizeof(tJugador), 1, f) == 1)
+    while (fread(&temp, sizeof(tJugador), 1, f) == 1)
     {
         if (strcmp(temp.nombre, nombre) == 0)
         {
@@ -57,4 +57,25 @@ void jugadorGuardar(const tJugador *jugador)
         fclose(f);
     }
 }
+int jugadorObtenerPuntajeMax(const char *nombre)
+{
+    FILE *f = fopen(JUGADORES, "rb");
+    if (!f)
+        return false;
+
+    tJugador jugador;
+
+    while (fread(&jugador, sizeof(tJugador), 1, f) == 1)
+    {
+        if (strcmp(jugador.nombre, nombre) == 0)
+        {
+            fclose(f);
+            return jugador.puntaje_max;
+        }
+    }
+
+    fclose(f);
+    return false;
+}
+
 
