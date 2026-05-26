@@ -16,5 +16,6 @@ typedef struct
 
 bool jugadorExiste(const char* nombre); //Devuelve true si el nombre ya existe en el archivo.
 void jugadorGuardar(const tJugador *jugador); //Guarda un jugador nuevo o sobreeescribe si ya existe.
+int jugadorObtenerPuntajeMax(const char *nombre);//Guarda el puntaje maximo que obtuvo un jugador
 
 #endif // TJUGADOR_H_INCLUDED

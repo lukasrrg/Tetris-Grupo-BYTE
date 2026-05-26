@@ -1,4 +1,5 @@
 #include "tGrilla.h"
+#include "tPantalla.h"
 
 bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 {
@@ -73,7 +74,7 @@ void grillaDibujar(const tGrilla *p, int resolAncho, int resolAlto)
     }
 }
 
-void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, int anchoGrilla)
+void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, int anchoGrilla, int modoDeJuego)
 {
     int fila, col;
     int offsetX = (resolAncho - anchoGrilla*TAM_MINO)/2;
@@ -87,7 +88,14 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, in
         {
             if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][fila][col] == 'X' && tetro->posY + fila >= 0)
             {
-                posX = (tetro->posX + col)*TAM_MINO + offsetX;
+                int xEfectivo = tetro->posX + col;
+
+                if (modoDeJuego == MODO_DELUXE)
+                {
+                    xEfectivo = (xEfectivo % anchoGrilla + anchoGrilla) % anchoGrilla;              //Para rotacion circular
+                }
+
+                posX = xEfectivo * TAM_MINO + offsetX;
                 posY = (tetro->posY + fila)*TAM_MINO + offsetY;
 
                 minoDibujar(tetro->color, posX, posY); //Dibujar mino de color tetro->color
@@ -103,8 +111,41 @@ bool tetrominoColisionaSuelo(tTetromino *tetro)
     return false;
 }
 
+bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado, int modoDeJuego)
+{
+    int i, j;
+    tMino *minoActual;
+    int posActualX, posActualY;
 
-bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla)
+    for (i = 0; i < tetro->altoMat; i++)
+    {
+        for (j = 0; j < tetro->anchoMat; j++)
+        {
+            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
+            {
+                posActualX = tetro->posX + j + lado;
+                posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
+
+                if (modoDeJuego == MODO_DELUXE)
+                {
+                    posActualX = (posActualX % grilla->anchoGrilla + grilla->anchoGrilla) % grilla->anchoGrilla;       //Rotacion circular en caso de deluxe
+                } else if (posActualX < 0 || posActualX >= grilla->anchoGrilla)        //Choca con las paredes laterales
+                        return true;
+
+                // Choca con otra pieza
+                if (posActualY < grilla->alto)
+                {
+                    minoActual = *(grilla->matMinos + posActualY) + posActualX;
+                    if (minoActual->estado)
+                        return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla, int modoDeJuego)
 {
     int i, j;
     tMino *minoActual;
@@ -119,9 +160,23 @@ bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla)
                 posActualX = tetro->posX + j;
                 posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
 
-                // Al rotar, choca con paredes laterales
-                if (posActualX < 0 || posActualX >= grilla->anchoGrilla)
-                    return true;
+//                // Al rotar, choca con paredes laterales          //FUNCIONA BIEN SIN ESTO?
+//                if (posActualX < 0 || posActualX >= grilla->anchoGrilla)
+//                    return true;
+//
+//                // Al rotar, se pasa del piso
+//                if (posActualY >= grilla->alto)
+//                    return true;
+
+                if (modoDeJuego == MODO_DELUXE)
+                {
+                    posActualX = (posActualX % grilla->anchoGrilla + grilla->anchoGrilla) % grilla->anchoGrilla;
+                }
+                else
+                {
+                    if (posActualX < 0 || posActualX >= grilla->anchoGrilla)        //Al rotar choca con paredes laterales
+                        return true;
+                }
 
                 // Al rotar, se pasa del piso
                 if (posActualY >= grilla->alto)
@@ -137,42 +192,11 @@ bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla)
             }
         }
     }
+
     return false;
 }
 
-bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado)
-{
-    int i, j;
-    tMino *minoActual;
-    int posActualX, posActualY;
-
-    for (i = 0; i < tetro->altoMat; i++)
-    {
-        for (j = 0; j < tetro->anchoMat; j++)
-        {
-            if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
-            {
-                posActualX = tetro->posX + j + lado;
-                posActualY = tetro->posY + i + PRIMERA_FILA_VISIBLE;
-
-                // Choca con pared izquierda o derecha
-                if (posActualX < 0 || posActualX >= grilla->anchoGrilla)
-                    return true;
-
-                // Choca con otra pieza
-                if (posActualY < grilla->alto)
-                {
-                    minoActual = *(grilla->matMinos + posActualY) + posActualX;
-                    if (minoActual->estado)
-                        return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
-void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
+void grillaActualizar(tGrilla *grilla, tTetromino *tetro, int modoDeJuego)
 {
     int i, j;
     int col, fila;
@@ -185,6 +209,11 @@ void grillaActualizar(tGrilla *grilla, tTetromino *tetro)
             if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][i][j] == 'X')
             {
                 col = tetro->posX + j;
+                if (modoDeJuego == MODO_DELUXE)
+                {
+                    col = (col % grilla->anchoGrilla + grilla->anchoGrilla) % grilla->anchoGrilla;
+                }
+
                 fila = tetro->posY + i + PRIMERA_FILA_VISIBLE;
                 minoActual = *(grilla->matMinos + fila) + col;
 

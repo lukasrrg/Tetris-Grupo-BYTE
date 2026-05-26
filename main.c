@@ -100,11 +100,9 @@ int main(int argc, char *argv[])
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempCaida);
     tGBT_Temporizador *tempFijacion = gbt_temporizador_crear(velActual/2);    //Inicializaci�n del temporizador para inactivar tetromino
-
     if (!tempFijacion)
         return ERROR_CREAR_TEMPORIZADOR;
     gbt_temporizador_pausar(tempFijacion);                          //Se lo pausa ya que todavia no sera utilizado
-
     tTetromino tetroActivos[TAM_VEC_TETROMINOS];        //Fila de tetrominos que van a entrar en juego
     bool partidaNueva = true;
 
@@ -167,7 +165,7 @@ int main(int argc, char *argv[])
                 infoJuego[TETROMINOS_COLOCADOS] = 0;
                 infoJuego[LINEAS] = 0;
                 infoJuego[SCORE] = 0;
-                infoJuego[TOP_SCORE] = 0;   //TODO: Hay que consultar previamente en los archivos guardados cual fue el top score
+                infoJuego[TOP_SCORE] = jugadorObtenerPuntajeMax(nombreJugador);
                 infoJuego[NIVEL] = 1;
                 infoJuego[TETROMINO_LIBRE] = 1;
                 infoJuego[CHEATS_ACTIVADOS] = 0;
@@ -212,6 +210,17 @@ int main(int argc, char *argv[])
                 estadoDeJuego = ingresarNombre(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], nombreJugador);
             break;
         case GAME_OVER:
+            int maxAnterior = jugadorObtenerPuntajeMax(nombreJugador);
+
+            if (infoJuego[SCORE] > maxAnterior)
+            {
+                tJugador jugadorActual;
+
+                strcpy(jugadorActual.nombre, nombreJugador);
+                jugadorActual.puntaje_max = infoJuego[SCORE];
+
+                jugadorGuardar(&jugadorActual);
+            }
             cursorBoton = 0;
             tBoton botonesGameOver[3];
             int pasoGO = ALTO_BOTON_DEFAULT + SEPARACION_ENTRE_BOTON;
@@ -232,7 +241,7 @@ int main(int argc, char *argv[])
             if (estadoDeJuego == CARGAR_PARTIDA)
                 estadoAnterior = GAME_OVER;
             break;
-            case OPCIONES:
+        case OPCIONES:
         {
             int resolAnchoAntes = infoJuego[RESOL_ANCHO];
             while (estadoDeJuego == OPCIONES)
@@ -252,7 +261,6 @@ int main(int argc, char *argv[])
                     return ERROR_MEMORIA_GRILLA;
                 TAM_MINO = (infoJuego[RESOL_ANCHO] >= 640) ? 16 : 8;
             }
-
             gbt_temporizador_destruir(tempCaida);
             tempCaida = gbt_temporizador_crear(velActual);
             if (!tempCaida)
@@ -313,7 +321,7 @@ int main(int argc, char *argv[])
                     infoJuego[i] = partida.cantTetrominos[i];
                     infoJuego[TETROMINOS_COLOCADOS] += infoJuego[i];
                 }
-
+                infoJuego[TOP_SCORE] = jugadorObtenerPuntajeMax(nombreJugador);
                 velActual = partida.velCaida;
                 anchoGrilla = partida.modoDeluxe ? partida.anchoGrilla : ANCHO_GRILLA_DEFAULT;
                 infoJuego[MODO_DE_JUEGO] = partida.modoDeluxe;

@@ -43,3 +43,8 @@ tGBT_ColorRGB paletaVGA[CANT_COLORES] =
     {0xFF, 0xFF, 0xFF}  // 15:  Usado como transparente por GBT
 
 };
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/Donato

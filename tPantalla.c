@@ -146,9 +146,8 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
     int anchoGrillaPx = grilla->anchoGrilla * TAM_MINO;
     int altoGrillaPx  = ALTO_GRILLA_VISIBLE * TAM_MINO;
 
-
-    infoInterfazDeJuego(infoJuego, tetroActivo[1].tipo, (int)(1000*(*velActual)));
-    grillaDibujarTetromino(tetroActivo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], grilla->anchoGrilla);
+    infoInterfazDeJuego(infoJuego, tetroActivo[1].tipo,(int)(1000*(*velActual)));
+    grillaDibujarTetromino(tetroActivo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], grilla->anchoGrilla, infoJuego[MODO_DE_JUEGO]);
     grillaDibujar(grilla, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
     dibujarRectangulo((infoJuego[RESOL_ANCHO] - anchoGrillaPx)/2, (infoJuego[RESOL_ALTO] - altoGrillaPx)/2, anchoGrillaPx, altoGrillaPx, C);
 
@@ -177,7 +176,7 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
 
         infoJuego[(int)tetroActivo->tipo]++;        //Aumento en 1 la cantidad de tetrominos de ese tipo colocados
 
-        grillaActualizar(grilla, tetroActivo);      //Guarda el tetromino colisionado en la grilla
+        grillaActualizar(grilla, tetroActivo, infoJuego[MODO_DE_JUEGO]);      //Guarda el tetromino colisionado en la grilla
 
         int cantidadLineas = grillaChequearLinea(grilla, tetroActivo);  //Si hay lineas completas, las elimina
         if (cantidadLineas)
@@ -201,7 +200,7 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
             if (infoJuego[MODO_VELOCIDAD] == MODO_VEL_RAPIDA)
                 infoJuego[SCORE] += SCORE_CAIDA_RAPIDA/(*velActual);    //Si se deposita un tetromino mantieniendo 'S' presionado, se gana puntaje extra
 
-            if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))
+            if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla,infoJuego[MODO_DE_JUEGO]))
             {
                 tetroActivo->posY--;        //Si ya colisiono, entonces hay que revertir la ultima bajada del tetromino
                 infoJuego[TETROMINO_LIBRE] = 0;
@@ -216,7 +215,7 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
         {
             tetroActivo->posY++;
 
-            if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla))
+            if (tetrominoColisionaSuelo(tetroActivo) || tetrominoColisionaConOtro(tetroActivo, grilla, infoJuego[MODO_DE_JUEGO]))
             {
                 tetroActivo->posY--;        //Si ya colisiono, entonces hay que revertir la ultima bajada del tetromino
                 infoJuego[TETROMINO_LIBRE] = 0;
@@ -224,16 +223,17 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
                 gbt_temporizador_reanudar(*tempFijacion);
             }
         }
+
     }
 
 
 
-    if (tecla == GBTK_a && !tetrominoColisionaLateralmente(tetroActivo, grilla, IZQUIERDA))
+    if (tecla == GBTK_a && !tetrominoColisionaLateralmente(tetroActivo, grilla, IZQUIERDA,infoJuego[MODO_DE_JUEGO]))
     {
         tetroActivo->posX--;
         if(!infoJuego[TETROMINO_LIBRE])
         {
-            if (!tetrominoColisionaSuelo(tetroActivo) && !tetrominoColisionaConOtro(tetroActivo, grilla))
+            if (!tetrominoColisionaSuelo(tetroActivo) && !tetrominoColisionaConOtro(tetroActivo, grilla,infoJuego[MODO_DE_JUEGO]))
                 infoJuego[TETROMINO_LIBRE] = 1;
 
             gbt_temporizador_destruir(*tempFijacion);
@@ -243,12 +243,12 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
         }
     }
 
-    else if (tecla == GBTK_d && !tetrominoColisionaLateralmente(tetroActivo, grilla, DERECHA))
+    else if (tecla == GBTK_d && !tetrominoColisionaLateralmente(tetroActivo, grilla, DERECHA,infoJuego[MODO_DE_JUEGO]))
     {
         tetroActivo->posX++;
         if(!infoJuego[TETROMINO_LIBRE])
         {
-            if (!tetrominoColisionaSuelo(tetroActivo) && !tetrominoColisionaConOtro(tetroActivo, grilla))
+            if (!tetrominoColisionaSuelo(tetroActivo) && !tetrominoColisionaConOtro(tetroActivo, grilla,infoJuego[MODO_DE_JUEGO]))
                 infoJuego[TETROMINO_LIBRE] = 1;
 
             gbt_temporizador_destruir(*tempFijacion);
@@ -259,17 +259,16 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
     }
     else if (tecla == GBTK_j || tecla == GBTK_q)
     {
-        tetrominoRotar(tetroActivo, ANTIHORARIO);
-
-        if (tetrominoColisionaConOtro(tetroActivo,grilla)) //Validamos que este en la grilla
+        tetrominoRotar(tetroActivo, HORARIO);
+        if (tetrominoColisionaConOtro(tetroActivo, grilla,infoJuego[MODO_DE_JUEGO]))
         {
-            tetrominoRotar(tetroActivo, HORARIO);
+            tetrominoRotar(tetroActivo, ANTIHORARIO);
         }
     }
     else if (tecla == GBTK_l || tecla == GBTK_e)
     {
         tetrominoRotar(tetroActivo, HORARIO);
-        if (tetrominoColisionaConOtro(tetroActivo,grilla))
+        if (tetrominoColisionaConOtro(tetroActivo, grilla,infoJuego[MODO_DE_JUEGO]))
         {
             tetrominoRotar(tetroActivo, ANTIHORARIO);
         }
@@ -289,6 +288,8 @@ int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetro
         infoJuego[MODO_VELOCIDAD] = MODO_VEL_NORMAL;
     }
 
+    if (infoJuego[SCORE] > infoJuego[TOP_SCORE])
+    infoJuego[TOP_SCORE] = infoJuego[SCORE];
 
     gbt_volcar_backbuffer();
     return JUGANDO;
@@ -346,7 +347,6 @@ int gameOver(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int
     int anchoLetraConEspacio = (5 + ESPACIADO_ENTRE_LETRAS) * ESCALA_TITULO;
     int anchoTotalTitulo = anchoLetraConEspacio * 9;
     tCursorTexto cursorTitulo = { (resolAncho - anchoTotalTitulo) / 2, 20*_sy };
-
 
     caracterDibujarEscalado('G', &cursorTitulo, R, ESCALA_TITULO);
     caracterDibujarEscalado('A', &cursorTitulo, R, ESCALA_TITULO);
