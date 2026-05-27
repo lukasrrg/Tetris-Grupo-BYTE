@@ -1104,25 +1104,34 @@ void caracterNumeroDibujar(int numero, tCursorTexto *cursor, int color)
     cursor->posX += fuente1[obtenerIndice(numero)].espaciado + ESPACIADO_ENTRE_LETRAS;   //Avanza el cursor en cierta cantidad para dar espacio a la siguiente letra (en caso de haber)
 }
 
-void escribirTexto(const char str[], tCursorTexto *cursor, int color)
+void escribirTexto(const char str[], tCursorTexto *cursor, int color, int centrado)
 {
     const char *p;
     p = str;
+    tCursorTexto cursorAux;
+    cursorAux.posX = cursor->posX;
+    cursorAux.posY = cursor->posY;
+
+    if (centrado)
+    {
+        int espTotal = calcularEspaciado(str);
+        cursorAux.posX = cursor->posX - espTotal/2;
+    }
 
     while(*p != '\0')
     {
-        caracterDibujarChar(*p, cursor, color);
+        caracterDibujarChar(*p, &cursorAux, color);
         p++;
     }
 }
 
-void escribirNumero(int numero, tCursorTexto *cursor, int color)
+void escribirNumero(int numero, tCursorTexto *cursor, int color, int centrado)
 {
     char string[TAM_MAX_NUMERO];
 
     itoa(numero, string, 10);
 
-    escribirTexto(string, cursor, color);
+    escribirTexto(string, cursor, color, centrado);
 }
 
 void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int escala)
@@ -1152,4 +1161,21 @@ void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int es
         }
     }
     cursor->posX += (caracter->espaciado + ESPACIADO_ENTRE_LETRAS) * escala;
+}
+
+int calcularEspaciado(const char str[])
+{
+    int acum = 0;
+    const char *p;
+    p = str;
+
+    while(*p != '\0')
+    {
+        acum += fuente1[obtenerIndice(*p)].espaciado;
+        acum += ESPACIADO_ENTRE_LETRAS;
+        p++;
+    }
+    acum -= ESPACIADO_ENTRE_LETRAS;
+
+    return acum;
 }

@@ -17,7 +17,7 @@ void botonDibujar(tBoton *boton)
 {
     int i, j;
 
-    tCursorTexto cursor = {boton->posX + 2, boton->posY + 2};
+    tCursorTexto cursor = {boton->posX + boton->tamAncho/2, boton->posY + 2};
 
     for (i = 0; i < boton->tamAncho; i++)
     {
@@ -38,7 +38,7 @@ void botonDibujar(tBoton *boton)
 
     //Quizas conviene calcular cursor->posX para que siempre el texto este centrado
 
-    escribirTexto(boton->texto, &cursor, boton->colorTexto);
+    escribirTexto(boton->texto, &cursor, boton->colorTexto, CENTRADO);
 }
 
 void botonActualizarTodosInactivo(tBoton *p, int ce)

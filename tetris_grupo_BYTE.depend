@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
 140703130409889 <<<<<<< HEAD
 
-1779824577 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
+1779838738 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -165,26 +165,26 @@
 
 1779820591 D
 
-1779758002 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.c
+1779837994 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.c
 	"tMino.h"
 
-1779823224 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.h
+1779837971 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.h
 	<stdbool.h>
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"paleta.h"
 	"vectores_matrices.h"
 
-1779824141 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.c
+1779841851 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.c
 	"tGrilla.h"
 	"tPantalla.h"
 
-1779823950 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.h
+1779834400 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tgrilla.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"tMino.h"
 	"vectores_matrices.h"
 	<stdlib.h>
 
-1779747337 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.h
+1779838102 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.h
 	<stdio.h>
 	<math.h>
 	"tBoton.h"
@@ -195,25 +195,25 @@
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"texto.h"
 
-1779824771 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.c
+1779841629 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 	"tOpciones.h"
 	"tPartida.h"
 
-1779552826 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.c
+1779840052 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.c
 	"tBoton.h"
 
-1779732764 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.c
+1779839289 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.c
 	"texto.h"
 
-1779732671 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.h
+1779839289 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	<string.h>
 
-1779823215 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.h
+1779841802 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 
-1779823676 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.c
+1779841829 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.c
 	"paleta.h"
 
 1778955892 source:c:\users\un homo sapiens\desktop\tetris-grupo-byte\main.c

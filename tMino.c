@@ -1,6 +1,6 @@
 #include "tMino.h"
 
-int TAM_MINO = 8;   // valor por defecto CGA, main lo sobreescribe segun resolucion
+int tamMino = 8;   // valor por defecto CGA, main lo sobreescribe segun resolucion
 
 //Matrices para los tetrominos
 
@@ -348,11 +348,11 @@ void minoDibujar(int color, int pX, int pY)
 {
     int i, j;
 
-    for (i = 0; i < TAM_MINO; i++)
+    for (i = 0; i < tamMino; i++)
     {
-        for (j = 0; j < TAM_MINO; j++)
+        for (j = 0; j < tamMino; j++)
         {
-            if (i == 0 || j == 0 || i == TAM_MINO - 1 || j == TAM_MINO - 1)
+            if (i == 0 || j == 0 || i == tamMino - 1 || j == tamMino - 1)
                 gbt_dibujar_pixel(pX + i,pY + j, B);
             else
                 gbt_dibujar_pixel(pX + i,pY + j, color);
@@ -476,7 +476,7 @@ void tetrominoDibujar(tTetromino *tetro, int posX, int posY)        //Dibuja un 
         {
             if (tetrominoVec[(int)tetro->tipo][tetro->rotacion][fila][col] == 'X')
             {
-                minoDibujar(tetro->color, posX + col*TAM_MINO, posY + fila*TAM_MINO); //Dibujar mino de color tetro->color
+                minoDibujar(tetro->color, posX + col*tamMino, posY + fila*tamMino); //Dibujar mino de color tetro->color
             }
         }
     }

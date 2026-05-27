@@ -1,8 +1,8 @@
 #include "paleta.h"
 
-tGBT_ColorRGB paletaCGA[CANT_COLORES] =
+tGBT_ColorRGB paletaCLASICA[CANT_COLORES] =
 {
-    /// 0-15: Colores CGA (16 colores)
+    /// 0-15: Colores paleta CLASICA (16 colores)
     {0x00, 0x00, 0x00}, // 0:   Negro
     {0x00, 0x00, 0xAA}, // 1:   Azul
     {0x00, 0xAA, 0x00}, // 2:   Verde
@@ -10,20 +10,20 @@ tGBT_ColorRGB paletaCGA[CANT_COLORES] =
     {0xAA, 0x00, 0x00}, // 4:   Rojo
     {0xAA, 0x00, 0xAA}, // 5:   Magenta
     {0x83, 0x3C, 0xC2}, // 6:   Violeta
-    {0xAA, 0xAA, 0xAA}, // 7:   Gris claro
+    {0xF5, 0xFF, 0x66}, // 7:   Amarillo
     {0x55, 0x55, 0x55}, // 8:   Gris oscuro
     {0x55, 0x55, 0xFF}, // 9:   Azul brillante
     {0x55, 0xFF, 0x55}, // 10:  Verde brillante
     {0xFF, 0x6D, 0x00}, // 11:  Naranja
     {0xFF, 0x55, 0x55}, // 12:  Rojo brillante
     {0xFF, 0xFF, 0xFE}, // 13:  Blanco
-    {0xF5, 0xFF, 0x66}, // 14:  Amarillo
+    {0xAA, 0xAA, 0xAA}, // 14:  Gris claro
     {0xFF, 0xFF, 0xFF}  // 15:  Usado como transparente por GBT
 };
 
-tGBT_ColorRGB paletaVGA[CANT_COLORES] =
+tGBT_ColorRGB paletaSHINY[CANT_COLORES] =
 {
-    /// 0-15: Colores VGA (16 colores)
+    /// 0-15: Colores paleta SHINY (16 colores)
 
     {0x00, 0x00, 0x00}, // 0:   Negro
     {0x00, 0xF5, 0xFF}, // 1:   Cian Neon
@@ -43,8 +43,3 @@ tGBT_ColorRGB paletaVGA[CANT_COLORES] =
     {0xFF, 0xFF, 0xFF}  // 15:  Usado como transparente por GBT
 
 };
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/Donato

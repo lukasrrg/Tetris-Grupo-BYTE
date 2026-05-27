@@ -6,7 +6,7 @@
 #define CANT_COLORES 16
 
 
-//Letras para los colores
+//Letras de identificacion para la paleta CLASICA
 #define N 0  //Negro
 #define AZ 1 //Azul
 #define VE 2  //Verde
@@ -14,17 +14,17 @@
 #define R 4  //Rojo
 #define M 5  //Magenta
 #define VI 6  //Violeta
-#define GC 7 //Gris claro
+#define AM 7 //Amarillo
 #define GO 8 //Gris oscuro
 #define AB 9 //Azul brillante
 #define VB 10 //Verde brillante
 #define NA 11 //Naranja
 #define RB 12 //Rojo brillante
 #define B 13 //Blanco
-#define AM 14 // Amarillo
+#define GC 14 // Gris claro
 #define T 15 // Transparente
 
-//Letras de identificacion para la segunda paleta
+//Letras de identificacion para la paleta SHINY
 #define N    0   // Negro
 #define CN   1   // Cian Neon
 #define MN   2   // Magenta Neon
@@ -42,7 +42,7 @@
 #define AND  14  // Amarillo Naranja / Dorado Brillante
 #define T    15  // Transparente
 
-extern tGBT_ColorRGB paletaCGA[CANT_COLORES];
-extern tGBT_ColorRGB paletaVGA[CANT_COLORES];
+extern tGBT_ColorRGB paletaCLASICA[CANT_COLORES];
+extern tGBT_ColorRGB paletaSHINY[CANT_COLORES];
 
 #endif // PALETA_H_INCLUDED

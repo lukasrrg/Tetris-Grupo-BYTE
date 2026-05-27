@@ -21,7 +21,8 @@ typedef struct              //Grilla in-game
     int alto;           //Cuantos minos de alto tiene
 } tGrilla;
 
-bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla);   //Pide memoria necesaria para la grilla
+void grillaDecorativaSetear(tGrilla *grilla);
+bool grillaCrear(tGrilla *p, int anchoGrilla, int altoGrilla);   //Pide memoria necesaria para la grilla
 void grillaDestruir(tGrilla *p);                                                //Libera la memoria de la grilla
 void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla);      //Dibuja el borde de la grilla (equivalente a dibujarRectangulo)
 void grillaDibujar(const tGrilla *p, int resolAncho, int resolAlto);            //Dibuja los minos anclados en pantalla

@@ -8,7 +8,7 @@
 #include "vectores_matrices.h"
 
 //Tama�o de mino
-extern int TAM_MINO;    // 8=CGA, 16=VGA - se setea en main segun resolucion
+extern int tamMino;    // 8=CGA, 16=VGA - se setea en main segun resolucion
 #define TAM_MAX_TETROMINO 4
 #define MAX_LINEAS_SIMULTANEAS 4
 

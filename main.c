@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
         return ERROR_INICIAR_GBT;
     }
 
-    if (gbt_aplicar_paleta(paletaCGA, CANT_COLORES, GBT_FORMATO_888) != 0)
+    if (gbt_aplicar_paleta(paletaCLASICA, CANT_COLORES, GBT_FORMATO_888) != 0)
     {
         fprintf(stderr, "Error al aplicar la nueva paleta de colores: %s\n", gbt_obtener_log());
         return ERROR_APLICANDO_PALETA;
@@ -83,12 +83,12 @@ int main(int argc, char *argv[])
         return ERROR_ABRIENDO_VENTANA;
     }
 
-    TAM_MINO = (infoJuego[RESOL_ANCHO] >= 640) ? 16 : 8;  // escala los minos segun resolucion
+    tamMino = (infoJuego[RESOL_ANCHO] >= 640) ? 16 : 8;  // escala los minos segun resolucion
 
     srand(time(0));
 
     tGrilla grillaDeFondo;
-    if (!grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], anchoGrilla))
+    if (!grillaCrear(&grillaDeFondo, anchoGrilla, ALTO_GRILLA_TOTAL))
     {
         return ERROR_MEMORIA_GRILLA;
     }
@@ -108,6 +108,20 @@ int main(int argc, char *argv[])
 
     tPartida partida;           //Estructura partida que se encargara de manejar los guardados y cargados de partidas
 
+    tGrilla grillaDecorativaSup;
+    if(!grillaCrear(&grillaDecorativaSup, ANCHO_VENTANA_VGA/tamMino, 1))
+    {
+        return ERROR_MEMORIA_GRILLA;
+    }
+    grillaDecorativaSetear(&grillaDecorativaSup);
+
+    tGrilla grillaDecorativaInf;
+    if(!grillaCrear(&grillaDecorativaInf, ANCHO_VENTANA_VGA/tamMino, 3))
+    {
+        return ERROR_MEMORIA_GRILLA;
+    }
+    grillaDecorativaSetear(&grillaDecorativaInf);
+
     while(estadoDeJuego)
     {
         switch (estadoDeJuego)
@@ -119,7 +133,7 @@ int main(int argc, char *argv[])
             botonCrear(&botonesPantallaInicial[1], INACTIVO, ANCHO_BOTON_GRANDE, ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_GRANDE)/2, (infoJuego[RESOL_ALTO] + ALTO_BOTON_DEFAULT)/2 + SEPARACION_ENTRE_BOTON, B, VE, "MODO DELUXE", N);
             botonCrear(&botonesPantallaInicial[2], INACTIVO, ANCHO_BOTON_CHICO,  ALTO_BOTON_DEFAULT, (infoJuego[RESOL_ANCHO] - ANCHO_BOTON_CHICO)/2,  (infoJuego[RESOL_ALTO] + 3*ALTO_BOTON_DEFAULT)/2 + SEPARACION_ENTRE_BOTON*2, B, R, "SALIR", N);
             while (estadoDeJuego == PANTALLA_INICIAL)
-                estadoDeJuego = pantallaInicial(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &cursorBoton, botonesPantallaInicial, 3);
+                estadoDeJuego = pantallaInicial(infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], &cursorBoton, botonesPantallaInicial, 3, &grillaDecorativaSup, &grillaDecorativaInf);
             partidaNueva = true;
             break;
 
@@ -178,7 +192,7 @@ int main(int argc, char *argv[])
                     return ERROR_CREAR_TEMPORIZADOR;
                 gbt_temporizador_pausar(tempFijacion);
                 grillaDestruir(&grillaDeFondo);
-                grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], infoJuego[MODO_DE_JUEGO] ? anchoGrilla : ANCHO_GRILLA_DEFAULT);
+                grillaCrear(&grillaDeFondo, infoJuego[MODO_DE_JUEGO] ? anchoGrilla : ANCHO_GRILLA_DEFAULT, ALTO_GRILLA_TOTAL);
                 tetrominoCargarVector(tetroActivos, infoJuego[MODO_DE_JUEGO] ? CANT_TETROMINOS_DELUXE : CANT_TETROMINOS_CLASSIC, grillaDeFondo.anchoGrilla);
                 partidaNueva = false;
             }
@@ -251,15 +265,15 @@ int main(int argc, char *argv[])
                 gbt_destruir_ventana();
                 char nombreVentana[128];
                 sprintf(nombreVentana, "Ventana %dx%d", infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
-                if (gbt_crear_ventana(nombreVentana, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], ESCALA_VENTANA_DEFAULT) != 0)
+                if (gbt_crear_ventana(nombreVentana, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], escala) != 0)
                 {
                     fprintf(stderr, "Error al recrear la ventana: %s\n", gbt_obtener_log());
                     return ERROR_ABRIENDO_VENTANA;
                 }
                 grillaDestruir(&grillaDeFondo);
-                if (!grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], anchoGrilla))
+                if (!grillaCrear(&grillaDeFondo, anchoGrilla, ALTO_GRILLA_TOTAL))
                     return ERROR_MEMORIA_GRILLA;
-                TAM_MINO = (infoJuego[RESOL_ANCHO] >= 640) ? 16 : 8;
+                tamMino = (infoJuego[RESOL_ANCHO] >= 640) ? 16 : 8;
             }
             gbt_temporizador_destruir(tempCaida);
             tempCaida = gbt_temporizador_crear(velActual);
@@ -328,7 +342,7 @@ int main(int argc, char *argv[])
                 memcpy(tetroActivos, partida.tetrominos, sizeof(tetroActivos));
 
                 grillaDestruir(&grillaDeFondo);
-                grillaCrear(&grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO], anchoGrilla);
+                grillaCrear(&grillaDeFondo, anchoGrilla, ALTO_GRILLA_TOTAL);
                 partidaRestaurarGrilla(&partida, &grillaDeFondo, infoJuego[RESOL_ANCHO], infoJuego[RESOL_ALTO]);
 
                 gbt_temporizador_destruir(tempCaida);
@@ -371,6 +385,8 @@ int main(int argc, char *argv[])
     gbt_temporizador_destruir(tempCaida);
     gbt_temporizador_destruir(tempFijacion);
     grillaDestruir(&grillaDeFondo);
+    grillaDestruir(&grillaDecorativaSup);
+    grillaDestruir(&grillaDecorativaInf);
     gbt_destruir_ventana();
     gbt_cerrar();
 

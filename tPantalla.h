@@ -84,7 +84,8 @@
 #define TETROMINO_LIBRE 20  //Cuando un tetromino detecta una colision, deja de estar libre (1) para estar en estado de fijacion (0) y se mantiene asi hasta que se cumple un periodo seguido de tiempo estando quieto
 #define CHEATS_ACTIVADOS 21
 
-int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
+void arcoirisPantallaInicial(int resolAlto, tGrilla *pSup, tGrilla *pInf);
+int pantallaInicial(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce, tGrilla *grillaDecorativaSup, tGrilla *grillaDecorativaInf);
 int menuPrincipalClassic(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int menuPrincipalDeluxe(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int ce);
 int interfazJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO], tTetromino tetroActivo[TAM_VEC_TETROMINOS], tGrilla *grilla, tGBT_Temporizador **tempCaida, tGBT_Temporizador **tempFijacion, double *velActual);

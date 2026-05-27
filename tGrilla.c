@@ -1,13 +1,30 @@
 #include "tGrilla.h"
 #include "tPantalla.h"
 
-bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
+void grillaDecorativaSetear(tGrilla *grilla)
+{
+    int fila, col;
+    tMino *minoActual;
+
+    for (fila = 0; fila < grilla->alto; fila++)
+    {
+        for (col = 0; col < grilla->anchoGrilla; col++)
+        {
+            minoActual = *(grilla->matMinos + fila) + col;
+            minoActual->estado = true;
+            minoActual->color = rand()%CANT_TETROMINOS_CLASSIC + 1;
+        }
+    }
+
+}
+
+bool grillaCrear(tGrilla *p, int anchoGrilla, int altoGrilla)
 {
     tMino *mino;
     p->anchoGrilla = anchoGrilla;   //Sino las otras funciones van a leer basura
-    p->alto = ALTO_GRILLA_TOTAL;
+    p->alto = altoGrilla;
 
-    p->matMinos = (tMino **)matrizCrear(ALTO_GRILLA_TOTAL, anchoGrilla, sizeof(tMino)); //Pido memoria para toda la matriz grilla
+    p->matMinos = (tMino **)matrizCrear(altoGrilla, anchoGrilla, sizeof(tMino)); //Pido memoria para toda la matriz grilla
     if (p->matMinos == NULL)
     {
         return false;
@@ -15,7 +32,7 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla)
 
     int fila, col;
 
-    for (fila = 0; fila < ALTO_GRILLA_TOTAL; fila++) //Setea los minos de las filas visibles en su respectiva posicion correcta
+    for (fila = 0; fila < altoGrilla; fila++) //Setea los minos de las filas visibles en su respectiva posicion correcta
     {
         for (col = 0; col < anchoGrilla; col++)
         {
@@ -39,8 +56,8 @@ void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla)
 {
     int i;
 
-    int ancho = anchoGrilla*TAM_MINO;
-    int alto = ALTO_GRILLA_VISIBLE*TAM_MINO;
+    int ancho = anchoGrilla*tamMino;
+    int alto = ALTO_GRILLA_VISIBLE*tamMino;
 
     int offsetX = (resolAncho - ancho)/2;
     int offsetY = (resolAlto - alto)/2;
@@ -60,8 +77,8 @@ void grillaDibujar(const tGrilla *p, int resolAncho, int resolAlto)
     int fila, col;
     tMino *mino;
 
-    int offsetX = (resolAncho - p->anchoGrilla*TAM_MINO)/2;
-    int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;
+    int offsetX = (resolAncho - p->anchoGrilla*tamMino)/2;
+    int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*tamMino)/2;
 
     for (fila = PRIMERA_FILA_VISIBLE; fila < ALTO_GRILLA_TOTAL; fila++)
     {
@@ -69,7 +86,7 @@ void grillaDibujar(const tGrilla *p, int resolAncho, int resolAlto)
         {
             mino = *(p->matMinos + fila) + col;
             if (mino->estado)
-                minoDibujar(mino->color, TAM_MINO*col + offsetX, TAM_MINO*(fila - PRIMERA_FILA_VISIBLE) + offsetY);
+                minoDibujar(mino->color, tamMino*col + offsetX, tamMino*(fila - PRIMERA_FILA_VISIBLE) + offsetY);
         }
     }
 }
@@ -77,8 +94,8 @@ void grillaDibujar(const tGrilla *p, int resolAncho, int resolAlto)
 void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, int anchoGrilla, int modoDeJuego)
 {
     int fila, col;
-    int offsetX = (resolAncho - anchoGrilla*TAM_MINO)/2;
-    int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*TAM_MINO)/2;
+    int offsetX = (resolAncho - anchoGrilla*tamMino)/2;
+    int offsetY = (resolAlto - ALTO_GRILLA_VISIBLE*tamMino)/2;
     int posX;   //Posicion en X del MINO que se va a dibujar (NO relativo a la grilla)
     int posY;   //Posicion en Y del MINO que se va a dibujar (NO relativo a la grilla)
 
@@ -95,8 +112,8 @@ void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, in
                     xEfectivo = (xEfectivo % anchoGrilla + anchoGrilla) % anchoGrilla;              //Para rotacion circular
                 }
 
-                posX = xEfectivo * TAM_MINO + offsetX;
-                posY = (tetro->posY + fila)*TAM_MINO + offsetY;
+                posX = xEfectivo * tamMino + offsetX;
+                posY = (tetro->posY + fila)*tamMino + offsetY;
 
                 minoDibujar(tetro->color, posX, posY); //Dibujar mino de color tetro->color
             }

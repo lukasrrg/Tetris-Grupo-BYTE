@@ -10,6 +10,8 @@
 #define ESCALA_TITULO 4
 #define TAM_MAX_NUMERO 15
 #define ALTO_ESTANDAR_LETRA_FUENTE_2 10
+#define CENTRADO 1
+#define NO_CENTRADO 0
 
 typedef struct
 {
@@ -114,8 +116,9 @@ extern const tCaracter fuente2[CANTIDAD_DE_CARACTERES];
 void caracterDibujar(const tCaracter *carac, tCursorTexto *cursor, int color);    //Dibuja un caracter a partir de darle un tCaracter como parámetro
 int obtenerIndice(char caracter);                   //Si le das un char, devuelve el indice correspondiente del vector fuente
 void caracterDibujarChar(char carac, tCursorTexto *cursor, int color);            //Dibuja un caracter a partir de darle un char como parámetro
-void escribirTexto(const char str[], tCursorTexto *cursor, int color);
-void escribirNumero(int numero, tCursorTexto *cursor, int color);
+void escribirTexto(const char str[], tCursorTexto *cursor, int color, int centrado);
+void escribirNumero(int numero, tCursorTexto *cursor, int color, int centrado);
 void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int escala);
+int calcularEspaciado(const char str[]);
 
 #endif // TEXTO_H_INCLUDED
