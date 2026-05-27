@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
 140703130409889 <<<<<<< HEAD
 
-1779838738 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
+1779842047 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -17,7 +17,21 @@
 	"tOpciones.h"
 	"tPartida.h"
 
-1779820177 gin/Donato
+1779841229 gin/Donato
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<stdbool.h>
+	<string.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"texto.h"
+	"tPantalla.h"
+	"tGrilla.h"
+	"tJugador.h"
+	"vectores_matrices.h"
+	"tOpciones.h"
+	"tPartida.h"
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -97,6 +111,26 @@
 	"tMino.h"
 	"tGrilla.h"
 	"tJugador.h"
+	"tPantalla.h"
+	"tOpciones.h"
+	"tPartida.h"
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"vectores_matrices.h"
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	"vectores_matrices.h"
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	"tBoton.h"
+	"tGrilla.h"
+	"tJugador.h"
+	"tPantalla.h"
+	"tOpciones.h"
+	"tPartida.h"
+	"paleta.h"
 	"tPantalla.h"
 	"tOpciones.h"
 	"tPartida.h"
@@ -163,7 +197,10 @@
 	<stdlib.h>
 	<stdint.h>
 
-1779820591 D
+1779820685 D
+	"tPantalla.h"
+	"tOpciones.h"
+	"tPartida.h"
 
 1779837994 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tmino.c
 	"tMino.h"
@@ -191,29 +228,29 @@
 	"tGrilla.h"
 	"tJugador.h"
 
-1779552826 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.h
+1779842047 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	"texto.h"
 
-1779841629 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.c
+1779842711 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tpantalla.c
 	"tPantalla.h"
 	"tOpciones.h"
 	"tPartida.h"
 
-1779840052 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.c
+1779842161 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\tboton.c
 	"tBoton.h"
 
-1779839289 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.c
+1779842254 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.c
 	"texto.h"
 
-1779839289 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.h
+1779842140 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\texto.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 	<string.h>
 
 1779841802 c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.h
 	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
 
-1779841829 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.c
+1779842097 source:c:\users\un homo sapiens\desktop\topicos de programacion\trabajo practico\lukas\tetris-grupo-byte\paleta.c
 	"paleta.h"
 
 1778955892 source:c:\users\un homo sapiens\desktop\tetris-grupo-byte\main.c
@@ -1673,17 +1710,265 @@
 	"tOpciones.h"
 
 1779820685 source:c:\users\un homo sapiens\downloads\tetris-grupo-byte\tpantalla.c
-	"tPantalla.h"
-	"tOpciones.h"
-	"tPartida.h"
 
 1779729939 source:c:\users\un homo sapiens\downloads\tetris-grupo-byte\tpartida.c
+	"tPartida.h"
+	<string.h>
 	"tPartida.h"
 	<string.h>
 
 1779560582 source:c:\users\un homo sapiens\downloads\tetris-grupo-byte\vectores_matrices.c
 	"vectores_matrices.h"
+	"vectores_matrices.h"
 
 1779820177 source:c:\users\un homo sapiens\downloads\tetris-grupo-byte\tgrilla.c
 	"tGrilla.h"
+	"tGrilla.h"
+
+1779826025 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<stdbool.h>
+	<string.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"texto.h"
+	"tPantalla.h"
+	"tGrilla.h"
+	"tJugador.h"
+	"vectores_matrices.h"
+	"tOpciones.h"
+	"tPartida.h"
+
+1778021954 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778021954 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778021954 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778021954 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778021954 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778021954 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1779823215 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1779732671 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1779747337 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tpantalla.h
+	<stdio.h>
+	<math.h>
+	"tBoton.h"
+	"tGrilla.h"
+	"tJugador.h"
+
+1779825936 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1779823950 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	"vectores_matrices.h"
+	<stdlib.h>
+
+1779823224 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"vectores_matrices.h"
+
+1779552867 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\vectores_matrices.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+
+1779823676 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tjugador.h
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+
+1779560918 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\topciones.h
+	<stdio.h>
+	<stdbool.h>
+	"tPantalla.h"
+
+1779729939 c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tpartida.h
+	<stdio.h>
+	<stdbool.h>
+	"tMino.h"
+	"tGrilla.h"
+	"tJugador.h"
+
+1779823676 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\paleta.c
+	"paleta.h"
+
+1779552826 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tboton.c
+	"tBoton.h"
+
+1779732764 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\texto.c
+	"texto.h"
+
+1779824141 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tgrilla.c
+	"tGrilla.h"
+	"tPantalla.h"
+
+1779823676 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tjugador.c
+	"tJugador.h"
+
+1779758002 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tmino.c
+	"tMino.h"
+
+1779552875 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\topciones.c
+	"tOpciones.h"
+
+1779824771 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tpantalla.c
+	"tPantalla.h"
+	"tOpciones.h"
+	"tPartida.h"
+
+1779729939 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\tpartida.c
+	"tPartida.h"
+	<string.h>
+
+1779560582 source:c:\users\lucas\onedrive\escritorio\tetris 26052026 ultima version estable\tetris-grupo-byte\vectores_matrices.c
+	"vectores_matrices.h"
+
+1779826386 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<stdbool.h>
+	<string.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"texto.h"
+	"tPantalla.h"
+	"tGrilla.h"
+	"tJugador.h"
+	"vectores_matrices.h"
+	"tOpciones.h"
+	"tPartida.h"
+
+1778021954 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778021954 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778021954 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778021954 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_logger.h
+
+1778021954 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778021954 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\lib\gbt_v2026.1c.01\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1779823215 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\paleta.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+
+1779841168 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\texto.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	<string.h>
+
+1779747337 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tpantalla.h
+	<stdio.h>
+	<math.h>
+	"tBoton.h"
+	"tGrilla.h"
+	"tJugador.h"
+
+1779825936 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tboton.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"texto.h"
+
+1779823950 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tgrilla.h
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"tMino.h"
+	"vectores_matrices.h"
+	<stdlib.h>
+
+1779823224 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tmino.h
+	<stdbool.h>
+	"lib/GBT_v2026.1C.01/include/GBT/gbt.h"
+	"paleta.h"
+	"vectores_matrices.h"
+
+1779552867 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\vectores_matrices.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+
+1779823676 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tjugador.h
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+
+1779560918 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\topciones.h
+	<stdio.h>
+	<stdbool.h>
+	"tPantalla.h"
+
+1779729939 c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tpartida.h
+	<stdio.h>
+	<stdbool.h>
+	"tMino.h"
+	"tGrilla.h"
+	"tJugador.h"
+
+1779823676 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\paleta.c
+	"paleta.h"
+
+1779841189 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tboton.c
+	"tBoton.h"
+
+1779824141 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tgrilla.c
+	"tGrilla.h"
+	"tPantalla.h"
+
+1779823676 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tjugador.c
+	"tJugador.h"
+
+1779758002 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tmino.c
+	"tMino.h"
+
+1779552875 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\topciones.c
+	"tOpciones.h"
+
+1779729939 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tpartida.c
+	"tPartida.h"
+	<string.h>
+
+1779560582 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\vectores_matrices.c
+	"vectores_matrices.h"
+
+1779841405 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\texto.c
+	"texto.h"
+
+1779841229 source:c:\users\colom\downloads\tetris-grupo-byte_botones_corregidos\tetris-grupo-byte\tpantalla.c
 

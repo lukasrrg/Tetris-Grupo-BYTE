@@ -38,7 +38,7 @@ void botonDibujar(tBoton *boton)
 
     //Quizas conviene calcular cursor->posX para que siempre el texto este centrado
 
-    escribirTexto(boton->texto, &cursor, boton->colorTexto, CENTRADO);
+    escribirTexto(boton->texto, &cursor, boton->colorTexto, CENTRADO, FUENTE_1);
 }
 
 void botonActualizarTodosInactivo(tBoton *p, int ce)

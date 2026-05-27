@@ -13,6 +13,9 @@
 #define CENTRADO 1
 #define NO_CENTRADO 0
 
+#define FUENTE_1 1
+#define FUENTE_2 2
+
 typedef struct
 {
     int espaciado;          //Cantidad de pixeles de ancho
@@ -115,9 +118,9 @@ extern const tCaracter fuente2[CANTIDAD_DE_CARACTERES];
 
 void caracterDibujar(const tCaracter *carac, tCursorTexto *cursor, int color);    //Dibuja un caracter a partir de darle un tCaracter como parámetro
 int obtenerIndice(char caracter);                   //Si le das un char, devuelve el indice correspondiente del vector fuente
-void caracterDibujarChar(char carac, tCursorTexto *cursor, int color);            //Dibuja un caracter a partir de darle un char como parámetro
-void escribirTexto(const char str[], tCursorTexto *cursor, int color, int centrado);
-void escribirNumero(int numero, tCursorTexto *cursor, int color, int centrado);
+void caracterDibujarChar(char carac, tCursorTexto *cursor, int color, int tipoFuente);            //Dibuja un caracter a partir de darle un char como parámetro
+void escribirTexto(const char str[], tCursorTexto *cursor, int color, int centrado, int tipoFuente);
+void escribirNumero(int numero, tCursorTexto *cursor, int color, int centrado, int tipoFuente);
 void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int escala);
 int calcularEspaciado(const char str[]);
 

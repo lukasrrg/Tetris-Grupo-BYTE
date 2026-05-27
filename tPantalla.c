@@ -388,8 +388,8 @@ int gameOver(int resolAncho, int resolAlto, int* cursor, tBoton *vecBotones, int
     caracterDibujarEscalado('R', &cursorTitulo, R, ESCALA_TITULO);
 
     tCursorTexto curScore = { (resolAncho - 14*6) / 2, 70*_sy };
-    escribirTexto("SCORE FINAL: ", &curScore, B, NO_CENTRADO);
-    escribirNumero(score, &curScore, AM, NO_CENTRADO);
+    escribirTexto("SCORE FINAL: ", &curScore, B, NO_CENTRADO, FUENTE_2);
+    escribirNumero(score, &curScore, AM, NO_CENTRADO, FUENTE_2);
 
     botonActualizarTodosInactivo(vecBotones, ce);
     (vecBotones + *cursor)->estado = APUNTADO;
@@ -456,7 +456,7 @@ int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto,
 
     // Titulo
     tCursorTexto cur = {(resolAncho - 8*6) / 2, 12};
-    escribirTexto("OPCIONES", &cur, B, NO_CENTRADO);
+    escribirTexto("OPCIONES", &cur, B, NO_CENTRADO, FUENTE_2);
 
     // Items
     int margenIzq  = 15;
@@ -467,55 +467,55 @@ int menuOpciones(int resolAncho, int resolAlto, int *nuevoAncho, int *nuevoAlto,
     // RESOLUCION
     cur.posX = margenIzq;
     cur.posY = primerFila;
-    escribirTexto("RESOLUCION", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO);
+    escribirTexto("RESOLUCION", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO, FUENTE_2);
     cur.posX = margenVal;
-    escribirTexto(" ", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO);
+    escribirTexto(" ", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO, FUENTE_2);
     if (tempAncho == ANCHO_VENTANA_CGA)
-        escribirTexto("CGA 320X200", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO);
+        escribirTexto("CGA 320X200", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO, FUENTE_2);
     else
-        escribirTexto("VGA 640X480", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO);
-    escribirTexto(" ", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO);
+        escribirTexto("VGA 640X480", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO, FUENTE_2);
+    escribirTexto(" ", &cur, cursorOpc == 0 ? AM : GC, NO_CENTRADO, FUENTE_2);
 
     // VELOCIDAD DE CAIDA
     cur.posX = margenIzq;
     cur.posY = primerFila + separFila;
-    escribirTexto("VELOCIDAD DE CAIDA", &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO);
+    escribirTexto("VELOCIDAD DE CAIDA", &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO, FUENTE_2);
     cur.posX = margenVal;
-    escribirTexto(" ", &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO);
-    escribirTexto(nombresVel[tempVelIdx], &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO);
-    escribirTexto(" ", &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO);
+    escribirTexto(" ", &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO, FUENTE_2);
+    escribirTexto(nombresVel[tempVelIdx], &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO, FUENTE_2);
+    escribirTexto(" ", &cur, cursorOpc == 1 ? AM : GC, NO_CENTRADO, FUENTE_2);
 
     //SELECCION DE COLOR
     cur.posX = margenIzq;
     cur.posY = primerFila + 2*separFila;
-    escribirTexto("PALETA", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO);
+    escribirTexto("PALETA", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO, FUENTE_2);
     cur.posX = margenVal;
-    escribirTexto(" ", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO);
+    escribirTexto(" ", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO, FUENTE_2);
     if (tempPaleta == 0)
-        escribirTexto("CLASICA", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO);
+        escribirTexto("CLASICA", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO, FUENTE_2);
     else
-        escribirTexto("SHINY", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO);
-    escribirTexto(" ", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO);
+        escribirTexto("SHINY", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO, FUENTE_2);
+    escribirTexto(" ", &cur, cursorOpc == 2 ? AM : GC, NO_CENTRADO, FUENTE_2);
 
     // ANCHO GRILLA (solo deluxe)
     if (modoDeluxe)
     {
         cur.posX = margenIzq;
         cur.posY = primerFila + 3*separFila;
-        escribirTexto("ANCHO GRILLA", &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO);
+        escribirTexto("ANCHO GRILLA", &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO, FUENTE_2);
         cur.posX = margenVal;
-        escribirTexto(" ", &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO);
-        escribirNumero(tempGrilla, &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO);
-        escribirTexto(" ", &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO);
+        escribirTexto(" ", &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO, FUENTE_2);
+        escribirNumero(tempGrilla, &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO, FUENTE_2);
+        escribirTexto(" ", &cur, cursorOpc == 3 ? AM : GC, NO_CENTRADO, FUENTE_2);
     }
 
     // Ayuda
     cur.posX = margenIzq;
     cur.posY = resolAlto - 20;
-    escribirTexto("W S NAVEGAR  A D CAMBIAR", &cur, GO, NO_CENTRADO);
+    escribirTexto("W S NAVEGAR  A D CAMBIAR", &cur, GO, NO_CENTRADO, FUENTE_2);
     cur.posX = margenIzq;
     cur.posY += 10;
-    escribirTexto("ENTER APLICAR  ESC CANCELAR", &cur, GO, NO_CENTRADO);
+    escribirTexto("ENTER APLICAR  ESC CANCELAR", &cur, GO, NO_CENTRADO, FUENTE_2);
 
     // Navegacion vertical
     if (tecla == GBTK_w)
@@ -614,11 +614,11 @@ int confirmarSobreescritura(int resolAncho, int resolAlto)
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
 
     tCursorTexto cur = {(resolAncho - 30*6) / 2, resolAlto/2 - 20};
-    escribirTexto("YA EXISTE UNA PARTIDA GUARDADA", &cur, RB, NO_CENTRADO);
+    escribirTexto("YA EXISTE UNA PARTIDA GUARDADA", &cur, RB, NO_CENTRADO, FUENTE_2);
 
     cur.posX = 10;
     cur.posY += 26;
-    escribirTexto("ENTER SOBREESCRIBIR  ESC CANCELAR", &cur, GC, NO_CENTRADO);
+    escribirTexto("ENTER SOBREESCRIBIR  ESC CANCELAR", &cur, GC, NO_CENTRADO, FUENTE_2);
 
     gbt_volcar_backbuffer();
 
@@ -643,15 +643,15 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
     int _sy = resolAlto / 200;
     if (_sy < 1) _sy = 1;
     tCursorTexto cur = {resolAncho/2, 20*_sy};
-    escribirTexto("INGRESE SU NOMBRE", &cur, B, CENTRADO);
+    escribirTexto("INGRESE SU NOMBRE", &cur, B, CENTRADO, FUENTE_1);
 
     if (subEstado == 0)
     {
         tCursorTexto curNombre = {resolAncho/ 2, 60*_sy};
-        escribirTexto(nombre, &curNombre, AM, CENTRADO);
+        escribirTexto(nombre, &curNombre, AM, CENTRADO, FUENTE_2);
 
         tCursorTexto curAyuda = {10, resolAlto - 20*_sy};
-        escribirTexto("ENTER CONFIRMAR  ESC CANCELAR", &curAyuda, GC, NO_CENTRADO);
+        escribirTexto("ENTER CONFIRMAR  ESC CANCELAR", &curAyuda, GC, NO_CENTRADO, FUENTE_1);
 
         char c = 0;
         if (tecla >= GBTK_a && tecla <= GBTK_z)
@@ -695,13 +695,13 @@ int ingresarNombre(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE])
     else if (subEstado == 1)
     {
         tCursorTexto curNombre = {resolAncho/ 2, 60*_sy};
-        escribirTexto(nombre, &curNombre, AM, CENTRADO);
+        escribirTexto(nombre, &curNombre, AM, CENTRADO, FUENTE_2);
 
         tCursorTexto curPregunta = {10, 90*_sy};
-        escribirTexto("JUGADOR YA EXISTE", &curPregunta, RB, NO_CENTRADO);
+        escribirTexto("JUGADOR YA EXISTE", &curPregunta, RB, NO_CENTRADO, FUENTE_1);
 
         tCursorTexto curOpc = {10, 110*_sy};
-        escribirTexto("ENTER NUEVA PARTIDA  ESC VOLVER", &curOpc, GC, NO_CENTRADO);
+        escribirTexto("ENTER NUEVA PARTIDA  ESC VOLVER", &curOpc, GC, NO_CENTRADO, FUENTE_1);
 
         if (tecla == GBTK_ENTER)
         {
@@ -732,15 +732,15 @@ int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE
 
     int _sy = resolAlto / 200; if (_sy < 1) _sy = 1;
     tCursorTexto cur = {resolAncho/2, 20*_sy};
-    escribirTexto("CARGAR PARTIDA", &cur, B, CENTRADO);
+    escribirTexto("CARGAR PARTIDA", &cur, B, CENTRADO, FUENTE_2);
 
     if (subEstado == 0)
     {
         tCursorTexto curNombre = {resolAncho/ 2, 60*_sy};
-        escribirTexto(nombre, &curNombre, AM, CENTRADO);
+        escribirTexto(nombre, &curNombre, AM, CENTRADO, FUENTE_2);
 
         tCursorTexto curAyuda = {10, resolAlto - 20*_sy};
-        escribirTexto("ENTER CONFIRMAR  ESC CANCELAR", &curAyuda, GO, NO_CENTRADO);
+        escribirTexto("ENTER CONFIRMAR  ESC CANCELAR", &curAyuda, GO, NO_CENTRADO, FUENTE_2);
 
         char c = 0;
         if (tecla >= GBTK_a && tecla <= GBTK_z)
@@ -776,9 +776,9 @@ int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE
     else if (subEstado == 1)
     {
         tCursorTexto curOk = {10, 90*_sy};
-        escribirTexto("PARTIDA CARGADA CON EXITO", &curOk, VB, NO_CENTRADO);
+        escribirTexto("PARTIDA CARGADA CON EXITO", &curOk, VB, NO_CENTRADO, FUENTE_1);
         tCursorTexto curOpc = {10, 110*_sy};
-        escribirTexto("ENTER CONTINUAR", &curOpc, GC, NO_CENTRADO);
+        escribirTexto("ENTER CONTINUAR", &curOpc, GC, NO_CENTRADO, FUENTE_1);
 
         if (tecla == GBTK_ENTER)
         {
@@ -793,9 +793,9 @@ int ingresarNombreCarga(int resolAncho, int resolAlto, char nombreOut[MAX_NOMBRE
     else if (subEstado == 2)
     {
         tCursorTexto curErr = {10, 90*_sy};
-        escribirTexto("PARTIDA NO ENCONTRADA", &curErr, RB, NO_CENTRADO);
+        escribirTexto("PARTIDA NO ENCONTRADA", &curErr, RB, NO_CENTRADO, FUENTE_1);
         tCursorTexto curOpc = {10, 110*_sy};
-        escribirTexto("ENTER VOLVER", &curOpc, GC, NO_CENTRADO);
+        escribirTexto("ENTER VOLVER", &curOpc, GC, NO_CENTRADO, FUENTE_1);
 
         if (tecla == GBTK_ENTER)
             subEstado = 0;
@@ -831,14 +831,14 @@ void infoInterfazDeJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO],
     dibujarRectangulo(cursor.posX, cursor.posY, anchoCuadros, altoCuadros, M);
     cursor.posX += 2;
     cursor.posY += 2;
-    escribirTexto("NIVEL: ", &cursor, B, NO_CENTRADO);           //Muestra el nivel actual y la velocidad actual
+    escribirTexto("NIVEL: ", &cursor, B, NO_CENTRADO, FUENTE_1);           //Muestra el nivel actual y la velocidad actual
     cursor.posX += calcularEspaciado("NIVEL: ");
-    escribirNumero(infoJuego[NIVEL], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[NIVEL], &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX = espaciadoBordes + 2;
     cursor.posY += 2*ALTO_ESTANDAR_LETRA + 2;
-    escribirTexto("VELOCIDAD: ", &cursor, B, NO_CENTRADO);           //Muestra el nivel actual y la velocidad actual
+    escribirTexto("VELOCIDAD: ", &cursor, B, NO_CENTRADO, FUENTE_1);           //Muestra el nivel actual y la velocidad actual
     cursor.posX += calcularEspaciado("VELOCIDAD: ");
-    escribirNumero(velActual, &cursor, B, NO_CENTRADO);
+    escribirNumero(velActual, &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX = espaciadoBordes;
     cursor.posY -= 2*ALTO_ESTANDAR_LETRA + 4;
 
@@ -848,7 +848,7 @@ void infoInterfazDeJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO],
     if (infoJuego[CHEATS_ACTIVADOS])
     {
         tCursorTexto cursorCheat = {espaciadoBordes + 2, cursor.posY + altoCuadros - ALTO_ESTANDAR_LETRA - 2};
-        escribirTexto("CHEAT: ON", &cursorCheat, R, NO_CENTRADO);
+        escribirTexto("CHEAT: ON", &cursorCheat, R, NO_CENTRADO, FUENTE_1);
     }
 
     //Dibujo la informacion de la derecha
@@ -873,72 +873,72 @@ void infoInterfazDeJuego(int infoJuego[CANT_TETROMINOS_DELUXE + DATOS_DE_JUEGO],
 
     cursor.posX = posXStats + 2;
     cursor.posY += ALTO_ESTANDAR_LETRA + 4;
-    escribirTexto("TETRO T: ", &cursor, B, NO_CENTRADO);
+    escribirTexto("TETRO T: ", &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX += calcularEspaciado("TETRO T: ");
-    escribirNumero(infoJuego[TETRO_T], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[TETRO_T], &cursor, B, NO_CENTRADO, FUENTE_1);
 
     cursor.posX = posXStats + 2;
     cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-    escribirTexto("TETRO L: ", &cursor, B, NO_CENTRADO);
+    escribirTexto("TETRO L: ", &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX += calcularEspaciado("TETRO T: ");
-    escribirNumero(infoJuego[TETRO_L], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[TETRO_L], &cursor, B, NO_CENTRADO, FUENTE_1);
 
     cursor.posX = posXStats + 2;
     cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-    escribirTexto("TETRO J: ", &cursor, B, NO_CENTRADO);
+    escribirTexto("TETRO J: ", &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX += calcularEspaciado("TETRO T: ");
-    escribirNumero(infoJuego[TETRO_J], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[TETRO_J], &cursor, B, NO_CENTRADO, FUENTE_1);
 
     cursor.posX = posXStats + 2;
     cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-    escribirTexto("TETRO I: ", &cursor, B, NO_CENTRADO);
+    escribirTexto("TETRO I: ", &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX += calcularEspaciado("TETRO T: ");
-    escribirNumero(infoJuego[TETRO_I], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[TETRO_I], &cursor, B, NO_CENTRADO, FUENTE_1);
 
     cursor.posX = posXStats + 2;
     cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-    escribirTexto("TETRO S: ", &cursor, B, NO_CENTRADO);
+    escribirTexto("TETRO S: ", &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX += calcularEspaciado("TETRO T: ");
-    escribirNumero(infoJuego[TETRO_S], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[TETRO_S], &cursor, B, NO_CENTRADO, FUENTE_1);
 
     cursor.posX = posXStats + 2;
     cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-    escribirTexto("TETRO Z: ", &cursor, B, NO_CENTRADO);
+    escribirTexto("TETRO Z: ", &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX += calcularEspaciado("TETRO T: ");
-    escribirNumero(infoJuego[TETRO_Z], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[TETRO_Z], &cursor, B, NO_CENTRADO, FUENTE_1);
 
     cursor.posX = posXStats + 2;
     cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-    escribirTexto("TETRO O: ", &cursor, B, NO_CENTRADO);
+    escribirTexto("TETRO O: ", &cursor, B, NO_CENTRADO, FUENTE_1);
     cursor.posX += calcularEspaciado("TETRO T: ");
-    escribirNumero(infoJuego[TETRO_O], &cursor, B, NO_CENTRADO);
+    escribirNumero(infoJuego[TETRO_O], &cursor, B, NO_CENTRADO, FUENTE_1);
 
 
     if (infoJuego[MODO_DE_JUEGO] == MODO_DELUXE)
     {
         cursor.posX = posXStats + 2;
         cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-        escribirTexto("TETRO X: ", &cursor, B, NO_CENTRADO);
+        escribirTexto("TETRO X: ", &cursor, B, NO_CENTRADO, FUENTE_1);
         cursor.posX += calcularEspaciado("TETRO T: ");
-        escribirNumero(infoJuego[TETRO_X], &cursor, B, NO_CENTRADO);
+        escribirNumero(infoJuego[TETRO_X], &cursor, B, NO_CENTRADO, FUENTE_1);
 
         cursor.posX = posXStats + 2;
         cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-        escribirTexto("TETRO C: ", &cursor, B, NO_CENTRADO);
+        escribirTexto("TETRO C: ", &cursor, B, NO_CENTRADO, FUENTE_1);
         cursor.posX += calcularEspaciado("TETRO T: ");
-        escribirNumero(infoJuego[TETRO_C], &cursor, B, NO_CENTRADO);
+        escribirNumero(infoJuego[TETRO_C], &cursor, B, NO_CENTRADO, FUENTE_1);
 
         cursor.posX = posXStats + 2;
         cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-        escribirTexto("TETRO P: ", &cursor, B, NO_CENTRADO);
+        escribirTexto("TETRO P: ", &cursor, B, NO_CENTRADO, FUENTE_1);
         cursor.posX += calcularEspaciado("TETRO T: ");
-        escribirNumero(infoJuego[TETRO_P], &cursor, B, NO_CENTRADO);
+        escribirNumero(infoJuego[TETRO_P], &cursor, B, NO_CENTRADO, FUENTE_1);
 
         cursor.posX = posXStats + 2;
         cursor.posY += ALTO_ESTANDAR_LETRA + separStats;
-        escribirTexto("TETRO V: ", &cursor, B, NO_CENTRADO);
+        escribirTexto("TETRO V: ", &cursor, B, NO_CENTRADO, FUENTE_1);
         cursor.posX += calcularEspaciado("TETRO T: ");
-        escribirNumero(infoJuego[TETRO_V], &cursor, B, NO_CENTRADO);
+        escribirNumero(infoJuego[TETRO_V], &cursor, B, NO_CENTRADO, FUENTE_1);
     }
 }
 
@@ -960,13 +960,13 @@ void dibujarCuadroTexto(int posX, int posY, const char str[], int parametro, int
 {
     tCursorTexto cursor = {posX + 2, posY + 2};
     dibujarRectangulo(posX, posY, ancho, alto, colorCuadro);
-    escribirTexto(str, &cursor, colorTexto, NO_CENTRADO);
+    escribirTexto(str, &cursor, colorTexto, NO_CENTRADO, FUENTE_1);
 
     if (parametro != SIN_INFORMACION)
     {
         cursor.posX = posX + 2;
         cursor.posY += 2*ALTO_ESTANDAR_LETRA + 2;
-        escribirNumero(parametro, &cursor, colorTexto, NO_CENTRADO);
+        escribirNumero(parametro, &cursor, colorTexto, NO_CENTRADO, FUENTE_1);
     }
 }
 
