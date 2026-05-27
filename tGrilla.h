@@ -25,11 +25,11 @@ bool grillaCrear(tGrilla *p, int resolAncho, int resolAlto, int anchoGrilla);   
 void grillaDestruir(tGrilla *p);                                                //Libera la memoria de la grilla
 void grillaDeFondoDibujar(int resolAncho, int resolAlto, int anchoGrilla);      //Dibuja el borde de la grilla (equivalente a dibujarRectangulo)
 void grillaDibujar(const tGrilla *p, int resolAncho, int resolAlto);            //Dibuja los minos anclados en pantalla
-void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, int anchoGrilla, int infoJuego[]);  //Dibuja el tetromino activo sobre la grilla
+void grillaDibujarTetromino(tTetromino *tetro, int resolAncho, int resolAlto, int anchoGrilla, int modoDeJuego);  //Dibuja el tetromino activo sobre la grilla
 bool tetrominoColisionaSuelo(tTetromino *tetro);                                //Chequea colision con el suelo
-bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla, int infoJuego[]);             //Chequea colision con minos ya anclados
-bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado, int infoJuego[]); //Chequea colision lateral con bordes y minos
-void grillaActualizar(tGrilla *grilla, tTetromino *tetro, int infoJuego[]);                      //Ancla el tetromino en la grilla
+bool tetrominoColisionaConOtro(tTetromino *tetro, tGrilla *grilla, int modoDeJuego);             //Chequea colision con minos ya anclados
+bool tetrominoColisionaLateralmente(tTetromino *tetro, tGrilla *grilla, int lado, int modoDeJuego); //Chequea colision lateral con bordes y minos
+void grillaActualizar(tGrilla *grilla, tTetromino *tetro, int modoDeJuego);                      //Ancla el tetromino en la grilla
 void grillaSetearFilaInactiva(tGrilla *grilla);
 int grillaChequearLinea(tGrilla *grilla, tTetromino *tetro);                                       //Chequea si se completo alguna linea, y devuelve dicha cantidad de lineas completas
 

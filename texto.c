@@ -1064,15 +1064,25 @@ int obtenerIndice(char caracter)        //Si le das un char, devuelve el indice 
     return 0;
 }
 
-void caracterDibujarChar(char carac, tCursorTexto *cursor, int color)     //Dibuja un caracter a partir de darle un char como parámetro
+void caracterDibujarChar(char carac, tCursorTexto *cursor, int color, int tipoFuente)     //Dibuja un caracter a partir de darle un char como parámetro
 {
     int i, j;
-    const tCaracter *caracter = &fuente1[obtenerIndice(carac)];
+    const tCaracter *caracter;
+    int altoLetra;
+
+    if (tipoFuente == FUENTE_2) {                   //Con esto decidimos que fuente usar
+        caracter = &fuente2[obtenerIndice(carac)];
+        altoLetra = ALTO_ESTANDAR_LETRA_FUENTE_2;
+    } else
+    {
+        caracter = &fuente1[obtenerIndice(carac)];
+        altoLetra = ALTO_ESTANDAR_LETRA;
+    }
     const char *p;
 
     for (i = 0; i < caracter->espaciado; i++)
     {
-        for (j = 0; j < ALTO_ESTANDAR_LETRA; j++)
+        for (j = 0; j < altoLetra; j++)
         {
             p = caracter->matriz + (j*caracter->espaciado + i);
 
@@ -1104,25 +1114,25 @@ void caracterNumeroDibujar(int numero, tCursorTexto *cursor, int color)
     cursor->posX += fuente1[obtenerIndice(numero)].espaciado + ESPACIADO_ENTRE_LETRAS;   //Avanza el cursor en cierta cantidad para dar espacio a la siguiente letra (en caso de haber)
 }
 
-void escribirTexto(const char str[], tCursorTexto *cursor, int color)
+void escribirTexto(const char str[], tCursorTexto *cursor, int color, int tipoFuente)
 {
     const char *p;
     p = str;
 
     while(*p != '\0')
     {
-        caracterDibujarChar(*p, cursor, color);
+        caracterDibujarChar(*p, cursor, color,tipoFuente);
         p++;
     }
 }
 
-void escribirNumero(int numero, tCursorTexto *cursor, int color)
+void escribirNumero(int numero, tCursorTexto *cursor, int color, int tipofuente)
 {
     char string[TAM_MAX_NUMERO];
 
     itoa(numero, string, 10);
 
-    escribirTexto(string, cursor, color);
+    escribirTexto(string, cursor, color,tipofuente);
 }
 
 void caracterDibujarEscalado(char carac, tCursorTexto *cursor, int color, int escala)
